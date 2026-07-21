@@ -1,0 +1,12 @@
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.log
+*.out
+*.bbl
+*.blg
+*.toc
+textbooks/*
+.rumdl_cache/*
+Templates/*.pdf

@@ -1,0 +1,264 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage[margin=0.75in]{geometry}
+
+\title{MATH1013 Assignment 1}
+\author{London Wallace | 23071503}
+\date{}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em plus 0.1em minus 0.1em}
+
+\begin{document}
+
+\maketitle{}
+
+\begin{flushleft}
+	\textbf{Due Date:} March 24, 2026, 11:59 PM
+
+	LaTeX source available at: \href{https://codeberg.org/londonwallace/bmath}{codeberg.org/londonwallace/bmath}.
+\end{flushleft}
+
+\section{Exercise 1}
+Suppose that for each natural number $n \in \mathbb{N}$, $A_n$ is some finite set
+of real numbers and that $A_n$ and $A_m$ have no members in common if $n \ne m$.
+\textbf{Define}
+
+\begin{equation}
+	f(x) \coloneqq
+	\begin{cases}
+		\frac{1}{n} & x \in A_n        \\
+		0           & \text{otherwise}
+	\end{cases}
+\end{equation}
+\textbf{Compute $\lim_{x \to \infty} f(x)$.}
+
+Justify with the $\epsilon$ and $\delta$ definition of a limit.
+\subsection{Solution}
+
+\begin{equation}
+	\text{The } \lim_{x \to \infty} f(x) = 0
+\end{equation}
+
+The $\epsilon$ and $\delta$ definition of a limit reads as follows:
+
+\begin{empheq}[box=\fbox]{equation}
+	\text{The function $f$ approaches a limit $l$ at $a$ if: } \forall \epsilon >0, \exists \delta > 0,
+	\text{ such that if } 0<|x-a|< \delta, |f(x-l)|< \epsilon
+\end{empheq}
+
+When dealing with limits at infinity, this definition is modified to read for all $\epsilon > 0$
+, there exists some real number $M$ such that for all $x>M$, $|f(x-l)|< \epsilon$.
+
+This new definition is analogous to the original $\delta$-$\epsilon$ definition except instead of $x$
+being sufficiently close to $a$, we are interested in $x$ being sufficiently large, since we're dealing
+with limits at infinity.
+
+Now imagine all the places where $|f(x)-l|< \epsilon$ could be false. Notice that they only occur when
+$x \in A_n$. Now imagine some sufficiently large natural number $N \in \mathbb{N}$, such that
+$\frac1n < \epsilon$, whatever $\epsilon$ is chosen to be.
+
+Let the set
+\begin{equation}
+	U=A_1 \cup A_2 \cup A_3 \cup ... \cup A_{n-1}
+\end{equation}
+
+be the union of sets $A_1$ to $A_{n-1}$. Since it is a finite union of finite sets, it is itself finite
+and must have a maximum.
+
+If we chose $M=\text{max}(U)$, then $\forall x > M$, either
+\begin{equation*}
+	x \notin A_n \text{ for any } n
+	\implies |f(x)-0| = |0-0| < \epsilon
+\end{equation*}
+or
+\begin{equation*}
+	x \in A_n. \text{ since } x>M, n \ge N \implies |f(x)-0| = \frac1n \le \frac1N < \epsilon
+\end{equation*}
+So in either case $|f(x)-l|< \epsilon$ so by definition (3), the $lim_{x \to \infty} f(x) = 0$
+
+\qed
+
+\section{Exercise 2}
+
+Given any $\epsilon > 0$ find a $\delta > 0$ such that for all $x$ satisfying $|x-3^4|<\delta$ it holds that
+$|x^{\frac14}-3|<\epsilon$. If we do so, we prove that $\lim_{x \to a}f(x)=l$ with $f$, $l$, and $a$ equal to
+what?
+
+HINT: For every $m \ge 1$ and $a>b>0$ it holds that $a^{\frac1m} \le b^{\frac1m}+(a-b)^{\frac1m}$.
+
+\subsection{Solution}
+\begin{equation}
+	f(x)=x^{\frac14}, l=3, a=81
+\end{equation}
+So we need to prove that $\lim_{x \to 81}x^{\frac14}=3$
+
+From definition (3) above, we know that $|x-81|< \delta$ and $|x^{\frac14}-3|< \epsilon$
+
+If $x>81$ then (from the hint):
+\begin{equation}
+	x^{\frac14} \le 81^{\frac14}+(x-81)^{\frac14} \implies x^{\frac14}-3 \le (x-81)^{\frac14}
+\end{equation}
+If $x<81$ then (from the hint):
+\begin{equation}
+	81^{\frac14} \le x^{\frac14} + (81-x)^{\frac14} \implies 3-x^{\frac14} \le (81-x)^{\frac14}
+\end{equation}
+From inequalities (6) and (7) we can see that the difference between the function $x^{\frac14}$ and the limit $3$
+is bounded by the $4^{th}$ root of the difference between $x$ and $81$.
+
+So
+\begin{equation}
+	|x^{\frac14}-3| \le |x-81|^{\frac14}
+\end{equation}
+For the $\lim_{x \to 81}x^{\frac14}=3$ to be true, the left hand side of (8) must be $< \epsilon$. If we set
+the right hand side of (8) to be $< \epsilon$ this property will obviously hold.
+So
+\begin{equation}
+	|x-81|^{\frac14} < \epsilon \implies |x-81|< \epsilon^4 \implies \delta = \epsilon^4 \text{ from (3) }.
+\end{equation}
+
+$\therefore \forall \epsilon > 0, \exists \delta = \epsilon^4$ such that if $0<|x-81|<\epsilon^4, |x^{\frac14}-3|<\epsilon$,
+so the $\lim_{x \to 81}x^{\frac14}=3$
+
+\qed
+
+\section{Exercise 3}
+
+Using the $\delta$ and $\epsilon$ definition of a limit, prove that the following limit does not exist:
+\begin{equation}
+	\lim_{x \to 0}f(x)
+\end{equation}
+where
+\begin{equation}
+	f(x) \coloneqq
+	\begin{cases}
+		1 & \text{ if }x = \frac{1}{3^n} \text{ for some } x \in \mathbb{N} \\
+		0 & \text{ otherwise }
+	\end{cases}
+\end{equation}
+
+\subsection{Solution}
+From (3), to prove a limit does not exist, we must prove the opposite. Namely:
+\begin{empheq}[box=\fbox]{equation}
+	\text{The function $f$ does not approach a limit $l$ at $a$ if } \exists \epsilon, \text{such that }\forall \delta > 0,
+	\exists x \text{ with } 0<|x-a|< \delta \text{ and } |f(x-l)| \ge \epsilon
+\end{empheq}
+Suppose for contradiction that $\lim_{x \to 0}=l$ for some $l \in \mathbb{R}$ and $\epsilon = \frac12$.
+Then by assumption, $0 < |x| < \delta$ and $|f(x)-l|<\frac12$.
+Now chose some $n \in \mathbb{N}$ sufficiently large such that $\frac{1}{3^n} < \delta$ whatever we chose $\delta$ to be.
+Then there will be some point $x=\frac{1}{3^n}$ where $f(x)=1$ and some point $x=\frac{1}{4^n}<\frac{1}{3^n}<\delta$ where $f(x)=0$.
+
+So $|1-l|<\frac12$ and $|0-l|<\frac12$.
+Then by the triangle inequality:
+\begin{equation}
+	|1-0| = |(1-l)+(l-0)| \le |1-l| + |0-l| < \frac12 + \frac12 < 1 \implies 1 < 1
+\end{equation}
+Which is a contradiction.
+$\therefore$ the $\lim_{x \to 0} f(x)$ does not exist.
+
+\qed
+
+\section{Exercise 4}
+Let $M \in \mathbb{R}$ and $f(x) \le g(x)$ for every $x \in (-\infty,M]$.
+Prove, using the $\delta$ and $\epsilon$ definition of a limit, that if
+\begin{equation}
+	\lim_{x \to -\infty}g(x) = -\infty \text{ then } \lim_{x \to -\infty}f(x)=-\infty
+\end{equation}
+\subsection{Solution}
+From (3):
+\begin{empheq}[box=\fbox]{equation}
+	\text{The function $f$ approaches $-\infty$ near $-\infty$ if: } \forall B \in \mathbb{R}, \exists N < 0,
+	\text{ such that } \forall x < N, f(x) < B
+\end{empheq}
+It is given that $\lim_{x \to - \infty}g(x)=-\infty$, so for an arbitrary $B \in \mathbb{R}, \exists N_g$
+such that $\forall x < N_g, g(x)<B$.
+
+Let $N_f=$ min$(N_g,M)$. If $x < N_f$ then since $N_f \le N_g$ then $g(x)<B$. Also since $N_f \le M$
+the given statement $f(x) \le g(x)$ $\forall x \in (-\infty,M]$ applies.
+So $f(x) \le g(x) < B$.
+
+So from (15):
+\begin{equation}
+	\lim_{x \to -\infty}f(x)=-\infty
+\end{equation}
+
+\qed
+\section{Exercise 5}
+\subsection{}
+If $f(x)<g(x)$ for all $x \in \mathbb{R}$, and $\lim_{x \to \infty}f(x)$ and $\lim_{x \to \infty}g(x)$ exist
+and are finite, does it follow that:
+\begin{equation*}
+	\lim_{x \to \infty} f(x) < \lim_{x \to \infty} g(x)\text{?}
+\end{equation*}
+\subsubsection{Solution}
+\textbf{No, it does not follow.}
+
+Let $f(x)=0$ and $g(x)=e^{-x}$. No matter how large $x$ is,
+$e^{-x} > 0$, so $f(x)<g(x)$ but $\lim_{x \to \infty}f(x)=\lim_{x \to \infty}g(x)=0$.
+
+\textbf{Proof:}
+
+From (3), a function $f$ approaches $l$ near $\infty$ if $\forall \epsilon > 0, \exists M > 0$ such that
+$\forall x > M$, $|f(x)-l|< \epsilon$. For $f(x)=0$:
+\begin{equation}
+	|f(x)-l|=|0-0|=0<\epsilon, \forall M \in \mathbb{R}. \therefore \lim_{x \to \infty}0=0
+\end{equation}
+And for $g(x)=e^{-x}$:
+\begin{equation}
+	|g(x)-0|=|e^{-x}|<\epsilon \text{ when } M > \ln{\frac{1}{\epsilon}}
+\end{equation}
+\begin{equation*}
+	\text{Since } |e^{-x}| < \epsilon \implies -x < \ln{\epsilon} \implies x > \ln{\frac{1}{\epsilon}}.
+\end{equation*}
+
+\qed
+
+\subsection{}
+If $f(x)<g(x)$ for all $x \in [0,1]$, and $\lim_{x \to 0^+}f(x)$ and $\lim_{x \to 0^+}g(x)$ exist
+and are finite, does it follow that:
+\begin{equation*}
+	\lim_{x \to 0^+} f(x) < \lim_{x \to 0^+} g(x)\text{?}
+\end{equation*}
+\subsubsection{Solution}
+\textbf{No, it does not follow.}
+\begin{equation*}
+	\text{Let } f(x)=0 \text{ and } g(x)=
+	\begin{cases}
+		x & x \in (0,1] \\
+		1 & x=0
+	\end{cases}
+\end{equation*}
+Then $f(x)<g(x)$ for all $x \in [0,1]$ but $\lim_{x \to 0^+}f(x)=\lim_{x \to 0^+}g(x)=0$.
+
+For $f(x)=0$, from (3): $|f(x)-0|=|0|<\epsilon$ for all $\delta>0$.
+
+For $g(x) =
+	\begin{cases}
+		x & x \in (0,1] \\
+		1 & x=0
+	\end{cases} $,
+$|g(x)-0|<\epsilon \implies |g(x)|<\epsilon$ when $\delta=$ min$(1, \epsilon)$
+
+\textbf{Proof:}
+
+Let $\epsilon > 0$, choose $\delta=$ min$(1, \epsilon)$.
+Then, let $x$ satisfy $0<|x-0|<\delta \implies 0 < |x| < \delta$.
+
+Since $0<|x|$ and $\delta \le 1$, $g(x)=x$.
+
+So $|g(x)-0| = |g(x)|=|x|<\delta \le \epsilon$.
+
+So, from (3), the $\lim_{x \to 0^+}g(x)=0$.
+
+\qed
+\end{document}

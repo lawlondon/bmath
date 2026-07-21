@@ -1,0 +1,395 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{parskip}
+\usepackage{cleveref}
+\usepackage[margin=0.75in]{geometry}
+
+\title{MATH1013 Assignment 2}
+\author{London Wallace | 23071503}
+\date{}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em plus 0.1em minus 0.1em}
+
+\begin{document}
+
+\maketitle{}
+
+\begin{flushleft}
+	\textbf{Due Date:} April 14, 2026, 11:59 PM
+\end{flushleft}
+
+\section*{Theorems}
+Herein, \textit{Calculus} and \textit{Spivak} will refer to the book \textit{Calculus, Third Edition} by
+\textit{Michael Spivak} published in 1994, printed in 2009. \textbf{ISBN 978-0-521-86744-3}.
+
+All theorems published in \textit{Spivak} and relied upon for this assignment are printed below in order of appearance.
+
+\begin{enumerate}
+	\item (Theorem 10-4, pg. 167) If $f$ and $g$ are differentiable at $a$, then
+	      \begin{equation}
+		      (f \cdot g)'(a)=f'(a)g(a)+g'(a)f(a) \label{product-rule}
+	      \end{equation}
+	\item (Theorem 10-9, pg. 176) If $g$ is differentiable at $a$, and $f$ is differentiable at $g(a)$, then
+	      $f \circ g$ is differentiable at $a$, and
+	      \begin{equation}
+		      (f \circ g)'(a)=f'(g(a))\cdot g'(a) \label{chain-rule}
+	      \end{equation}
+	\item (Theorem 10-5, pg. 167) If $g(x)=c \cdot f(x)$, and $f$ is differentiable at $a$, then $g$ is differentiable
+	      at $a$, and
+	      \begin{equation}
+		      g'(a)=c \cdot f'(a) \label{product-rule-for-constants}
+	      \end{equation}
+	\item (Theorem 10-7, pg. 169) If $g$ is differentiable at $a$, and $g(a) \ne 0$, then $\frac1g$ is differentiable at $a$, and
+	      \begin{equation}
+		      \left( \dfrac{1}{g} \right)'(a)=\dfrac{-g'(a)}{(g(a))^2} \label{ddx-of-1on-g}
+	      \end{equation}
+	\item (Theorem 5-2, pg. 102) If $\lim_{x \to a}f(x)=l$ and $\lim_{x \to a}g(x)=m$, then
+	      \begin{equation}
+		      \lim_{x \to a}(f+g)(x) = l+ m \label{limit-of-sums}
+	      \end{equation}
+	      \begin{equation}
+		      \lim_{x \to x}(f \cdot g)(x) =l \cdot m	 \label{limit-of-products}
+	      \end{equation}
+	\item (Theorem 6-1, pg. 114) If $f$ and $g$ are continuous at $a$, then
+	      \begin{equation}
+		      f+g \text{ is continuous at }a \label{continuous-sum-is-continuous}
+	      \end{equation}
+	\item (Theorem 7-1, pg. 120) If $f$ is continuous on $[a,b]$ and $f(a) < 0 < f(b)$, then there is some $x \in [a,b]$ such that
+	      \begin{equation}
+		      f(x)=0 \label{mean-value}
+	      \end{equation}
+	\item (Theorem 11-9, pg. 201) Suppose that $\lim_{x \to a}f(x)=0$, and $\lim_{x \to a}g(x)=0$, and suppose that the $\lim_{x \to a}\dfrac{f'(x)}{g'(x)}$
+	      exists. Then the $\lim_{x \to a}\dfrac{f(x)}{g(x)}$ exists and
+	      \begin{equation}
+		      \lim_{x \to a}\dfrac{f(x)}{g(x)}=\lim_{x \to a}\dfrac{f'(x)}{g'(x)} \label{le-medical-centre}
+	      \end{equation}
+	\item (Theorem 10-6, pg. 168) If $f(x)=x^n$ for some natural number $n$, then
+	      \begin{equation}
+		      f'(a)=na^{n-1} \quad \forall a \label{power-rule}
+	      \end{equation}
+\end{enumerate}
+
+
+\section{Exercise 1}
+It is given that $\forall x \in \mathbb{R}$ the first derivative $(\cos(x))' = -\sin(x)$.
+
+For $\alpha, \beta \in (0,+\infty)$ let $f : [0,1) \to \mathbb{R}$ be defined:
+
+\begin{equation}
+	f(x) \coloneqq
+	\begin{cases}
+		x^{\alpha}\cos \left(\dfrac{1}{x^\beta}\right) & x \in (0,1) \\
+		0                                              & x = 0
+	\end{cases}
+	\label{exercise1}
+\end{equation}
+
+\subsection{}
+Compute $f'(x)$ for every $x \in (0,1)$
+
+\subsubsection{Solution}
+
+For $x \in (0,1)$, $f(x)=x^{\alpha}\cos \left(\dfrac{1}{x^\beta}\right)$ from \cref{exercise1}.
+
+Define $g(x)\coloneq x^{\alpha}$. Define $h(x)\coloneq\left(\dfrac{1}{x^{\beta}}\right)$.
+
+Then,
+\begin{equation}
+	f(x) = g(x) \cos(h(x)) \label{exercise1.1.1}
+\end{equation}
+Thus, from \cref{product-rule} and \cref{chain-rule},
+\begin{equation}
+	f'(x)=g'(x)\cos(h(x)) + g(x)(\cos'(h(x))\cdot h'(x)) \label{exercise1.1-fprime}
+\end{equation}
+First, $g'(x)$. Assuming $g(x)>0$ which is given:
+\begin{align*}
+	g(x)                                                                                       & = x^{\alpha}       \\[0.5em]
+	\text{Take the natural log of both sides: }\ln(g(x))                                       & = \ln(x^{\alpha})  \\[0.5em]
+	\ln(g(x))                                                                                  & = \alpha \ln(x)    \\[0.5em]
+	\text{Differentiate both sides w.r.t. $x$: }(\ln(g(x)))'                                   & = (\alpha \ln(x))' \\[0.5em]
+	\text{From \cref{chain-rule} and \cref{product-rule-for-constants}: }\ln'(g(x))\cdot g'(x) & = \alpha \ln'(x)
+\end{align*}
+\begin{equation}
+	\text{So: }g'(x)=\dfrac{\alpha \ln'(x)}{\ln'(g(x))} \label{g'(x)}
+\end{equation}
+The derivative of the natural logarithm:
+\begin{align*}
+	\ln'(x) & = \lim_{h \to 0}\dfrac{\ln(x+h)-\ln(x)}{h} \text{ from the definition of the derivative.} \\[0.5em]
+	        & = \lim_{h \to 0} \dfrac1h \ln\left( 1 + \dfrac{h}{x} \right)
+\end{align*}
+Let $ u= \dfrac{h}{x} \implies h = xu$
+\begin{align*}
+	\ln'(x) & = \lim_{u \to 0} \dfrac{1}{xu} \ln(1+u)             \\[0.5em]
+	        & = \dfrac{1}{x} \lim_{u \to 0} \dfrac{1}{u} \ln(1+u) \\[0.5em]
+	        & = \dfrac{1}{x} \lim_{u \to 0} \ln(1+u)^{\frac1u}    \\[0.5em]
+	        & = \dfrac{1}{x} \ln(\lim_{u \to 0}(1+u)^{\frac1u})
+\end{align*}
+We do not need to evaluate this limit since it is, by definition, the base of the natural logarithm, $e$, and $\ln(e)=1$ from the definition
+of the natural logarithm. So:
+\begin{equation}
+	\ln'(x)=\dfrac{1}{x} \label{ddx-of-ln}
+\end{equation}
+From \cref{g'(x)} and \cref{ddx-of-ln}:
+\begin{equation}
+	g'(x)=\dfrac{\dfrac{\alpha}{x}}{\dfrac{1}{g(x)}}=\dfrac{\alpha g(x)}{x}=\alpha x^{\alpha-1} \label{product-rule-for-any-power}
+\end{equation}
+
+Now, $h'(x)$:
+
+Define $y(x) \coloneq x^{\beta}$ such that $h(x)$ = $\dfrac{1}{y(x)}$, then $h'(x)=\left(\dfrac{1}{y}\right)'(x)$ from \cref{ddx-of-1on-g}. Then:
+\begin{equation}
+	h'(x) = \dfrac{-y'(x)}{(y(x))^2}
+\end{equation}
+From \cref{product-rule-for-any-power}:
+\begin{equation}
+	h'(x)=\dfrac{-\beta x^{\beta-1}}{x^{2\beta}}=-\beta x^{-\beta-1} \label{exercise1.1-hprime}
+\end{equation}
+
+Since, the derivative of cosine is given as negative sine, \cref{exercise1.1-fprime} becomes, from \cref{product-rule-for-any-power} and
+\cref{exercise1.1-hprime}
+\begin{equation}
+	\alpha x^{\alpha-1}\cos\left(\dfrac{1}{x^\beta}\right)+\beta x^{\alpha-\beta-1}\sin\left(\dfrac{1}{x^{\beta}}\right) \label{exercise1.1-result}
+\end{equation}
+
+\subsection{}
+Determine all the values $\alpha,\beta \in (0,+\infty)$ such that
+\begin{equation*}
+	\lim_{x \to 0^+}\dfrac{f(x)-f(0)}{x} \text{ exists.}
+\end{equation*}
+\subsubsection{Solution}
+From \cref{exercise1}:
+\begin{equation}
+	\lim_{x \to 0^+}\dfrac{f(x)-f(0)}{x} = \lim_{x \to 0^+}\dfrac{x^{\alpha}\cos(x^{-\beta})-0}{x}=\lim_{x \to 0^+}x^{\alpha-1}\cos\left(\dfrac{1}{x^{\beta}}\right)
+\end{equation}
+
+Case 1: $\alpha = 1 \implies \alpha-1=0 \implies x^{\alpha-1}=1$. The limit becomes $\lim_{x \to 0^+}\cos\left(\dfrac{1}{x^{\beta}}\right)$
+which does not exist.
+
+Proof:
+
+Assume for contradiction that the limit does exist and equals $l$, then, $\forall \epsilon > 0, \exists \delta > 0$, such that if
+$0< |x-a| < \delta, |f(x)-l|<\epsilon$. Choose a sufficiently large natural number $N$, such that $(\frac{1}{2\pi n})^{1/\beta}$ is less than $\delta$.
+Then there will be a point $a=(\frac{1}{2\pi n})^{1/\beta}$ where $\cos(a)=1$ and a point $b=(\frac{1}{2\pi n+1})^{1/\beta}<a<\delta$ where
+$\cos(b)=-1$.
+
+Choose $\epsilon=1$. From the definition of the limit, $|f(a)-l|<1 \implies |1-l|<1$, and $|f(b)-l|<1 \implies | -1 -l|<1$.
+
+From the triangle inequality:
+
+$|1-(-1)| = |(1-l)+(l+1)| \le |1-l| + |1+l| < 1+1 < 2 \implies 2<2$. Which is a contradiction. Thus, the limit does not exist. \qed
+
+Case 2: $0<\alpha < 1 \implies \alpha-1<0$ The term $x^{\alpha-1}$ goes to infinity as $x$ goes to 0, and since the $\cos(\frac{1}{x^\beta})$ term
+oscillates between 0 and 1 and does not approach any limit at 0 as shown above, the limit diverges and does not exist.
+
+Proof:
+
+A function $f$ approaches $+\infty$ at $a$ if $\forall M \in \mathbb{R}, \exists \delta>0$ such that $\forall x$, if $0< |x-a| <\delta$, $f(x)>M$.
+Let $p=\alpha - 1$. Since $0<\alpha<1, -1<p<0$. Let $q=-p$, then $0<q<1$. $x^p=x^{-q}=\frac{1}{x^q}$. If we choose $\delta=(\frac{1}{M})^{1/q}$, then
+for all $0<x<\delta$, $x^p>M$.
+
+To verify, choose $M$ to be arbitrary, and $\delta=(\frac{1}{M})^{1/q}=(\frac{1}{M})^{1/(1-\alpha)}$. Then $x<(\frac{1}{M})^{1/(1-\alpha)}$, so
+$x^{1-\alpha}<\frac1M \implies x^{-(1-\alpha)} > M \implies x^{\alpha -1} > M$. \qed
+
+Case 3: $\alpha > 1 \implies x^{\alpha -1} > 0$ when $x>0$. $x^{\alpha-1}$ goes to 0 as $x$ goes to 0 from the right. Since
+$0 \le |\cos(\frac{1}{x^\beta})| \le 1, |x^{\alpha-1}\cos(\dfrac{1}{x^\beta})| \le x^{\alpha-1}$ which goes to 0 as $x \to 0^+$, so the whole
+function goes to 0 as $x \to 0^+$ since the limit of products is the product of limits (\cref{limit-of-products}).
+
+Proof:
+
+From the definition of a limit, $\forall \epsilon>0, \exists \delta>0$, such that, if $0<x<\delta, |f(x)-0|<\epsilon$. $|f(x)|$ is bounded by $x^{\alpha-1}$ since
+$0 \le |\cos(x)| \le 1, \forall x$. So if we choose $\epsilon > x^{\alpha-1}$, $x < \epsilon^{\frac{1}{\alpha-1}}$.
+Thus, $\delta=\epsilon^{\frac{1}{\alpha-1}}$.
+
+To verify, let $\epsilon > 0$ be given, and choose $\delta=\epsilon^{\frac{1}{\alpha-1}}$. For all $x$ such that $0<x<\delta$, $x<\epsilon^{\frac{1}{\alpha-1}}$.
+Raise both sides to the power of $\alpha-1$, $x^{\alpha-1}<\epsilon$. Since $|x^{\alpha-1}\cos(\frac{1}{x^\beta})|\le x^{\alpha-1}<\epsilon$, it
+follows that $|f(x)|<\epsilon$. \qed
+
+Considering all the three cases together, the only values of $\alpha$ and $\beta \in (0,+\infty)$ where the limit exists are
+$\alpha \in (1,+\infty), \beta \in (0,+\infty)$.
+
+\subsection{}
+Determine all values of $\alpha, \beta \in (0,+\infty)$ such that
+\begin{equation*}
+	\lim_{x \to 0^+}f'(x) \text{ exists.}
+\end{equation*}
+
+\subsubsection{Solution}
+The derivative of $f(x), f'(x)$ (\cref{exercise1.1-result}) is
+\begin{equation*}
+	\underbrace{\alpha x^{\alpha-1}\cos\left(\dfrac{1}{x^\beta}\right)}_{\text{Term One}}+\underbrace{\beta x^{\alpha-\beta-1}\sin\left(\dfrac{1}{x^{\beta}}\right)}_{\text{Term Two}}
+\end{equation*}
+
+Each term behaves similarly and will oscillate between $-1$ and 1 as $x$ goes to 0 from the right. I have already proven above that for the limit
+of term one to exist, $\alpha > 1$. I have also already proven that if $\alpha-\beta-1<0$, the limit will not exist since $x^{\alpha-\beta-1}$ will
+diverge. So $\alpha-\beta-1$ must at least be zero. Since the sum of limits is the limit of sums (\cref{limit-of-sums}), we can consider each
+term separately.
+
+Case 1: $\alpha-\beta-1=0$ and the limit of term two becomes $\beta\sin\left(\dfrac{1}{x^\beta}\right)$. The
+$\lim_{x \to 0^+}\beta\sin\left(\dfrac{1}{x^\beta}\right)$ does not exist for the same reason the limit of cosine of the same term does not exist.
+
+Assume for contradiction that the limit does exist and equals $l$, then, $\forall \epsilon > 0, \exists \delta > 0$, such that if
+$0< |x-a| < \delta, |f(x)-l|<\epsilon$. Choose a sufficiently large natural number $N$, such that $(\frac{1}{2\pi n})^{1/\beta}$ is less than $\delta$.
+Then there will be a point $a=(\frac{1}{2\pi n+\pi/2})^{1/\beta}$ where $\beta\sin(a)=\beta$ and a point $b=(\frac{1}{2\pi n+3\pi/2})^{1/\beta}<a<\delta$ where
+$\beta\sin(b)=-\beta$.
+
+Choose $\epsilon=\beta$. From the definition of the limit, $|f(a)-l|<\beta \implies |\beta-l|<\beta$, and $|f(b)-l|<\beta \implies | -\beta -l|<\beta$.
+
+From the triangle inequality:
+
+$|\beta-(-\beta)| = |(\beta-l)+(l+\beta)| \le |\beta-l| + |\beta+l| < \beta+\beta < 2\beta \implies 2<2 \text{ (since } \beta>0)$.
+Which is a contradiction. Thus, the limit does not exist. \qed
+
+Case 2: $\alpha-\beta-1>0$. $x^{\alpha-\beta-1}$ goes to 0 as $x$ goes to 0 from the right. Since $0 \le |\sin(\frac{1}{x^\beta})| \le 1$,
+$|\beta x^{\alpha-\beta-1}\sin(\frac{1}{x^\beta})| \le \beta x^{\alpha-\beta-1}$ which goes to 0 as $x \to 0^+$, so the whole function goes to 0
+as $x \to 0^+$ since the limit of products is the product of limits (\cref{limit-of-products}).
+
+Proof:
+
+From the definition of a limit, $\forall \epsilon > 0, \exists \delta > 0$, such that, if $0 < x < \delta, |f(x)-0| < \epsilon$. $|f(x)|$ is bounded
+by $\beta x^{\alpha-\beta-1}$ since $0 \le \sin(x) \le 1, \forall x$. So if we choose $\epsilon > \beta x^{\alpha-\beta-1}$,
+$x < (\frac{\epsilon}{\beta})^{\frac{1}{\alpha-\beta-1}}$. Thus, $\delta = (\frac{\epsilon}{\beta})^{\frac{1}{\alpha-\beta-1}}$.
+
+To verify, let $\epsilon > 0$ be given, and choose $\delta = (\frac{\epsilon}{\beta})^{\frac{1}{\alpha-\beta-1}}$. For all $x$ such that, if
+$0 < x < \delta$, $x < (\frac{\epsilon}{\beta})^{\frac{1}{\alpha-\beta-1}}$. Raise both sides to the power of $\alpha-\beta-1$, so
+$x^{\alpha-\beta-1}<\frac{\epsilon}{\beta} \implies \beta x^{\alpha-\beta-1}<\epsilon$.
+Since $|\beta x^{\alpha-\beta-1}\sin(\frac{1}{x^\beta})| \le \beta x^{\alpha-\beta-1}<\epsilon$, this implies $|f(x)|<\epsilon$.
+
+Considering the solution to 1.2, as well as the cases where the limit of the second term exists, we require that $\alpha-\beta-1>0$ and $\alpha>1$.
+So, $\alpha > \beta + 1$ which requires $\beta > 0$ to satisfy $\alpha>1$ for the limit of the derivative to exist as $x$ goes to 0 from the right.
+
+\section{Exercise 2}
+We say that $f : \mathbb{R} \to \mathbb{R}$ is even if for every $x \in \mathbb{R}$ it holds that $f(x)=f(-x)$. Also, we say that $f$ is odd if
+for every $x \in \mathbb{R}$ it holds that $f(x)=-f(-x)$. Prove that if $f$ is differentiable everywhere in $\mathbb{R}$ then
+\begin{equation*}
+	f' \text{ is even if }f \text{ is odd, and that }f'\text{ is odd if }f \text{ is even.}
+\end{equation*}
+Assume that $f$ is $k$-times differentiable. What can be said about $f^{(k)}$?
+
+\subsection{Solution}
+
+Suppose that $f$ is even, so $f(x)=f(-x)$. Differentiating both sides yields $f'(x)=f'(-x)\cdot(-x)'$ from \cref{chain-rule}. The derivative of $-x$
+\begin{align*}
+	(-x)' & = \lim_{h \to 0}\dfrac{-(x+h)-(-x)}{h} \\[0.5em]
+	      & = \lim_{h \to 0}\dfrac{-x-h+x}{h}      \\[0.5em]
+	      & = \lim_{h \to 0}\dfrac{-h}{h}          \\[0.5em]
+	      & = -1
+\end{align*}
+So $f'(x)=-f'(-x)$ which is odd by definition. So the first derivatives of even functions are odd. \qed
+
+Suppose that $g$ is odd, so $g(x)=-g(-x)$. Differentiating both sides yields $g'(x)=(-1)g'(-x)(-x)'$ from \cref{chain-rule} and \cref{product-rule-for-constants}.
+The derivative of $-x$ has already been shown to be $-1$, so $g'(x)=(-1)(-1)g'(-x)=g'(-x)$ which is even by definition. So the first derivative of
+odd functions are even. \qed
+
+It is a direct corollary of the above two statements that, if the first derivative of an even function is odd, and the first derivative of an odd function, even, then
+the second derivative of an even function is even, and the second derivative of an odd function, odd. Thus, for the $k'th$ derivative of $f$, if $k$ is
+even, then $f^{(k)}$ will be the same as $f$ in terms of being even or odd, and if $k$ is odd, then $f^{(k)}$ will be opposite $f$ in terms of being
+even or odd.
+
+\section{Exercise 3}
+Suppose that $f$ is a continuous function on the reals and
+\begin{equation*}
+	\lim_{x \to +\infty}\dfrac{f(x)}{x^{27}}=\lim_{x \to -\infty}\dfrac{f(x)}{x^{27}}=0
+\end{equation*}
+Prove that there exists $x_0$ such that $x_0^{27}+f(x_0)=0$
+
+\subsection{Solution}
+
+Define $g(x) \coloneq x^{27}+f(x)$.
+
+Since the $\lim_{x \to +\infty}\dfrac{f(x)}{x^{27}}=0$, there exists some $M \in \mathbb{R^+}$ such that
+for all $x > M$, $\left| \dfrac{f(x)}{x^{27}}\right|<\dfrac{1}{2}$ from the definition of a limit (choosing $\epsilon=1/2$). It follows that
+$|f(x)| < \dfrac{x^{27}}{2}$. Take some $a>M>0$, then $g(a)=a^{27}+f(a) > a^{27}-\dfrac{a^{27}}{2}=\dfrac{a^{27}}{2}>0$.
+
+Since the $\lim_{x \to -\infty}\dfrac{f(x)}{x^{27}}=0$, there exists some $M' \in \mathbb{R^+}$ such that for all
+$x < -M'$, $\left| \dfrac{f(x)}{x^{27}}\right|<\dfrac{1}{2} \implies |f(x)|<\dfrac{|x|^{27}}{2}$.
+Take some $b < -M' < 0$, then $g(b)=b^{27}+f(b) < b^{27}+\dfrac{|b|^{27}}{2}=b^{27}-\dfrac{b^{27}}{2}<0$. Note that $|b|^{27}=-b^{27}$ since $27$ is
+odd.
+
+Since $x^{27}$ is continuous and $f$ is continuous, $g$ is also continuous on the reals (\cref{continuous-sum-is-continuous})
+and so is continuous on $[b,a]$. Since $f(b)<0<f(a)$ then by
+\cref{mean-value} there is some $x_0 \in [b,a]$ where $g(x_0)=0$ and therefore some point where $x_0^{27}+f(x_0)=0$. \qed
+
+\section{Exercise 4}
+Let $f$ and $g$ be bounded functions on the reals. Suppose that $f$ and $g$ are uniformly continuous and for all $x \in \mathbb{R}$ let
+\begin{equation}
+	h(x) \coloneq f(x)g(x)
+\end{equation}
+Prove that $h$ is uniformly continuous. If we drop the assumption that $f$ and $g$ are bounded, is $h$ necessarily uniformly continuous?
+
+\subsection{Solution}
+It is given that $f$ and $g$ are bounded, so there must be some $N,M \in \mathbb{R}$ such that $|f(x)|\le N$, and $|g(x)|\le M$. To show $h$ is
+uniformly continuous, we must show that $\forall \epsilon > 0, \exists \delta >0$ such that $\forall x,y \in \mathbb{R}$, if $|x-y|<\delta, |h(x)-h(y)|<\epsilon$.
+\begin{align*}
+	|h(x)-h(y)| & = |f(x)g(x)-f(y)g(y)|                         \\[0.5em]
+	            & = |f(x)g(x) - f(y)g(x) + f(y)g(x) - f(y)g(y)| \\[0.5em]
+	            & \le |f(x)g(x)-f(y)g(x)| + |f(y)g(x)-f(y)g(y)| \\[0.5em]
+	            & = |g(x)||f(x)-f(y)| + |f(y)||g(x)-g(y)|       \\[0.5em]
+	            & \le N|f(x)-f(y)|+M|g(x)-g(y)|
+\end{align*}
+Let $\epsilon>0$. Since $f$ is uniformly continuous, $\exists \delta_1 >0$ such that
+\begin{equation*}
+	|x-y| < \delta_1 \implies |f(x)-f(y)|<\dfrac{\epsilon}{2N}
+\end{equation*}
+Since $g$ is uniformly continuous, $\exists \delta_2 >0$ such that
+\begin{equation*}
+	|x-y| < \delta_2 \implies |g(x)-g(y)|<\dfrac{\epsilon}{2M}
+\end{equation*}
+If we choose $\delta = \text{min}(\delta_1,\delta_2)$ then when
+\begin{equation*}
+	|x-y| < \delta \implies |h(x)-h(y)| \le N|f(x)-f(y)|+M|g(x)-g(y)| < N \cdot \dfrac{\epsilon}{2N} + M \cdot \dfrac{\epsilon}{2M}=\epsilon
+\end{equation*}
+Which is the definition of uniformly continuous, therefore $h(x)$ is uniformly continuous. \qed
+
+If we drop the assumption that $f$ and $g$ are bounded, then their product is not necessarily uniformly continuous.
+
+Consider $f(x)=g(x)=x$ which is uniformly continuous but not bounded.
+
+Proof:
+
+Choose $\delta = \epsilon$, then when $|x-y|<\delta, |f(x)-f(y)| = |x-y| < \delta = \epsilon$.
+
+Their product, $h(x)=x^2$ is not uniformly continuous. Choose $\epsilon=1$ and let $\delta>0$.
+
+Consider $x=\frac{1}{\delta}$ and $y=\frac{1}{\delta}+\frac{\delta}{2}$. $|x-y| = |\frac{1}{\delta}-(\frac{1}{\delta}+\frac{\delta}{2})| = \frac{\delta}{2}<\delta$.
+
+$|f(x)-f(y)| = |x^2-y^2| = |x-y||x+y| = |\frac{\delta}{2}||\frac{1}{\delta}+(\frac{1}{\delta}+\frac{\delta}{2})| = (\frac{\delta}{2})(\frac{2}{\delta}+\frac{\delta}{2})$
+$=1+\frac{\delta^2}{4}>\epsilon$.
+
+So $x^2$ is not uniformly continuous since $\exists \epsilon>0$ such that $\exists \delta > 0$ with $|x-y|<\delta$
+but $|f(x)-f(y)>\epsilon$. \qed
+
+\section{Exercise 5}
+Find $f'(0)$ if
+\begin{equation}
+	f(x) \coloneq
+	\begin{cases}
+		\dfrac{g(x)}{x} & x \ne 0 \\
+		0               & x=0
+	\end{cases}
+\end{equation}
+and $g(0)=g'(0)=0$ and $g''(0)=17$.
+
+\subsection{Solution}
+
+From the definition of the derivative
+\begin{align*}
+	f'(0) & = \lim_{h \to 0}\dfrac{f(x+h)-f(x)}{h}                            \\[0.5em]
+	      & = \lim_{h \to 0}\dfrac{f(0+h)-f(0)}{h}                            \\[0.5em]
+	      & = \lim_{h \to 0}\dfrac{(g(h)/h)-0}{h}                             \\[0.5em]
+	      & = \lim_{h \to 0}\dfrac{g(h)}{h^2} \text{ which is indeterminate.} \\[0.5em]
+\end{align*}
+From \cref{le-medical-centre} and \cref{power-rule}:
+\begin{equation}
+	\lim_{h \to 0}\dfrac{g(h)}{h^2}=\lim_{h \to 0}\dfrac{g'(h)}{2h}=\lim_{x \to 0}\dfrac{g''(h)}{2}=\dfrac{17}{2}
+\end{equation}
+
+\end{document}
