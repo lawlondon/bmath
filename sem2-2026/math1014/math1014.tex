@@ -76,11 +76,12 @@ lectures is supplemented by \emph{Linear Algebra Done Right} by Sheldon Axler.
     $\exists$       & There exists                  \\
     $ \in $         & In \emph{or} is an element of \\
     $ \subset $     & Is a proper subset of         \\
-    $ \subseteq $   & Is a subest of                \\
+    $ \subseteq $   & Is a subset of                \\
     $ \cup $        & Union with                    \\
     $ \cap $        & Intersection of               \\
     $ \backslash$   & Not \emph{or} without         \\
     $ \varnothing $ & Empty set                     \\
+    $ \sim  $       & Relates to                    \\
     $ > $           & Greater than                  \\
     $ < $           & Less than                     \\
     $ \ge $         & Greater than or equal to      \\
@@ -267,7 +268,7 @@ a list of tuples for which the relation applies provides all the information req
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!10},
+      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!25},
       edge_style/.style={draw, thick, black, opacity=0.8}
     ]
     \foreach \n in {2,3,4,5,6,7,8,9,10,11,12} {
@@ -308,7 +309,7 @@ is also called the range.
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!10},
+      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!25},
       edge_style/.style={draw, thick, black, opacity=0.8}
     ]
     \foreach \n in {1,2,3,4,5} {
@@ -343,7 +344,7 @@ arrows are drawn for when an element relates to itself. Arrows can be left off i
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!10, font=\small},
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
       edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
       loop_style/.style={->, >=Stealth, thick, black}
     ]
@@ -373,7 +374,7 @@ For $A={1,2,3,4,5}$, $R=\{(a,b):a,b \in A:a+2b \le 11\}$, two representations ar
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!10},
+      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!25},
       edge_style/.style={draw, thick, black, opacity=0.8}
     ]
     \foreach \n in {1,2,3,4,5} {
@@ -403,7 +404,7 @@ graph (\cref{fig:a+2b<11_directed}) is preferred.
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!10, font=\small},
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
       edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
       loop_style/.style={->, >=Stealth, thick, black}
     ]
@@ -446,7 +447,7 @@ the naturals (\cref{fig:reflexive}).
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!10, font=\small},
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
       edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
       loop_style/.style={->, >=Stealth, thick, black}
     ]
@@ -489,7 +490,7 @@ contain no one-way edges.
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!10, font=\small},
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
       edge_style/.style={<->, >=Stealth, thick, black, opacity=0.8},
     ]
     % Nodes in a straight horizontal line
@@ -516,7 +517,7 @@ along a graph of a transitive relation, any journey that could take two steps co
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!10, font=\small},
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
       edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
     ]
     % Nodes in a straight horizontal line
@@ -559,7 +560,7 @@ cliques, themselves containing every possible edge.
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.6cm, fill=blue!10, font=\small},
+      node_style/.style={circle, draw, minimum size=0.6cm, fill=blue!25, font=\small},
       edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
       loop_style/.style={->, >=Stealth, thick, black}
     ]
@@ -665,10 +666,10 @@ which is a disjoint union of four equivalence classes (\cref{fig:partition-to-eq
     \def\xfour{\unitwidth * 9}
 
     % Fill partitions using built-in colors with 50% opacity (!50)
-    \fill[red!50]    (\xzero, 0) rectangle (\xone, \rectheight);
-    \fill[green!50]  (\xone, 0)  rectangle (\xtwo, \rectheight);
-    \fill[blue!50]   (\xtwo, 0)  rectangle (\xthree, \rectheight);
-    \fill[yellow!50] (\xthree, 0) rectangle (\xfour, \rectheight);
+    \fill[red!25]    (\xzero, 0) rectangle (\xone, \rectheight);
+    \fill[green!25]  (\xone, 0)  rectangle (\xtwo, \rectheight);
+    \fill[blue!25]   (\xtwo, 0)  rectangle (\xthree, \rectheight);
+    \fill[orange!25] (\xthree, 0) rectangle (\xfour, \rectheight);
 
     % Outer border
     \draw[thick] (0, 0) rectangle (\xfour, \rectheight);
@@ -694,7 +695,7 @@ which is a disjoint union of four equivalence classes (\cref{fig:partition-to-eq
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[
-      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!10, font=\small},
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
       edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
       loop_style/.style={->, >=Stealth, thick, black}
     ]
@@ -744,6 +745,16 @@ and equivalence classes are two representations of the same underlying mathemati
 
 \subsection{Building the Rationals from the Integers}
 \newthought{Assume} we have integers, then the rationals are an equivalence relation on
-$\mathbb{Z} \times \mathbb{Z}\backslash\{0\}$. Specifically
+$\mathbb{Z} \times \mathbb{Z}\backslash\{0\}$. Specifically, for two tuples $(a,b)$ and $(c,d) \in \mathbb{Q}$,
+$(a,b) \sim (c,d)$ if $ad=bc$, since $ad=bc$ is equivalent to $\dfrac{a}{b} \div \dfrac{c}{d} = 1$. For example,
+$(1,2) \sim (2,4) \sim (-30,-60)$ are all representations of the same number $0.5$.
 
+\newthought{Any rational number} $\dfrac{a}{b}$ is the unique equivalence class
+$[(a,b)]_{\mathbb{Z} \times \mathbb{Z}\backslash\{0\}}$ where $(a,b)$ is usually the number \emph{in lowest terms}. For example,
+\[
+  [(1,2)]=\{(1,2),(2,4),(3,6),(4,8),\ldots\}
+\]
+This solves the problem of uniqueness. Without representation of the rationals in this way, there is no unique characteristic
+that seperates $\dfrac{1}{2}$ from $\dfrac{2}{4}$, as they are both the number $0.5$. However, there is a unique
+\emph{equivalence class} representing $0.5$ in all its forms.
 \end{document}
