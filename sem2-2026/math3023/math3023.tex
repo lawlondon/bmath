@@ -20,9 +20,10 @@
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{tikz}
+\usepackage{subcaption}
 
 \geometry{a5paper, top=1.5cm, bottom=2cm, inner=1.8cm, outer=1.2cm}
-\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{arrows.meta, positioning, pgfplots.fillbetween}
 
 \titleformat{\chapter}[display]{\normalfont\large\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\large}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
@@ -99,6 +100,326 @@ Sturm-Liouville theory.
 
 \section{Lecture 1}
 \subsection{Double and Triple Integrals}
-\newthought{New thought} about the lecture
+\newthought{To integrate} a scalar function $z = f(x,y)$ over a bounded region, we can take either horizontal or vertical slices,
+and sum them. For example, to calculate $\iint (f(x,y)=xy) \,dA $ over the region bound by $y=\sqrt{x}$ and $y=x^3$ (\cref{fig:doule-integral-fig1}).
 
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        axis lines = middle,
+        xlabel = $x$,
+        ylabel = $y$,
+        xtick = {1},
+        ytick = {1},
+        xticklabels = {1},
+        yticklabels = {1},
+        xmin = -0.1, xmax = 1.3,
+        ymin = -0.1, ymax = 1.3,
+        axis equal image,
+        samples = 100,
+      ]
+
+      % Curves
+      \addplot[name path = upper, domain=0:1.3, black, thick] {sqrt(x)};
+      \addplot[name path = lower, domain=0:1.3, black, thick] {x^3};
+
+      \node[black] at (axis cs:0.8,1.1) {$y=\sqrt{x}$};
+      \node[black]  at (axis cs:1.1,0.8) {$y=x^3$};
+
+      % Shaded region between the curves from x=0 to x=1
+      \addplot[
+        fill = red!25,
+        draw = none,
+      ] fill between[
+        of = upper and lower,
+        soft clip = {domain=0:1},
+      ];
+
+    \end{axis}
+  \end{tikzpicture}
+  \caption{The region bound by $y=\sqrt{x}$ and $y=x^3$.}
+  \label{fig:doule-integral-fig1}
+\end{figure}
+We can either take vertical slices (i.e take regular portions of $x$ and integrate w.r.t $y$ first),
+\[
+  \int_{0}^{1} \int_{x^3}^{\sqrt{x}} (xy)  \,dy \,dx = \int_{0}^{1} \left[ \dfrac{xy^2}{2} \right]_{x^3}^{\sqrt{x}} \,dx
+\]
+\[
+  = \dfrac{1}{2} \int_{0}^{1} x^2 - x^7 \,dx = \dfrac{1}{2} \left[ \dfrac{x^3}{3} - \dfrac{x^8}{8} \right]_{0}^{1}
+\]
+\[
+  = \dfrac{1}{2} \left( \dfrac{1}{3} - \dfrac {1}{8} \right) = \dfrac{5}{48}
+\]
+Or we can take horizontal slices (i.e take regular portions of $y$ and integrate w.r.t $x$ first),
+\[
+  \int_{0}^{1} \int^{x=y^{1/3}}_{x=y^2} (xy) \,dx \,dy = \int_{0}^{1} \left[ \dfrac{x^2y}{2} \right]^{y^{1/3}}_{y^2} \,dy
+\]
+\[
+  = \dfrac{1}{2} \int_{0}^{1} y^{5/3} - y^5 \,dy = \dfrac{1}{2} \left[ \dfrac{3y^{8/3}}{8} - \dfrac{y^6}{6} \right]_{0}^{1}
+\]
+\[
+  = \dfrac{1}{2} \left( \dfrac{3}{8} - \dfrac{1}{6} \right) = \dfrac{5}{48}
+\]
+Both approaches yield the same result, but one may be easier than the other. For example,
+\[\int_{y=0}^{y=1} \int_{x=\sqrt{y}}^{x=1} e^{x^3} \,dx \,dy\]
+is impossible, but reversing the order of integration makes it doable.
+\[\int_{x=0}^{x=1} \int_{y=0}^{y=x^2} e^{x^3} \,dy \,dx \ = \int_{0}^{1} \left[ e^{x^3}y \right]^{x^2}_0 \,dx \]
+\[\text{let }u=x^3 : \int_{0}^{1} x^2e^{x^3} \,dx = \dfrac{1}{3} \int_{0}^{1} e^u \,du\]
+\[= \dfrac{1}{3} \left[ e^u \right]^{1}_{0} = \dfrac{1}{3}(e-1)\]
+
+\newthought{Triple integrals} are solved in much the same way, as a serious of single integrals.
+\[\iiint f(x,y,z) \,dV : a \le x \le b,\ q(x) \le y \le w(x),\ g(x,y) \le z \le h(x,y)\]
+\[= \int_{a}^{b} \left(\int_{q(x)}^{w(x)} \left(\int_{g(x,y)}^{h(x,y)} f(x,y,z) \,dz\right) \,dy\right) \,dx\]
+
+To find the volume of a region $R$, integrate the function $f(x,y,z)=1$.
+
+\subsection{Changing Variables in Double and Triple Integrals}
+\newthought{To change} from $(x,y)$ to $(u,v)$, you first need to define a transformation $\mathbf{g}(u,v) = (x,y)$. A common
+transformation is from $(x,y)$ to $(r,\theta)$, with $r$ being the distance from the origin, and $\theta$ being the angle from an
+arbitrary axis.
+\[\mathbf{g}(r,\theta) =
+  \begin{bmatrix}
+    r \cos \theta \\ r \sin \theta
+  \end{bmatrix} =
+  \begin{bmatrix}
+    x \\ y
+\end{bmatrix}\]
+Then, define the \emph{Jacobian} matrix to be:
+\[\mathbf{J} = \dfrac{\partial \mathbf{g}(u,v)}{\partial(u,v)} =
+  \begin{bmatrix}
+    \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\
+    \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
+\end{bmatrix}\]
+For the polar coordinates transformation,
+\[\mathbf{J} =
+  \begin{bmatrix}
+    \dfrac{\partial x}{\partial r} & \dfrac{\partial x}{\partial \theta} \\
+    \dfrac{\partial y}{\partial r} & \dfrac{\partial y}{\partial \theta}
+  \end{bmatrix} =
+  \begin{bmatrix}
+    \cos \theta & -r \sin \theta \\
+    \sin \theta & r \cos \theta
+\end{bmatrix}\]
+Then, \[\iint f(x,y) \,dx \,dy = \iint f(x(u,v),y(u,v))|\mathbf{J}|\,du \,dy\]
+For polar coordinates,
+\[|\mathbf{J}|=r \cos^2 \theta + r \sin^2 \theta = r\]
+So,
+\[\iint f(x,y)\,dx\,dy = \iint f(r,\theta)r\,dr\,d\theta\]
+The process is the same for triple integrals, except that calculating the determinant by hand is slightly more annoying.
+When \[x=x(u,v,w),\ y=y(u,v,w),\ z=z(u,v,w)\],
+\[\mathbf{J} =
+  \begin{bmatrix}
+    \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} & \dfrac{\partial x}{\partial w} \\
+    \dfrac{\partial x}{\partial y} & \dfrac{\partial x}{\partial y} & \dfrac{\partial y}{\partial w} \\
+    \dfrac{\partial x}{\partial z} & \dfrac{\partial x}{\partial z} & \dfrac{\partial z}{\partial w} \\
+\end{bmatrix}\]
+\subsection{Polar Coordinates}
+As discussed above, polar coordinates involves expressing points on the Cartesian plane in terms of $r$ and $\theta$,
+where $r$ is the distance from the origin, and $\theta$ is the angle from an axis, usually the $x$-axis. Switching from
+$(x,y) \to (r,\theta)$ is usually beneficial when the problem being solved is symmetric about rotation around some point.
+
+For example, switch from $(x,y) \to (r,\theta)$ to solve $\iint_{R} \sin(x^2+y^2)\,dx\,dy$ where $R$ is the region
+$1 \le x^2+y^2 \le 16$ (\cref{fig:plot_of_r}).
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[scale=0.6]
+
+    % Shaded annulus: 1 <= x^2+y^2 <= 16, i.e. radius between 1 and 4
+    \path[fill = red!25, even odd rule]
+    (0,0) circle (4)
+    (0,0) circle (1);
+
+    % Axes
+    \draw[->] (-4.7,0) -- (4.7,0) node[right] {$x$};
+    \draw[->] (0,-4.7) -- (0,4.7) node[above] {$y$};
+
+    % Circle boundaries
+    \draw[thick, black] (0,0) circle (4);
+    \draw[thick, black] (0,0) circle (1);
+
+    % Radius labels
+    \draw[dashed, gray] (0,0) -- (1,0);
+    \draw[dashed, gray] (0,0) -- (4,0);
+    \node[below right] at (1,0) {$1$};
+    \node[below right] at (4,0) {$4$};
+
+  \end{tikzpicture}
+  \caption{Plot of $R$.}
+  \label{fig:plot_of_r}
+\end{figure}
+\[
+  \iint_{R} \sin(x^2+y^2)\,dx\,dy = \int_{0}^{2\pi} \int_{1}^{4}r \sin(r^2) \,dr\,d\theta
+\]
+\[
+  \text{let }u=r^2,\ \,du = 2r \,dr : \int_{0}^{2\pi} \int_{1}^{4}r \sin(r^2) \,dr\,d\theta = \dfrac{1}{2} \int_{0}^{2\pi} \int_{1}^{16} \sin(u) \,du\,d\theta
+\]
+\[
+  = \int_{0}^{2\pi} \left[-\cos(u) \right]^{16}_{1} \,d\theta = \left[ \left(\cos(1)-\cos(16)\right)\theta\right]^{2\pi}_{0} \approx 9.4
+\]
+\subsection{Cylindrical Polar Coordinates}
+\newthought{Cylindrical polar coordinates} involves changing from $(x,y,z) \to (r,\theta,z)$ (\cref{fig:cylindrical}).
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        view = {120}{20},
+        axis lines = center,
+        xlabel = {$x$},
+        ylabel = {$y$},
+        zlabel = {$z$},
+        xmin = 0, xmax = 3,
+        ymin = 0, ymax = 3,
+        zmin = 0, zmax = 3,
+        xtick = \empty,
+        ytick = \empty,
+        ztick = \empty,
+        axis equal image,
+        width = \textwidth,
+      ]
+
+      \coordinate (O)  at (axis cs:0,0,0);
+      \coordinate (P)  at (axis cs:2,2,2.5);
+      \coordinate (Pp) at (axis cs:2,2,0);
+      \coordinate (Pz) at (axis cs:0,0,2.5);
+
+      \addplot3[thick, domain=0:45, samples=30, samples y=1] ({0.8*cos(x)}, {0.8*sin(x)}, 0);
+      \node at (axis cs:1,0.5,0) {$\theta$};
+
+      \draw[dashed] (O) -- (Pp) node[midway, right] {$r$};
+      \draw[dashed] (P) -- (Pp);
+      \draw[dashed] (P) -- (Pz) node[midway, above] {$z$};
+
+      \node[circle, fill, inner sep=1.2pt] at (O) {};
+
+      \node[circle, fill, inner sep=1.5pt] at (P) {};
+      \node[above right] at (P) {$P(x,y,z)$};
+
+      \node[circle, fill, inner sep=1pt] at (Pp) {};
+      \node[below] at (Pp) {$P'=(r,\theta,0)$};
+
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Cylindrical Polar Coordinates Projection}
+  \label{fig:cylindrical}
+\end{figure}
+
+The point $P=(x,y,z)$ is projected down to the $x,y$-plane and then converted to polar coordinates; $P(x,y,0) \to P(r,\theta,0)$.
+The $z$-coordinate is then reused. Cylindrical polar coordinates are best used for problems that are symmetric about rotation around
+the $z$-axis. Since this is essentially polar coordinates, the determinant of the Jacobian is $r$.
+
+For example, the mass of a solid cylinder $C$ of radius 1, and height 2, centered at the origin (\cref{fig:cylinder}) has density
+\[D(x,y,z)=1+x^2+y^2+z^2\]
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        view = {130}{15},
+        axis lines = center,
+        xlabel = {$x$},
+        ylabel = {$y$},
+        zlabel = {$z$},
+        xmin = -2, xmax = 2,
+        ymin = -2, ymax = 2,
+        zmin = -2, zmax = 2,
+        xtick = {1},
+        ytick = {1},
+        ztick = {-1,1},
+        axis equal image,
+        width = \textwidth,
+      ]
+      \addplot3[
+        surf,
+        shader = faceted,
+        colormap = {redonly}{color=(red) color=(red)},
+        fill opacity = 0.1,
+        draw = red!60!black,
+        draw opacity = 0.3,
+        domain = 0:360,
+        domain y = -1:1,
+        samples = 24,
+        samples y = 2,
+        z buffer = sort,
+      ] ({cos(x)}, {sin(x)}, {y});
+
+      \coordinate (O)  at (axis cs:0,0,0);
+      \node[circle, fill, inner sep=1.2pt] at (O) {};
+
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Plot of Cylinder $C$}
+  \label{fig:cylinder}
+\end{figure}
+
+To find the mass of this cylinder, we need to solve $\iiint_{C}D(x,y,z)\,dV$
+\[\iiint_{C}D(x,y,z)\,dV = \iiint_{C'}D(r,\theta,z)r\,dr \,d\theta \,dz\]
+\[= \int_{-1}^{1} \int_{0}^{2\pi} \int_{0}^{1} r(1+r^2+z^2) \,dr \,d\theta \,dz\]
+\[= \int_{-1}^{1} \int_{0}^{2\pi} \left[ \dfrac{r^2}{2} + \dfrac{r^4}{4} + \dfrac{r^2}{2}z^2 \right]^{1}_{0} \,d\theta \,dz = \int_{-1}^{1} \int_{0}^{2\pi} \dfrac{3}{4} + \dfrac{1}{2}z^2 \,d\theta \,dz\]
+\[= \int_{-1}^{1} \left[ \dfrac{3}{4}\theta + \dfrac{1}{2}z^2\theta \right]^{2\pi}_{0} \,dz = \int_{-1}^{1} \dfrac{6\pi}{4} + \pi z^2 \,dz\]
+\[= \left[ \dfrac{6\pi}{4}z + \dfrac{\pi}{3}z^3 \right]^{1}_{-1} = \dfrac{11\pi}{3}\]
+
+\section{Lecture 2}
+\subsection{Spherical Polar Coordinates}
+\newthought{Spherical Polar Coordinates} involves changing from $(x,y,z) \to (r,\theta,\phi)$, where $r$ is the distance from the
+point to the origin, $\theta$ is the projected angle from the $x$-axis (the same as cylindrical polars), and $\phi$ is the angle
+from the $z$-axis to the point projected onto the $x,z$-plane (taking $y=0$) (\cref{fig:spherical}). The determinant of the Jacobian
+for spherical polar coordinates is $r^2 \sin\phi$.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        view = {120}{20},
+        axis lines = center,
+        xlabel = {$x$},
+        ylabel = {$y$},
+        zlabel = {$z$},
+        xmin = 0, xmax = 3,
+        ymin = 0, ymax = 3,
+        zmin = 0, zmax = 3,
+        xtick = \empty,
+        ytick = \empty,
+        ztick = \empty,
+        axis equal image,
+        width = \textwidth,
+      ]
+
+      \coordinate (O)  at (axis cs:0,0,0);
+      \coordinate (P)  at (axis cs:2,2,2.5);
+      \coordinate (Pp) at (axis cs:2,2,0);
+      \coordinate (Pz) at (axis cs:0,0,2.5);
+
+      % theta arc: in the xy-plane, from x-axis to Pp
+      \addplot3[thick, domain=0:45, samples=30, samples y=1] ({0.8*cos(x)}, {0.8*sin(x)}, 0);
+      \node at (axis cs:1,0.5,0) {$\theta$};
+
+      % phi arc: in the vertical plane at theta=45 deg, from z-axis down to OP
+      \addplot3[thick, domain=0:48.5, samples=30, samples y=1]
+      ({0.8*sin(x)*cos(45)}, {0.8*sin(x)*sin(45)}, {0.8*cos(x)});
+      \node at (axis cs:0,0.18,0.8) {$\phi$};
+
+      \draw[dashed] (O) -- (Pp);
+      \draw[dashed] (O) -- (P) node[midway, right] {$r$};
+      \draw[dashed] (P) -- (Pp);
+
+      \node[circle, fill, inner sep=1.2pt] at (O) {};
+
+      \node[circle, fill, inner sep=1.5pt] at (P) {};
+      \node[above right] at (P) {$P(x,y,z)$};
+
+      \node[circle, fill, inner sep=1pt] at (Pp) {};
+      \node[below] at (Pp) {$P'=(r,\theta,0)$};
+
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Spherical Polar Coordinates}
+  \label{fig:spherical}
+\end{figure}
+
+The mass of a sphere of radius 1 centered at the origin with density
+\[D(x,y,z)=1+x^2+y^2+z^2=1+r^2\]
+is
+\[\int^{\pi}_{0} \int^{2\pi}_{0} \int^{1}_{0} (1+r^2)(r^2 \sin \phi) \,dr\,d\theta\,d\phi\]
+\[= \int^{\pi}_{0} \int^{2\pi}_{0} \left[ \dfrac{r^3}{3}+\dfrac{r^5}{5} \right]^{1}_{0} \sin \phi \,d\theta \,d\phi\]
+\[= \dfrac{8}{15} \int_{0}^{\pi} 2\pi \sin \phi \,d\phi = \dfrac{16\pi}{15} \left[ -\cos\phi \right]^{\pi}_{0} = \dfrac{32\pi}{15}\]
 \end{document}
