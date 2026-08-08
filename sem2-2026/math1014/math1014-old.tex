@@ -1,0 +1,768 @@
+\documentclass[10pt]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage{kpfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{pgfplots}
+\usepackage{cleveref}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{tikz}
+
+\geometry{a5paper, top=1.5cm, bottom=2cm, inner=1.8cm, outer=1.2cm}
+\usetikzlibrary{arrows.meta, positioning}
+
+\titleformat{\chapter}[display]{\normalfont\large\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\large}
+\titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\small\bfseries}{\thesubsection}{1em}{}
+
+\pgfplotsset{compat=1.18}
+
+\title{MATH1014 Algebra}
+\author{London Wallace}
+\date{Semester 2, 2026}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+\fancypagestyle{plain}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}}
+
+\setstretch{1.15}
+
+\titlespacing{\chapter}{0pt}{-10pt}{10pt}
+
+\newcommand{\newthought}[1]{\vspace{0.5\baselineskip}\noindent{\scshape #1}}
+
+\renewcommand{\bibname}{Bibliography and Suggested Reading}
+
+\begin{document}
+\frontmatter
+\maketitle
+\tableofcontents
+
+\chapter{Preface}
+\newthought{These notes} follow, and are meant to cement the course \emph{Algebra}, taught at the
+University of Western Australia by Dr. Gordon Royle in Semester 2 of 2026. Where needed, the content of
+lectures is supplemented by \emph{Linear Algebra Done Right} by Sheldon Axler.
+
+\section{What is Algebra?}
+
+\newthought{I do not yet know enough to say.}
+
+\section{Table of Symbols}
+\begin{center}
+  \begin{tabular}{cc}
+    \toprule
+    Symbol          & Meaning                       \\
+    \midrule
+    $\forall$       & For every \emph{or} for all   \\
+    $\exists$       & There exists                  \\
+    $ \in $         & In \emph{or} is an element of \\
+    $ \subset $     & Is a proper subset of         \\
+    $ \subseteq $   & Is a subset of                \\
+    $ \cup $        & Union with                    \\
+    $ \cap $        & Intersection of               \\
+    $ \backslash$   & Not \emph{or} without         \\
+    $ \varnothing $ & Empty set                     \\
+    $ \sim  $       & Relates to                    \\
+    $ > $           & Greater than                  \\
+    $ < $           & Less than                     \\
+    $ \ge $         & Greater than or equal to      \\
+    $ \le $         & Less than or equal to         \\
+    $|n|$           & The absolute value of $n$     \\
+    $\qedsymbol $   & It has been proven            \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+\mainmatter
+
+\chapter{Fields and Rings}
+
+
+\section{Binary Operations}
+\newthought{Binary operations} are \emph{operations}\footnote{Operations are not yet defined.} that take two inputs
+and produce one output. Addition $(+)$ and multiplication $(\times)$ are common examples of binary operations.
+
+A uniary operation is one that takes only one input, and produces one output; for example, sine. The function
+$f(x,y,z)=x+y+z$ is an example of a \emph{ternary} operation. There are an infinite amount of $n$-ary operations, however
+binary operations form the basis of the study of fields and rings.
+
+\section{Axioms}
+\newthought{Axioms} are statements, assumed to be true, used to define the domain of a particular mathematical theory.
+The goal is the find the smallest set of obviously true statements that define the domain which we are interested. If any
+axioms are logical consequences of others, they should be omitted, and likewise if any properties of the underlying structure
+we wish to define are lost, an axiom should be added to its definition to provide those properties. Axioms form a basis for
+further reasoning. We cannot prove anything without first agreeing on the postulates of our theories.
+
+\section{The Definition of a Field}
+\newthought{A field} is a \emph{set} $S$, equipped with the two binary operations $+$ and $\times$, that behave similarly to how
+addition and multiplication would behave on real numbers, that also satisfies the following \emph{axioms}:
+\newpage
+\begin{enumerate}
+  \item Commutativity of $+$. $[a+b=b+a]$
+  \item Associativity of $+$. $[a+(b+c)=(a+b)+c]$
+  \item Existence of the additive identity 0. $[a+0=a]$
+  \item Existence of the additive inverse. $[\forall a \in S,\ \exists b \in S : a+b=0]$
+  \item Commutativity of $\times$. $[a \times b = b \times a]$
+  \item Associativity of $\times$. $[a \times (b \times c) = (a \times b) \times c]$
+  \item Existence of the multiplicative identity 1. $[a \times 1 = a]$
+  \item Existence of the multiplicative inverse. $[\forall a \in S,\ \exists b \in S : a \times b = 1]$
+  \item Distributivity. $[a \times (b + c) = a \times b + a \times c]$
+  \item Non-triviality. $[0 \ne 1]$
+\end{enumerate}
+
+\section{$\mathbb{R}$, $\mathbb{C}$, and $\mathbb{Q}$ are Fields}
+\newthought{Starting with the reals}, it is quite clear that all the axioms are met. For any number $a \in \mathbb{R}$, its
+additive inverse would be $-a$, and its multiplicative inverse would be $a^{-1}$. The identities represented by the symbols $0$
+and $1$ above are in fact $0$ and $1$, and axioms 1, 2, 5, 6, 9, and 10 are obvious. The same is true for the rationals and the
+complex numbers.
+
+\section{$\mathbb{Z}$ is not a Field}
+\newthought{Not every subset} of a field is a field. The integers are not a field because it is not true that for any
+$a \in \mathbb{Z},\ \exists b \in \mathbb{Z}$ with $a \times b = 1$. 2 is certainly an integer, but for $2 \times b = 1$ to
+hold, $b=\frac12$, which is certainly not an integer!
+
+\section{The Binary Field}
+\newthought{The set} $\{0,1\}$ with multiplication and addition as usual, except that $1+1\coloneqq 0$ is a field. It is the
+smallest field and the unique field with two elements. Addition defined in this way is known in computer science as XOR.
+
+\section{The Properties of Fields}
+\newthought{From the axioms} there is a standard set of proofs used to establish the properties of fields usually taken for
+granted.
+\begin{enumerate}
+  \item Uniqueness of 0.
+
+    The additive identity 0 is unique.
+    Let $0$ and $0'$ be additive identities, then $0+0'=0$ and $0'+0=0'$. From the commutativity of addition, $0+0'=0'+0$, and
+    thus $0=0'$. \qed
+
+  \item Uniqueness of 1.
+
+    Let $1$ and $1'$ be multiplicative identities, then $1 \times 1' =1$ and $1' \times 1=1'$. But $1 \times 1' = 1' \times 1$,
+    thus $1=1'$ \qed
+
+  \item Uniqueness of the inverses.
+
+    Let $b$ and $c$ be additive inverses of $a$, then
+    \begin{align*}
+      b &= b + 0 \\
+      b &= b + (a+c) \\
+      b &= (a+b)+c \\
+      b &= 0 + c \\
+      b &= c \tag*{\qed}
+    \end{align*}
+
+    Let $b$ and $c$ be multiplicative inverses of $a$, then
+    \begin{align*}
+      b &= b \times 1 \\
+      b &= b \times (a \times c) \\
+      b &= (a \times b) \times c \\
+      b &= 1 \times c \\
+      b &= c \tag*{\qed}
+    \end{align*}
+
+  \item Cancellation laws
+
+    If $a+b=a+c$, then $b=c$, and if $a \ne 0$ and $ab=ac$ then $b=c$.
+
+  \item Arithmetic of 0.
+
+    $a \times 0 = 0$
+  \item Sign rules
+
+    $(-1)\cdot a = -a$ and $(-a)\cdot b = -(ab) = a \cdot (-b)$
+
+  \item No zero divisors
+
+    If $ab=0$ then $a=0$ or $b=0$. A zero divisor is a non zero element $a$, such that $\exists b \ne 0$ with $ab=0$.
+\end{enumerate}
+
+\section{Power Sets}
+\newthought{A power set} $P(S)$ is the set of all subsets of $S$. The set
+\[S=\{1,2,3\}\]
+has
+\[P(S)=\{ \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\}, \varnothing \} \]
+If we define multiplication to be $A \cap  B$ and addition to be the symmetric difference, $A \cup B\ \backslash A \cap B$,
+then all the axioms of a field are met \emph{except} the existence of a multiplicative inverse. The multiplicative identity
+is the set $\{1,2,3\}$ since the intersection of any member of $P(S)$ with $\{1,2,3\}$ is itself, but it is not possible for
+every member of $P(S)$ to intercept with $\{1,2,3\}$ and produce $\{1,2,3\}$. A structure that satisfies every axiom of a
+field except the existence of a multiplicative inverse is called a \emph{commutative unital ring}.
+
+\section{Boolean Rings}
+\newthought{A ring} is a structure consisting of a set with two operations $+$ and $\times$ which behave similarly to how
+multiplication and addition behave with integers, except that multiplication does not need to be commutative. For example,
+the set of all $2 \times 2$ matrices with real or complex entries, with standard matrix addition and multiplication,
+form a ring.
+
+\newthought{A commutative ring} is a ring in which multiplication is commutative, i.e. $ab=ba$. The difference between a
+commutative ring and a field is that commutative rings do not necessitate the existence of multiplicative inverses or
+a multiplicative identity. A \emph{unital} commutative ring does contain a multiplicative identity, hence its name.
+The set of all even integers, $2\mathbb{Z}$, with standard addition and multiplication form a commutative, but not unital,
+ring, since the identity 1 is not contained within the set. The non-existence of a multiplicative identity implies the
+non-existence of a multiplicative inverse. The set of all even integers, and 1, would be a unital commutative ring.
+
+\newthought{Idempotence} is the property that repeated application of an operation does not alter the outcome after the first
+application. Repeatedly turning a light on whilst it is already on is an idempotent operation. In mathematics, an element
+is idempotent under $\times$ if $x \times x = x$. The operation $\times$ is itself idempotent if $x \times x = x\ \forall x \in S$.
+0 and 1 are idempotent elements of the field of real numbers, and the absolute value function is an idempotent function,
+since $|(|f|)|=|f|$; infact, $|(|f|)|^n=|f|$.
+
+If multiplication of two sets were to be defined as $\cap$,
+then $A \cap A = A$, and that would be the case no matter how many times you multiplied $A$ with $A$.
+
+\newthought{A boolean ring} is a ring in which every element is idempotent under $\times$. Idempotence implies commutativity,
+but a boolean ring does not necessarily contain a multiplicative identity. The set of all finite subsets of $\mathbb{N}$ with
+addition being symmetric difference and multiplication being intersection is a boolean ring that does not contain an identity,
+since for $A \cap E = A$, $E = \mathbb{N}$, which is not a finite subset of $\mathbb{N}$. The set described above is the
+power set of $\mathbb{N}$. The power set of any finite set is a unital boolean ring.
+
+\chapter{Equivalence Relations}
+\section{Binary Relations}
+\newthought{The cartesian product} of two sets $A$ and $B$ is the set of all ordered pairs $(a,b)$ such that $a \in A$ and
+$b \in B$ $\rightarrow$ $A \times B = \{(a,b) : a \in A,\ b \in B\}$.
+
+\newthought{A binary relation} $R$ is any subset of the cartesian product. For example, $R=\{(a,a) : a \in A\}$ is a subset
+of the cartesian product and is known as \emph{equality}. If $(a,b) \in R$, then $a$ is said to be \emph{related} to $b$.
+
+Choosing different subsets of $A \times B$, we get different relations, for example:
+\begin{align*}
+  A &= \{1,2,3\} \quad B=A \\
+  R &= \{(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)\}
+\end{align*}
+$R$ is the relation, \emph{less than or equal to}. The relation \emph{divides}, for the sets
+\[
+  A = \{1,2,3,4\} \quad B=A
+\]
+would be
+\[
+  R=\{(1,1),(1,2),(1,3),(1,4),(2,2),(2,4),(3,3),(4,4)\}
+\]
+This represents what members of $A$ divide members of $B$. Since $2$ does not divide $3$, it is not included in $R$. In
+this context, $2$ is not related to $3$. The sets $A$ and $B$ of the cartesian product $A \times B$, are called the domain
+and the codomain of the relation, respectively.
+
+\section{Relations Notation}
+\newthought{Infix notation} is the predominant notation for relations that have human readable names. Infix notation places
+the relational symbol between the two related objects. For example, $1 \le 2$ or $2\ |\ 4$. Is it just as correct to say
+$(1,2) \in \le$ or $(2,4) \in\ |$. For more complicated relations, set notation is used. A rule to construct the relation, or
+a list of tuples for which the relation applies provides all the information required.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!25},
+      edge_style/.style={draw, thick, black, opacity=0.8}
+    ]
+    \foreach \n in {2,3,4,5,6,7,8,9,10,11,12} {
+      \node[node_style] (a\n) at (0, -\n*0.7) {\n};
+    }
+    \node[font=\bfseries] at (0, -9) {Domain};
+    \foreach \n in {2,3,4,5,6,7,8,9,10,11,12} {
+      \node[node_style] (b\n) at (4, -\n*0.7) {\n};
+    }
+    \node[font=\bfseries] at (4, -9) {Codomain};
+    \foreach \n in {2,4,6,8,10,12} { \draw[edge_style] (a2) -- (b\n); }
+    \foreach \n in {3,6,9,12} { \draw[edge_style] (a3) -- (b\n); }
+    \foreach \n in {4,8,12} { \draw[edge_style] (a4) -- (b\n); }
+    \foreach \n in {5,10} { \draw[edge_style] (a5) -- (b\n); }
+    \foreach \n in {6,12} { \draw[edge_style] (a6) -- (b\n); }
+    \foreach \n in {7,8,9,10,11,12} { \draw[edge_style] (a\n) -- (b\n); }
+  \end{tikzpicture}
+  \caption{Bipartite graph representing the \emph{divides} relation.}
+  \label{fig:relation_divides}
+\end{figure}
+\section{Bipartite Graphs}
+\newthought{Bipartite graphs} are visual representations of relations. The domain and codomain are both represented, with
+and edge to show relatability. For the sets
+\[
+  A=\{2,3,4,5,6,7,8,9,10,11,12\} \quad B=A
+\]
+The relation \emph{divides} can be represented by \cref{fig:relation_divides}. Each edge represents divisibility. There is
+an edge joining 3 and 6 since $(3,6) \in\ |$, but no edge joining 3 and 7, since 3 does not divide 7. A bipartite graph
+can be drawn for any relation.
+
+\section{Functions are Relations}
+\newthought{Functions} are the special class of relations for which each member of the domain has exactly one tuple in
+the relation, also known as \emph{many-to-one} relations. A function $f:\mathbb{R}\to\mathbb{R}$ is the relation
+\[f = \{(x,f(x)):x\in \mathbb{R}\}\]
+A function is only defined if there is exactly one tuple in the relation for each \emph{and every} member of the domain. A
+point in the domain that does not contain a tuple in the relation is called a discontinuity. The codomain of a function relation
+is also called the range.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!25},
+      edge_style/.style={draw, thick, black, opacity=0.8}
+    ]
+    \foreach \n in {1,2,3,4,5} {
+      \node[node_style] (a\n) at (0, -\n*0.7) {\n};
+    }
+    \node[font=\bfseries] at (0, -4.5) {Domain};
+
+    \foreach \n in {1,2,3,4,5} {
+      \node[node_style] (b\n) at (4, -\n*0.7) {\n};
+    }
+    \node[font=\bfseries] at (4, -4.5) {Range};
+
+    \draw[edge_style] (a1) -- (b5);
+    \draw[edge_style] (a2) -- (b4);
+    \draw[edge_style] (a3) -- (b2);
+    \draw[edge_style] (a4) -- (b2);
+    \draw[edge_style] (a5) -- (b3);
+  \end{tikzpicture}
+  \caption{Bipartite graph of a function $f$}
+  \label{fig:bipartite_graph_function}
+\end{figure}
+From \cref{fig:bipartite_graph_function}, $f(1)=5,\ f(2)=4,\ f(3)=2,\ f(4)=2,\ f(5)=3$. It is not necessary for each
+member of the range to only be represented once, or at all, just for each member of the domain to be represented exactly once.
+
+\section{Relations with $A=B$ and Directed Graphs}
+\newthought{Relations} with $A=B$ are said to be subsets of the cartesian product $A \times A$. $R$ is a relation on $A$.
+A simpler graphical representation is available for relations where the domain equals the codomain.
+
+\newthought{Directed graphs} contain a single representation of the domain and codomain with \emph{directed} edges representing
+relatability. \cref{fig:divides_digraph} represents the relation of divisibility between $A=B=\{1,2,3,4\}$. Small looping
+arrows are drawn for when an element relates to itself. Arrows can be left off if the relation is symmetric.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
+      edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
+      loop_style/.style={->, >=Stealth, thick, black}
+    ]
+    % Nodes in a square
+    \node[node_style] (n1) at (0, 2) {1};
+    \node[node_style] (n2) at (2, 2) {2};
+    \node[node_style] (n3) at (0, 0) {3};
+    \node[node_style] (n4) at (2, 0) {4};
+
+    % Self-loops (a divides a)
+    \draw[loop_style] (n1) to[loop above] (n1);
+    \draw[loop_style] (n2) to[loop above] (n2);
+    \draw[loop_style] (n3) to[loop below] (n3);
+    \draw[loop_style] (n4) to[loop below] (n4);
+
+    % Relations (a divides b, a != b)
+    \draw[edge_style] (n1) -- (n2);
+    \draw[edge_style] (n1) -- (n3);
+    \draw[edge_style] (n1) -- (n4);
+    \draw[edge_style] (n2) -- (n4);
+  \end{tikzpicture}
+  \caption{Directed graph of $R=\{(a,b):a,b\in\{1,2,3,4\}:a\ |\ b\}$.}
+  \label{fig:divides_digraph}
+\end{figure}
+
+For $A={1,2,3,4,5}$, $R=\{(a,b):a,b \in A:a+2b \le 11\}$, two representations are possible.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.6cm, inner sep=0pt, fill=blue!25},
+      edge_style/.style={draw, thick, black, opacity=0.8}
+    ]
+    \foreach \n in {1,2,3,4,5} {
+      \node[node_style] (a\n) at (0, -\n*0.7) {\n};
+    }
+
+    \foreach \n in {1,2,3,4,5} {
+      \node[node_style] (b\n) at (4, -\n*0.7) {\n};
+    }
+
+    \draw[edge_style] (a1) -- (b5);
+    \draw[edge_style] (a2) -- (b5);
+    \draw[edge_style] (a3) -- (b4);
+    \draw[edge_style] (a3) -- (b5);
+    \draw[edge_style] (a4) -- (b4);
+    \draw[edge_style] (a4) -- (b5);
+    \draw[edge_style] (a5) -- (b3);
+    \draw[edge_style] (a5) -- (b4);
+    \draw[edge_style] (a5) -- (b5);
+  \end{tikzpicture}
+  \caption{Bipartite graph of $R=\{(a,b):a,b \in A:a+2b \le 11\}$}
+  \label{fig:a+2b<11_bipartite}
+\end{figure}
+However, the bipartite \cref{fig:a+2b<11_bipartite} contains a lot of redundant information, since $A=B$, so a directed
+graph (\cref{fig:a+2b<11_directed}) is preferred.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
+      edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
+      loop_style/.style={->, >=Stealth, thick, black}
+    ]
+    % Nodes arranged in a pentagon, 1 at top
+    \node[node_style] (a1) at (90:2)  {1};
+    \node[node_style] (a2) at (162:2) {2};
+    \node[node_style] (a3) at (234:2) {3};
+    \node[node_style] (a4) at (306:2) {4};
+    \node[node_style] (a5) at (18:2)  {5};
+
+    \draw[loop_style] (a4) to[loop below] (a4);
+    \draw[loop_style] (a5) to[loop right] (a5);
+
+    % Non-trivial relations (a divides b, a != b)
+    \draw[edge_style] (a1) -- (a5);
+    \draw[edge_style] (a2) -- (a5);
+    \draw[edge_style] (a3) -- (a4);
+    \draw[edge_style] (a3) -- (a5);
+
+    \draw[edge_style] (a4) -- (a5);
+    \draw[edge_style] (a5) -- (a3);
+    \draw[edge_style] (a5) -- (a4);
+
+  \end{tikzpicture}
+  \caption{Directed graph of $R=\{(a,b):a,b \in A:a+2b \le 11\}$.}
+  \label{fig:a+2b<11_directed}
+\end{figure}
+
+\section{Properties of Relations with Domain = Codomain}
+\newthought{The relation} is said to be:
+\begin{enumerate}
+  \item \textbf{(R)} \emph{Reflexive} if every element relates to itself, i.e. $(a,a) \in R,\ \forall a \in A$.
+  \item \textbf{(S)} \emph{Symmetric} if $(b,a) \in R$ whenever $(a,b) \in R$.
+  \item \textbf{(T)} \emph{Transitive} if $(a,c) \in R$ whenever $(a,b) \in R$ and $(b,c) \in R$.
+  \item \textbf{(A)} \emph{Anti-symmetric} if $a=b$ when $(a,b) \in R$ and $(b,a) \in R$.
+\end{enumerate}
+
+\newthought{Reflexive} relations contain every equality $(a,a)$ for every $a \in A$. For example, the relation $\leq$ on
+the naturals (\cref{fig:reflexive}).
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
+      edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
+      loop_style/.style={->, >=Stealth, thick, black}
+    ]
+    % Nodes in a straight horizontal line
+    \node[node_style] (a1) at (0, 0)  {1};
+    \node[node_style] (a2) at (2, 0)  {2};
+    \node[node_style] (a3) at (4, 0)  {3};
+    \node[node_style] (a4) at (6, 0)  {4};
+    \node[node_style] (a5) at (8, 0)  {5};
+
+    % Self-loops
+    \draw[loop_style] (a1) to[loop below] (a1);
+    \draw[loop_style] (a2) to[loop below] (a2);
+    \draw[loop_style] (a3) to[loop below] (a3);
+    \draw[loop_style] (a4) to[loop below] (a4);
+    \draw[loop_style] (a5) to[loop below] (a5);
+
+    % Non-trivial relations, curved for clarity
+    \draw[edge_style] (a1) to[bend left=30] (a2);
+    \draw[edge_style] (a1) to[bend left=30] (a3);
+    \draw[edge_style] (a1) to[bend left=30] (a4);
+    \draw[edge_style] (a1) to[bend left=30] (a5);
+
+    \draw[edge_style] (a2) to[bend left=25] (a3);
+    \draw[edge_style] (a2) to[bend left=25] (a4);
+    \draw[edge_style] (a2) to[bend left=25] (a5);
+
+    \draw[edge_style] (a3) to[bend left=20] (a4);
+    \draw[edge_style] (a3) to[bend left=20] (a5);
+
+    \draw[edge_style] (a4) to[bend left=15] (a5);
+  \end{tikzpicture}
+  \caption{$R=\{(a,b):a,b \in \mathbf{N} : a \leq b\}$. (Cut off at 5 for clarity).}
+  \label{fig:reflexive}
+\end{figure}
+
+\newthought{Symmetric} relations contain $(b,a)$ whenever they also contains $(a,b)$. Since addition is commutative,
+the relation $R=\{(a,b):a,b,k \in \mathbb{N}:a+b=2k\}$ is reflexive. Graphs (\cref{fig:symmetric}) of reflexive relations
+contain no one-way edges.
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
+      edge_style/.style={<->, >=Stealth, thick, black, opacity=0.8},
+    ]
+    % Nodes in a straight horizontal line
+    \node[node_style] (a1) at (0, 0)  {1};
+    \node[node_style] (a2) at (2, 0)  {2};
+    \node[node_style] (a3) at (4, 0)  {3};
+    \node[node_style] (a4) at (6, 0)  {4};
+    \node[node_style] (a5) at (8, 0)  {5};
+
+    % Non-trivial relations, curved for clarity
+    \draw[edge_style] (a1) to[bend left=30] (a3);
+    \draw[edge_style] (a3) to[bend left=30] (a5);
+    \draw[edge_style] (a2) to[bend right=30] (a4);
+    \draw[edge_style] (a1) to[bend right=30] (a5);
+
+  \end{tikzpicture}
+  \caption{$R=\{(a,b):a,b,k \in \mathbb{N}:a+b=2k\}$. (Cut off at 5 for clarity).}
+  \label{fig:symmetric}
+\end{figure}
+
+\newthought{Transitive} relations contain $(a,c)$ whenever they also contain $(a,b)$ and $(b,c)$. If you \emph{walked}
+along a graph of a transitive relation, any journey that could take two steps could also take one. For example, $<$.
+(\cref{fig:transitive})
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
+      edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
+    ]
+    % Nodes in a straight horizontal line
+    \node[node_style] (a1) at (0, 0)  {1};
+    \node[node_style] (a2) at (2, 0)  {2};
+    \node[node_style] (a3) at (4, 0)  {3};
+    \node[node_style] (a4) at (6, 0)  {4};
+    \node[node_style] (a5) at (8, 0)  {5};
+
+    % Non-trivial relations, curved for clarity
+    \draw[edge_style] (a1) to[bend left=30] (a2);
+    \draw[edge_style] (a1) to[bend left=30] (a3);
+    \draw[edge_style] (a1) to[bend left=30] (a4);
+    \draw[edge_style] (a1) to[bend left=30] (a5);
+
+    \draw[edge_style] (a2) to[bend left=25] (a3);
+    \draw[edge_style] (a2) to[bend left=25] (a4);
+    \draw[edge_style] (a2) to[bend left=25] (a5);
+
+    \draw[edge_style] (a3) to[bend left=20] (a4);
+    \draw[edge_style] (a3) to[bend left=20] (a5);
+
+    \draw[edge_style] (a4) to[bend left=15] (a5);
+
+  \end{tikzpicture}
+  \caption{$R=\{(a,b):a,b \in \mathbb{N}:a<b\}$. (Cut off at 5 for clarity).}
+  \label{fig:transitive}
+\end{figure}
+
+\section{Equivalence Relations}
+\newthought{Equivalence relations} are those that are reflexive, transitive, and symmetric. Consider $A=\{0,1,\ldots,8\}$
+and $R=\{(a,b):3 | a-b\}$. If we think of all the members of $A$ related to 0, we get 0, 3, and 6. 0, 3, and 6 relate only
+to themselves and each other, and not to any other members of the domain. All possible relations of 0, 3, and 6 are represented
+by the first part of \cref{fig:directed_cliques_all}. The same is true starting at 1 and 2. Each \emph{directed clique} only
+relates to themselves and each other and never to other members of the domain. An equivalence relation is made up of a
+\emph{disjoint union} of directed cliques. Each island of relatability does not interact with every other island.
+Equivalence relations are easily identifiable by their directed graphs, which always contain a disjoint unions of directed
+cliques, themselves containing every possible edge.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.6cm, fill=blue!25, font=\small},
+      edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
+      loop_style/.style={->, >=Stealth, thick, black}
+    ]
+    % ---- Cluster 1: 0, 3, 6 ----
+    \begin{scope}[shift={(0,0)}]
+      \node[node_style] (x0) at (90:1.3)  {0};
+      \node[node_style] (x1) at (330:1.3) {3};
+      \node[node_style] (x2) at (210:1.3) {6};
+      \draw[loop_style] (x0) to[loop above, min distance=8mm, looseness=6] (x0);
+      \draw[loop_style] (x1) to[loop below, min distance=8mm, looseness=6] (x1);
+      \draw[loop_style] (x2) to[loop below, min distance=8mm, looseness=6] (x2);
+      \draw[edge_style] (x0) -- (x1);
+      \draw[edge_style] (x0) -- (x2);
+      \draw[edge_style] (x1) -- (x0);
+      \draw[edge_style] (x1) -- (x2);
+      \draw[edge_style] (x2) -- (x0);
+      \draw[edge_style] (x2) -- (x1);
+      \node[font=\small, below=2.5cm of x0] {Starting at 0};
+    \end{scope}
+
+    % ---- Cluster 2: 1, 4, 7 ----
+    \begin{scope}[shift={(3.4,0)}]
+      \node[node_style] (y0) at (90:1.3)  {1};
+      \node[node_style] (y1) at (330:1.3) {4};
+      \node[node_style] (y2) at (210:1.3) {7};
+      \draw[loop_style] (y0) to[loop above, min distance=8mm, looseness=6] (y0);
+      \draw[loop_style] (y1) to[loop below, min distance=8mm, looseness=6] (y1);
+      \draw[loop_style] (y2) to[loop below, min distance=8mm, looseness=6] (y2);
+      \draw[edge_style] (y0) -- (y1);
+      \draw[edge_style] (y0) -- (y2);
+      \draw[edge_style] (y1) -- (y0);
+      \draw[edge_style] (y1) -- (y2);
+      \draw[edge_style] (y2) -- (y0);
+      \draw[edge_style] (y2) -- (y1);
+      \node[font=\small, below=2.5cm of y0] {Starting at 1};
+    \end{scope}
+
+    % ---- Cluster 3: 2, 5, 8 ----
+    \begin{scope}[shift={(6.8,0)}]
+      \node[node_style] (z0) at (90:1.3)  {2};
+      \node[node_style] (z1) at (330:1.3) {5};
+      \node[node_style] (z2) at (210:1.3) {8};
+      \draw[loop_style] (z0) to[loop above, min distance=8mm, looseness=6] (z0);
+      \draw[loop_style] (z1) to[loop below, min distance=8mm, looseness=6] (z1);
+      \draw[loop_style] (z2) to[loop below, min distance=8mm, looseness=6] (z2);
+      \draw[edge_style] (z0) -- (z1);
+      \draw[edge_style] (z0) -- (z2);
+      \draw[edge_style] (z1) -- (z0);
+      \draw[edge_style] (z1) -- (z2);
+      \draw[edge_style] (z2) -- (z0);
+      \draw[edge_style] (z2) -- (z1);
+      \node[font=\small, below=2.5cm of z0] {Starting at 2};
+    \end{scope}
+
+  \end{tikzpicture}
+  \caption{Directed cliques of $R$, forming a disjoint union of three components.}
+  \label{fig:directed_cliques_all}
+\end{figure}
+
+\section{Equivalence Classes}
+\newthought{For the general case} $R$, being an equivalence relation on an arbitrary set $A$, define
+$[a]_R=\{b \in A:(a,b)\in R\}$. $[a]_R$ is the \emph{equivalence class} of $a$ and is all the elements that
+relate to $a$. It is a subset of $A$. The equivalence classes of 0, 1, 2 for the relation $R=\{(a,b):3 | a-b\}$
+are represented in \cref{fig:directed_cliques_all}.
+
+\section{Properties of Equivalence Classes}
+\begin{enumerate}
+  \item $a \in [a]_R$ since it relates to itself (from reflexivity).
+  \item Any pairs $x,y \in [a]_R$ implies $(x,y)\in R$ (by construction).
+  \item If $b \in [a]_R$ then $[b]_R = [a]_R$ (from reflexivity, symmetry, and transitivity).
+  \item If $b \notin [a]_R$ then $[a]_R \cap [b]_R = \varnothing$ from 3.
+\end{enumerate}
+
+\section{Partitions}
+\newthought{A partition} of a set is any unique \emph{region} of that set. Partitions do not share any elements but together
+they make up the whole set. Consider the set $X=\{0,1,2,3,4,5,6,7,8\}$ and $P = \{0,1,2 \mid 3,4 \mid 5,6,7 \mid 8\}$
+where $|$ represents the partition border (\cref{fig:partition}). If we define $R$ on $X$ to be any $(x,y)$ in the same \emph{cell} of $P$,
+then
+\begin{align*}
+  R = \{(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2),(3,3),(3,4),\\
+  (4,3),(4,4),(5,5),(5,6),(5,7),(6,5),(6,6),(6,7),(7,5),(7,6),(7,7),(8,8)\}
+\end{align*}
+which is a disjoint union of four equivalence classes (\cref{fig:partition-to-equivclass}).
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[scale=1.5]
+
+    % Dimensions for the main rectangle
+    \def\totalwidth{4.5} % Scaled overall width
+    \def\rectheight{2.5}
+    \def\totalelements{9} % Total elements across all partitions (3 + 2 + 3 + 1 = 9)
+    \def\unitwidth{\totalwidth / \totalelements}
+
+    % X-coordinates for partition boundaries based on element counts:
+    % Partition 1 ({0,1,2}): 3 elements
+    % Partition 2 ({3,4}): 2 elements
+    % Partition 3 ({5,6,7}): 3 elements
+    % Partition 4 ({8}): 1 element
+    \def\xzero{0}
+    \def\xone{\unitwidth * 3}
+    \def\xtwo{\unitwidth * 5}
+    \def\xthree{\unitwidth * 8}
+    \def\xfour{\unitwidth * 9}
+
+    % Fill partitions using built-in colors with 50% opacity (!50)
+    \fill[red!25]    (\xzero, 0) rectangle (\xone, \rectheight);
+    \fill[green!25]  (\xone, 0)  rectangle (\xtwo, \rectheight);
+    \fill[blue!25]   (\xtwo, 0)  rectangle (\xthree, \rectheight);
+    \fill[orange!25] (\xthree, 0) rectangle (\xfour, \rectheight);
+
+    % Outer border
+    \draw[thick] (0, 0) rectangle (\xfour, \rectheight);
+
+    % Internal vertical divider lines
+    \draw[thick] (\xone, 0) -- (\xone, \rectheight);
+    \draw[thick] (\xtwo, 0) -- (\xtwo, \rectheight);
+    \draw[thick] (\xthree, 0) -- (\xthree, \rectheight);
+
+    % Overall set label 'P'
+    \node[anchor=south west, inner sep=0pt, outer sep=0pt, shift={(0.1cm,0.05cm)}] at (\xfour, \rectheight) {\Large $X$};
+
+    % Partition set labels underneath (centered under their respective dynamic segments)
+    \node[anchor=north] at ({(\xzero + \xone)/2}, -0.1) {$\{0, 1, 2\}$};
+    \node[anchor=north] at ({(\xone + \xtwo)/2}, -0.1) {$\{3, 4\}$};
+    \node[anchor=north] at ({(\xtwo + \xthree)/2}, -0.1) {$\{5, 6, 7\}$};
+    \node[anchor=north] at ({(\xthree + \xfour)/2}, -0.1) {$\{8\}$};
+
+  \end{tikzpicture}
+  \caption{Partition diagram representing $P = \{0,1,2 \mid 3,4 \mid 5,6,7 \mid 8\}$.}
+  \label{fig:partition}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+      node_style/.style={circle, draw, minimum size=0.7cm, fill=blue!25, font=\small},
+      edge_style/.style={->, >=Stealth, thick, black, opacity=0.8},
+      loop_style/.style={->, >=Stealth, thick, black}
+    ]
+    % Nodes arranged in a pentagon, 1 at top
+    \node[node_style] (a0) at (0:2)  {0};
+    \node[node_style] (a1) at (40:2)  {1};
+    \node[node_style] (a2) at (80:2)  {2};
+    \node[node_style] (a3) at (120:2)  {3};
+    \node[node_style] (a4) at (160:2)  {4};
+    \node[node_style] (a5) at (200:2)  {5};
+    \node[node_style] (a6) at (240:2)  {6};
+    \node[node_style] (a7) at (280:2)  {7};
+    \node[node_style] (a8) at (320:2)  {8};
+
+    \draw[loop_style] (a0) to[loop right] (a0);
+    \draw[loop_style] (a1) to[loop right] (a1);
+    \draw[loop_style] (a2) to[loop above] (a2);
+    \draw[loop_style] (a3) to[loop left] (a3);
+    \draw[loop_style] (a4) to[loop left] (a4);
+    \draw[loop_style] (a5) to[loop left] (a5);
+    \draw[loop_style] (a6) to[loop below] (a6);
+    \draw[loop_style] (a7) to[loop below] (a7);
+    \draw[loop_style] (a8) to[loop right] (a8);
+
+    % Non-trivial relations (a divides b, a != b)
+    \draw[edge_style] (a0) -- (a1);
+    \draw[edge_style] (a0) -- (a2);
+    \draw[edge_style] (a1) -- (a2);
+    \draw[edge_style] (a3) -- (a4);
+    \draw[edge_style] (a5) -- (a6);
+    \draw[edge_style] (a5) -- (a7);
+    \draw[edge_style] (a6) -- (a7);
+    \draw[edge_style] (a2) -- (a0);
+    \draw[edge_style] (a2) -- (a1);
+    \draw[edge_style] (a1) -- (a0);
+    \draw[edge_style] (a4) -- (a3);
+    \draw[edge_style] (a6) -- (a5);
+    \draw[edge_style] (a7) -- (a5);
+    \draw[edge_style] (a7) -- (a6);
+
+  \end{tikzpicture}
+  \caption{Directed graph of $R$.}
+  \label{fig:partition-to-equivclass}
+\end{figure}
+So, partitioning sets gives rise to equivalence classes, and equivalence classes give rise to partitioned sets. Partitions
+and equivalence classes are two representations of the same underlying mathematical object.
+
+\section{Building the Rationals from the Integers}
+\newthought{Assume} we have integers, then the rationals are an equivalence relation on
+$\mathbb{Z} \times \mathbb{Z}\backslash\{0\}$. Specifically, for two tuples $(a,b)$ and $(c,d) \in \mathbb{Q}$,
+$(a,b) \sim (c,d)$ if $ad=bc$, since $ad=bc$ is equivalent to $\dfrac{a}{b} \div \dfrac{c}{d} = 1$. For example,
+$(1,2) \sim (2,4) \sim (-30,-60)$ are all representations of the same number $0.5$.
+
+\newthought{Any rational number} $\dfrac{a}{b}$ is the unique equivalence class
+$[(a,b)]_{\mathbb{Z} \times \mathbb{Z}\backslash\{0\}}$ where $(a,b)$ is usually the number \emph{in lowest terms}. For example,
+\[
+  [(1,2)]=\{(1,2),(2,4),(3,6),(4,8),\ldots\}
+\]
+This solves the problem of uniqueness. Without representation of the rationals in this way, there is no unique characteristic
+that seperates $\dfrac{1}{2}$ from $\dfrac{2}{4}$, as they are both the number $0.5$. However, there is a unique
+\emph{equivalence class} representing $0.5$ in all its forms.
+
+\chapter{Congruence of Integers}
+\section{Modular Arithmetic}
+\subsection{The Euclidian Algorithm}
+\section{Some Number Theory}
+\section{The rings $\mathbb{Z}_m$}
+
+
+
+
+\end{document}
