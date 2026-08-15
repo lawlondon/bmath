@@ -23,7 +23,8 @@
 \usepackage{wrapfig}
 
 \geometry{a5paper, top=1.5cm, bottom=2cm, inner=1.8cm, outer=1.2cm}
-\usetikzlibrary{arrows.meta, positioning, pgfplots.fillbetween}
+\usetikzlibrary{arrows.meta, positioning, pgfplots.fillbetween, external}
+\tikzexternalize[prefix=figures-cache/]
 
 \titleformat{\chapter}[display]{\normalfont\large\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\large}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
@@ -99,7 +100,7 @@ Sturm-Liouville theory.
 \part{Essentials of Multivariable Calculus}
 \chapter{Vectors, Vector Valued Functions, and Functions of Several Variables}
 \section{The Vector Space $\mathbb{R}^n$}
-\newthought{A vector space} $V$ on $\mathbb{F}$ is the set $V$ of objects named \emph{vectors} and a field\footnote{refer: Algebra}
+\newthought{A vector space} $V$ on $\mathbb{F}$ is the set $V$ of objects named \emph{vectors} and a field\footnote{\ refer: Algebra}
 $\mathbb{F}$ of objects name \emph{scalars}, with two operations \emph{vector addition} and \emph{scalar multiplication} defined:
 \begin{enumerate}
   \item Vector Addition: $+$: $V \times V \to V$
@@ -121,7 +122,7 @@ real numbers, with arithmetic defined above.
 
 \newthought{The dot product} of two vectors is defined:
 \[\mathbf{a} \cdot \mathbf{b} = \sum_{n=1}^{n}a_ib_i\]
-for two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$. An alternative formulation of the dot product is:
+for two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$. It is also known as the scalar or inner product. An alternative formulation of the dot product is:
 \[\mathbf{a} \cdot \mathbf{b} = \|\mathbf{a}\|\ \|\mathbf{b}\| \cos\theta\]
 where $\theta$ is the angle between $\mathbf{a}$ and $\mathbf{b}$, and $\|\mathbf{a}\|$ is the magnitude, or length, of $\mathbf{a}$.
 Thus, two orthogonal vectors will have a dot product of 0 (since $\cos(\pi / 2) = 0$) and two parallel vectors will have a dot product
@@ -185,8 +186,8 @@ $l = \{(x,f(x)) : x \in D\}$
 as the set of all points that satisfy $(x,f(x))$, we can define an $n+1$ dimensional surface of a function
 $f: D \subseteq \mathbb{R}^n \to R \subseteq \mathbb{R}$ of $n$ variables by
 \[S = \{(x_1,x_2,\ldots,x_n,f(x_1,x_2,\ldots,x_n)) : x_1, \ldots, x_n \in D\}\]
-Allowing an $n+1$ dimensional alien to understand its plot. The only application where this is useful to humans is to plot $z = f(x,y)$ In
-three dimensions.
+Allowing an $n+1$ dimensional alien to understand its plot. The only applications where this is useful to humans is to plot $z = f(x,y)$
+or every point $(x,y,z)$ that satisfies $f(x,y,z) = k$ for some $k \in \mathbb{R}$ in three dimensions.
 
 \newthought{Fields} are mappings $\mathbb{R}^n \to \mathbb{R}^m$, usually $\mathbb{R}^3 \to \mathbb{R}^m$. They can be thought of as
 assigning to every point in space a vector in $\mathbb{R}^m$. A common example is a force or electromagnetic field. A scalar field is a
@@ -194,7 +195,348 @@ special multivariable function of three variables that assigns to every point in
 covered in Chapter 8.
 
 \chapter{Limits and Continuity}
+\section{Functions of One Variable}
+\newthought{A function} $f$ approaches a limit $l$ near $a$ if for every $\epsilon > 0$, there exists some $\delta > 0$, such that if $ 0 < |x-a| < \delta$,
+then $|f(x)-l|<\epsilon$.
+
+This is a precise way of writing that if a function approaches a value $l$ near $a$, then no matter how small of an interval we draw around $l$, we will always
+be able to draw an interval around $a$, where $f(x)$ is within that interval of $l$. It will become clear in the examples why this definition matches the intuitive
+understanding of what a limit should be.
+
+\begin{wrapfigure}{o}{0.4\textwidth}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=0.38\textwidth,
+        height=4.5cm,
+        axis lines=center,
+        xlabel={$x$},
+        ylabel={$f(x)$},
+        ticks=none,
+        xmin=-2.5, xmax=2.5,
+        ymin=-0.5, ymax=5,
+      ]
+      \addplot[black, thick, samples=100, domain=-2:2] {(x^2)};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{$f(x)=x^2$.}
+  \label{fig:x2}
+\end{wrapfigure}
+\newthought{Consider} $f(x)=x^2$ (\cref{fig:x2}). Obviously it approaches 0 near 0 (and $a^2$ near $a$), but how would we show that?
+We have to decide how to ensure that $|x^2-a^2| < \epsilon$ whenever $|x-a| < \delta$. We want
+\[|x^2-a^2| = |x-a| \cdot |x+a| < \epsilon\]
+The factor $|x+a|$ is obviously the problem, but as long as we know \emph{an} upper bound $M$ for it, we can just ensure that $|x-a|<1/M$.
+If we take $|x+a|<1$, then
+\[|x+a| = |(x-a)+2a| \le |x-a| + |2a| < 1 + 2|a|\]
+Now, we just need
+\[|x-a| < \dfrac{\epsilon}{1+2|a|}\]
+for $|x^2-a^2| < \epsilon$. So, let $\epsilon > 0$, choose $\delta = \min\left(1,\dfrac{\epsilon}{1+2|a|}\right)$. Then $\delta \le 1$,
+so $|x-a|<1$ and $|x+a|<1+2|a|$. Consider $|x^2-a^2| = |x-a| \cdot |x+a|$. Substituting our bounds,
+$|x^2-a^2| = \delta \cdot (1+2|a|) \le \dfrac{\epsilon}{1+2|a|} \cdot (1+2|a|) = \epsilon$.
+
+So for every $\epsilon$, there is an interval around $a$, equal to $a \pm \min\left(1,\dfrac{\epsilon}{1+2|a|}\right)$ that will ensure $|f(x)-l| < \epsilon$.
+
+\newthought{Consider} $f(x)=\sin(1/x)$. (\cref{fig:sin1x})
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=6cm,
+        axis lines=center,
+        xlabel={$x$},
+        ylabel={$f(x)$},
+        ytick={-1,1},
+        yticklabels={},
+        xticklabel style={font=\scriptsize, inner sep=1pt},
+        xtick={-0.4,-0.2,0.2,0.4},
+        xmin=-0.5, xmax=0.5,
+        ymin=-1.4, ymax=1.4,
+      ]
+      \addplot[black, domain=0.5:500, samples=9999] ({1/x}, {sin(deg(x))});
+      \addplot[black, domain=0.5:500, samples=9999] ({-1/x}, {sin(deg(x))});
+    \end{axis}
+  \end{tikzpicture}
+  \caption{$f(x)=\sin(1/x)$.}
+  \label{fig:sin1x}
+\end{figure}
+This function oscillates wildly as $x \to 0$ and so does not approach any value at $x=0$. The intuition for this fact is that no matter how small we make an
+interval containing $0$, we will always be able to choose a large enough natural number $n$, such that there is a point $a=\dfrac{2}{\pi(1+4n)}$ where $\sin{a}=1$, and
+a point $b=\dfrac{2}{\pi(3+4n)}$ where $\sin{b}=-1$.
+
+Assume for contradiction that $\lim_{x \to 0}\sin{1/x}=l$. Let $\epsilon=1/2$ and $\delta > 0$. Now choose a sufficiently large natural number $n$, such that
+$a=\dfrac{2}{\pi(1+4n)}< \delta$. Then, there will also be the point $b=\dfrac{2}{\pi(3+4n)} < a < \delta$. Then,
+\begin{alignat*}{2}
+  |f(a)-l| & = |1-l|   &  & < \epsilon = \dfrac{1}{2} \\
+  |f(b)-l| & = | -1-l| &  & < \epsilon = \dfrac{1}{2}
+\end{alignat*}
+
+By the triangle inequality
+\[
+  |1+1| = |(1-l)+(1+l)| \le |1-l| + |1+l| < \dfrac{1}{2} + \dfrac{1}{2} = 1 \implies 2 < 1
+\]
+Which is a contradiction. So our original assumption that the limit exists and equals $l$ must be wrong. \qed
+
+\newthought{A slightly more complicated example.}
+\[
+  f(x) =
+  \begin{cases}
+    0            & x \text{ irrational, } 0 < x < 1                     \\
+    \dfrac{1}{q} & x = \dfrac{p}{q} \text{ in lowest terms, } 0 < x < 1
+  \end{cases}
+\]
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=8cm,
+        axis lines=center,
+        xlabel={$x$},
+        ylabel={$f(x)$},
+        ytick={1/7,1/6,1/5,1/4,1/3,1/2},
+        xticklabel style = {
+          font=\tiny,
+          rotate=45,
+          anchor=north east,
+          inner sep=2pt
+        },
+        yticklabel style = {
+          font=\scriptsize,
+          inner sep=1pt
+        },
+        xtick={1/2,1/3,2/3,1/4,3/4,1/5,2/5,3/5,4/5,1/6,5/6,1},
+        xmin=-0.1, xmax=1.1,
+        ymin=-0.1, ymax=0.6,
+        samples=100
+      ]
+      \addplot[only marks, mark=*, black] coordinates {
+        (1/2,1/2)
+        (1/3,1/3)
+        (2/3,1/3)
+        (1/4,1/4)
+        (3/4,1/4)
+        (1/5,1/5)
+        (2/5,1/5)
+        (3/5,1/5)
+        (4/5,1/5)
+        (1/6,1/6)
+        (5/6,1/6)
+        (1/7,1/7)
+        (2/7,1/7)
+        (3/7,1/7)
+        (4/7,1/7)
+        (5/7,1/7)
+        (6/7,1/7)
+        (1/8,1/8)
+        (3/8,1/8)
+        (5/8,1/8)
+        (7/8,1/8)
+      };
+      \addplot[only marks, mark=*, black] coordinates {
+        (0.01,0)
+        (0.025,0)
+        (0.04,0)
+        (0.055,0)
+        (0.07,0)
+        (0.085,0)
+        (0.1,0)
+        (0.115,0)
+        (0.13,0)
+        (0.145,0)
+        (0.16,0)
+        (0.175,0)
+        (0.19,0)
+        (0.205,0)
+        (0.22,0)
+        (0.235,0)
+        (0.25,0)
+        (0.265,0)
+        (0.28,0)
+        (0.295,0)
+        (0.31,0)
+        (0.325,0)
+        (0.34,0)
+        (0.355,0)
+        (0.37,0)
+        (0.385,0)
+        (0.4,0)
+        (0.415,0)
+        (0.43,0)
+        (0.445,0)
+        (0.46,0)
+        (0.475,0)
+        (0.49,0)
+        (0.505,0)
+        (0.52,0)
+        (0.535,0)
+        (0.55,0)
+        (0.565,0)
+        (0.58,0)
+        (0.595,0)
+        (0.61,0)
+        (0.625,0)
+        (0.64,0)
+        (0.655,0)
+        (0.67,0)
+        (0.685,0)
+        (0.7,0)
+        (0.715,0)
+        (0.73,0)
+        (0.745,0)
+        (0.76,0)
+        (0.775,0)
+        (0.79,0)
+        (0.805,0)
+        (0.82,0)
+        (0.835,0)
+        (0.85,0)
+        (0.865,0)
+        (0.88,0)
+        (0.895,0)
+        (0.91,0)
+        (0.925,0)
+        (0.94,0)
+        (0.955,0)
+        (0.97,0)
+        (0.985,0)
+        (0.99,0)
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{$f(x)$.}
+  \label{fig:complicatedlimexample}
+\end{figure}
+
+Perhaps counterintuitively at the moment, this function approaches $0$ at $a$.
+Recall the definition of a limit, the function $f$ \emph{approaches} $l$ at $a$ if for every
+$\epsilon > 0, \ \exists \delta > 0, \text{ with }0< |x-a|<\delta, \text{ and } |f(x)-l|< \epsilon$.
+We don't actually care what $f(a)$ is, since the difference between $x$ and $a$ will always be greater
+than $0$, the value at $f(a)$ is irrelevant.
+
+Let $\epsilon > 0$ be given. Choose a sufficiently large
+natural number $n$ such that $1/n < \epsilon$. The only numbers $x$ where $|f(x)-0|<\epsilon$ could be false are
+\[
+  \frac12,\ \frac13,\ \frac23,\ \frac14,\ \frac34,\ \frac15,\ \frac25,\ \mathellipsis,\ \frac{1}{n},\ \mathellipsis,\ \frac{n-1}{n}
+\]
+the set of which we can call $S$.
+
+However many of these numbers there are, there are only finitely many, and so one of them is closest to $a$. That is,
+$|p/q-a|$ is smallest for one specific $p/q \in S$. If $a$ is in $S$, then just consider all the elements of $S \ne a$.
+If we chose $\delta$ to be this smallest distance then for all $x$ satisfying $0 < |x-a| < \delta$, $x$ is guaranteed not
+to be in $S$, and therefore $|f(x)-0|<\epsilon$, which completes our proof. \qed
+
+There is no need to give $\delta$ in terms of $\epsilon$, since there is nowhere in the definition
+$\mathellipsis \forall \epsilon, \ \exists \delta \mathellipsis$ that says each $\epsilon$ needs a \emph{unique} $\delta$.
+
+\subsection{Divergence to, and Limits at, Infinity}
+\newthought{The definition of a limit} can be modified to handle divergence to infinity. A function $l$ approaches $\infty$ near $a$
+if for every $M > 0$, there exists a $\delta$ such that, whenever $|x-a| < \delta$, $f(x) > M$. No matter how large $M$ is, there will
+always be an interval we can draw around $a$, such that $f(x) > M$.
+
+\begin{wrapfigure}[8]{o}{0.4\textwidth}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=0.38\textwidth,
+        height=4cm,
+        axis lines=center,
+        xlabel={$x$},
+        ylabel={$f(x)$},
+        xticks=none,
+        xmin=-2.5, xmax=2.5,
+        ymin=-2, ymax=2,
+      ]
+      \addplot[blue, thick, samples=100, domain=-2:0] {-1};
+      \addplot[blue, thick, samples=100, domain=0:2] {1};
+      \draw[fill=white, draw=black, thick] (axis cs:0,-1) circle (2pt);
+      \draw[fill=white, draw=black, thick] (axis cs:0,1) circle (2pt);
+    \end{axis}
+  \end{tikzpicture}
+  \caption{The derivative of the absolute value function.}
+  \label{fig:one-sided-limit}
+\end{wrapfigure}
+\newthought{Limits at infinity} have a similar modified definition. A function $f$ approaches a limit $l$ near $\infty$ if for every
+$\epsilon > 0$, there exists an $M > 0$ such that if $x > M$, $|f(x)-l| < \epsilon$. For every interval around the limit we draw, there is
+always a point on the number line that ensures we are within that interval.
+
+\subsection{One Sided Limits}
+
+\newthought{One sided limits} are exactly the same as the full limit, except that $x$ is only considered to be approaching $a$ from
+the left or the right. The full limit only exists if both one sided limits equal, but it is possible for either one sided limit to exist
+independently.
+
+For example, define (\cref{fig:one-sided-limit}) \[f(x) \coloneqq \dfrac{d|x|}{dx} =
+  \begin{cases}
+    -1 & x<0 \\
+    1 & x>0
+\end{cases}\]
+If we examine what $f$ does as $x \to 0$ from the left, its quite obvious that it approaches -1, and 1 from the right. We say that
+\begin{align*}
+  \lim_{x \to 0^-}f(x) &= -1 \\
+  \lim_{x \to 0^+}f(x) &= 1
+\end{align*}
+but the full limit:\[\lim_{x \to 0}f(x)\]is not defined.
+\section{Vector Valued Functions}
+\newthought{We get these for free.} Just define
+\[\lim_{t \to a}\mathbf{r}(t) \coloneqq \left( \lim_{t \to a}x_1(t), \lim_{t \to a}x_2(t), \ldots, \lim_{t \to a}x_n(t)\right) \]
+If the limits of the coordinate functions exist, then they can be evaluated using the same techniques as single variable functions
+
+\section{Techniques for Evaluating Limits}
+\newthought{The limit laws} allow for breaking up complicated limits in several trivial to solve limits.
+\begin{enumerate}
+  \item $\lim_{x \to a}(f+g)(x) = \lim_{x \to a}f(x) + \lim_{x \to a}g(x)$
+  \item $\lim_{x \to a}f(x) \cdot g(x) = \lim_{x \to a}f(x) \cdot \lim_{x \to a}g(x)$
+  \item $\lim_{x \to a}c \cdot f(x) = c \cdot \lim_{x \to a}f(x)$
+  \item $\lim_{x \to a}\left(\dfrac{f(x)}{g(x)}\right) = \dfrac{\lim_{x \to a}f(x)}{\lim_{x \to a}g(x)}$
+  \item If $\lim_{x \to a}g(x) = l$ and $f$ is continuous at $l$, then $\lim_{x \to a}f(g(x)) = f(l)$
+\end{enumerate}
+
+\newthought{The squeeze theorem} states that if $g(x) \le f(x) \le h(x)$ and $\lim_{x \to a}g(x) = l = \lim_{x \to a}h(x)$, then
+$\lim_{x \to a}f(x) = l$.
+
+\newthought{L'H$\hat{\text{o}}$pital's Rule} states that if $f$ and $g$ are differentiable, and $\lim_{x \to a}f(x) = \lim_{x \to a}g(x) = 0$ or $\pm \infty$,
+then $\lim_{x \to a}\dfrac{f(x)}{g(x)} = \lim_{x \to a}\dfrac{f'(x)}{g'(x)}$.
+
+Proofs of these assertions are a bit beyond the scope of these notes.
+
+\section{Limits of Multivariable Functions}
+\newthought{For limits} of multivariable functions, one must consider every possible path to $a$. Just like with functions of one variable,
+where we require the left and right sided limits to equal, for multivariable functions, we require all paths to be equal. For example:
+\[\lim_{(x,y) \to (0,0)}f(x,y) = \dfrac{xy}{x^2+y^2}\]
+Consider the path $x=y$:
+\[\lim_{(x,y) \to (x,x)}f(x,y) = \lim_{(x,y) \to (x,x)}\dfrac{x^2}{x^2+x^2} = \dfrac{1}{2}\]
+Now, consider the path $x=0$:
+\[\lim_{(x,y) \to (0,y)}f(x,y) = \lim_{(x,y) \to (0,y)}\dfrac{0}{y^2} = 0 \ne \dfrac{1}{2}\]
+Thus, the limit does not exist.
+
+The technique for solving limits of multivariable functions is to investigate a few paths to observe their behaviour. If the limit exists
+then a symbolic proof must be given to cover all possible paths. Otherwise, one example will suffice. Evaluating the limit uses similar
+techniques to single variable limits.
+
+Consider\[\lim_{(x,y) \to (0,0)}\dfrac{x^2+x+xy+y}{x+y}\]Naively evaluating $(0,0)$ produces an indeterminate $\dfrac{0}{0}$, but
+L'H$\hat{\text{o}}$pital's rule is not defined for multivariable functions. However if we factorise the numerator:
+\[\lim_{(x,y) \to (0,0)}\dfrac{x^2+x+xy+y}{x+y} = \lim_{(x,y) \to (0,0)}\dfrac{(x+y)(x+1)}{x+y} = \lim_{(x,y) \to (0,0)}x+1 = 1\]
+We did not make any assumptions about the path taken by $x$ and $y$ to $(0,0)$, and so this symbolic proof remains true for every
+possible path.
+
+\section{Continuity}
+\newthought{A function is continuous} if $\lim_{x \to a}f(x) = f(a)$. Common continuous functions include
+\begin{enumerate}
+  \item All polynomials $p_o + p_1x + p_2x^2 + \ldots + p_nx^n$.
+  \item All rational functions $R(x) = \dfrac{P(x)}{Q(x)}$ except where $Q(x)=0$.
+  \item $\sin x$ and $\cos x$.
+  \item $e^x$ and $\ln x$ (on its domain $x \in (0,\infty)$).
+  \item $x^{\alpha}$ for $\alpha \in \mathbb{R}$ and $x>0$.
+  \item Linear combinations and products of continuous functions are continuous.
+  \item Ratios of continuous functions are continuous, provided the denominator is not 0.
+  \item $f(g(x))$ is continuous when $g(x)$ is continuous, provided the codomain of $g$ is the domain of $f$.
+\end{enumerate}
+
 \chapter{Derivatives}
+\newthought{For a function} $f$, define its \emph{derivative} at $a$:
+\[f'(a) = \lim_{h \to 0}\dfrac{f(a+h)-f(a)}{h}\]
+
 \chapter{Applications of the Derivative}
 \chapter{The Riemann Integral}
 \chapter{Double and Triple Integrals}
