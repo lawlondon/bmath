@@ -99,7 +99,7 @@ Sturm-Liouville theory.
     \bottomrule
   \end{tabular}
 \end{center}
-\mainmatter
+\mainmatter\
 
 \part{Essentials of Multivariable Calculus}
 \chapter{Vectors, Vector Valued Functions, and Functions of Several Variables}
@@ -133,7 +133,7 @@ them as ordered lists of
 real numbers, with arithmetic defined above.
 
 \newthought{The dot product} of two vectors is defined:
-\[\mathbf{a} \cdot \mathbf{b} = \sum_{n=1}^{n}a_ib_i\]
+\[\mathbf{a} \cdot \mathbf{b} = \sum_{n=1}^{n}a_i b_i\]
 for two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$. It is also known as the scalar or inner product.
 An alternative
 formulation of the dot product is:
@@ -189,7 +189,7 @@ and one point in the plane,
 it is easy to determine an equation for that plane, since the dot product of \emph{any} vector in the plane
 with the normal
 vector will be 0.
-\[\mathbf{n} \cdot (x,y,z) = n_xx + n_yy + n_zz + d = 0\]
+\[\mathbf{n} \cdot (x,y,z) = n_x x + n_y y + n_z z + d = 0\]
 Simply plug in the $(x,y,z)$ that you know to determine the correct value of $d$.
 
 \section{Vector Valued Functions}
@@ -284,7 +284,7 @@ So for every $\epsilon$, there is an interval around $a$, equal to $a \pm
 \min\left(1,\dfrac{\epsilon}{1+2|a|}\right)$ that will
 ensure $|f(x)-l| < \epsilon$.
 
-\newthought{Consider} $f(x)=\sin(1/x)$. (\cref{fig:sin1x})
+\newthought{Consider} $f(x)=\sin(1/x)$.\ (\cref{fig:sin1x})
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}
@@ -328,7 +328,7 @@ By the triangle inequality
 \[
   |1+1| = |(1-l)+(1+l)| \le |1-l| + |1+l| < \dfrac{1}{2} + \dfrac{1}{2} = 1 \implies 2 < 1
 \]
-Which is a contradiction. So our original assumption that the limit exists and equals $l$ must be wrong. \qed
+Which is a contradiction. So our original assumption that the limit exists and equals $l$ must be wrong.\qed\
 
 \newthought{A slightly more complicated example.} \cref{fig:complicatedlimexample}
 \[
@@ -478,7 +478,7 @@ However many of these numbers there are, there are only finitely many, and so on
 $|p/q-a|$ is smallest for one specific $p/q \in S$. If $a$ is in $S$, then just consider all the elements of $S \ne a$.
 If we chose $\delta$ to be this smallest distance then for all $x$ satisfying $0 < |x-a| < \delta$, $x$ is
 guaranteed not
-to be in $S$, and therefore $|f(x)-0|<\epsilon$, which completes our proof. \qed
+to be in $S$, and therefore $|f(x)-0|<\epsilon$, which completes our proof.\qed\
 
 There is no need to give $\delta$ in terms of $\epsilon$, since there is nowhere in the definition
 $\mathellipsis \forall \epsilon, \ \exists \delta \mathellipsis$ that says each $\epsilon$ needs a
@@ -597,7 +597,7 @@ possible path.
 \section{Continuity}
 \newthought{A function is continuous} if $\lim_{x \to a}f(x) = f(a)$. Common continuous functions include
 \begin{enumerate}
-  \item All polynomials $p_o + p_1x + p_2x^2 + \ldots + p_nx^n$.
+  \item All polynomials $p_o + p_1 x + p_2 x^2 + \cdots + p_n x^n$.
   \item All rational functions $R(x) = \dfrac{P(x)}{Q(x)}$ except where $Q(x)=0$.
   \item $\sin x$ and $\cos x$.
   \item $e^x$ and $\ln x$ (on its domain $x \in (0,\infty)$).
@@ -650,7 +650,7 @@ at $a$ (\cref{fig:derivative1}):
   &= 0  \\
   \implies \lim_{h \to 0}f(a+h)-f(a) &= 0 \\
   \implies \lim_{x \to a}f(x) &= f(a)
-\end{align*} \qed
+\end{align*} \qed\
 
 Note the inverse is certainly not true. The absolute value function is continuous everywhere, but not
 differentiable at 0 (\cref{fig:one-sided-limit}).
@@ -682,7 +682,7 @@ function like \cref{fig:con-everywhere-diff-nowhere}
       \addplot[black, thick, samples=200, domain=9:10] {(-1)*x+10};
     \end{axis}
   \end{tikzpicture}
-  \caption{A "sawtooth" like function is not differentiable at its points. In the limit as the number of
+  \caption{A `sawtooth' like function is not differentiable at its points. In the limit as the number of
     points goes to $\infty$,
   differentiability goes to 0.}
   \label{fig:con-everywhere-diff-nowhere}
@@ -692,17 +692,17 @@ function like \cref{fig:con-everywhere-diff-nowhere}
 distance from an origin w.r.t time, then $d'(t)$ represents the velocity of the object w.r.t time. If
 $v(t)=d'(t)$, then $v'(t)$ represents the acceleration w.r.t time. We say that acceleration is the
 \emph{second derivative} of $d(t)$, written $d''(t)$. Define
-\[f^{(n)} \coloneqq (((f')')')^{\cdots}\]
+\[f^{(n)} \coloneqq {(((f')')')}^{\cdots}\]
 To be the $n^{th}$ derivative of $f$. This collection of derivatives are known as higher-order derivatives.
 
 \subsection{Notation}
-\newthought{For single variable functions} Newton's $f'$, $f''$, $f'''$, etc. is unambiguous. However, when partial
+\newthought{For single variable functions} Newton's $f'$, $f''$, $f''\,'$, etc.\ is unambiguous. However, when partial
 derivatives of functions of several variables are introduced, it will become necessary to specify which variable
 the function is being differentiated with respect to. For this reason, Leibniz's operator notation is commonly used.
 \begin{align*}
   \dfrac{df}{dx} &= f'(x) \\
-  \dfrac{d^2f}{dx^2} &= f''(x) \\
-  \dfrac{d^nf}{dx^n} &= f^{(n)}(x)
+  \dfrac{d^2 f}{dx^2} &= f''(x) \\
+  \dfrac{d^n f}{dx^n} &= f^{(n)}(x)
 \end{align*}
 
 \section{Differentiating}
@@ -754,7 +754,7 @@ For example:
     \bottomrule
   \end{tabular}
 
-  \columnbreak
+  \columnbreak\
 
   \begin{tabular}{cc}
     \toprule
@@ -771,7 +771,7 @@ For example:
     $a^x \quad (a>0)$ & $a^x \ln a$ \\
     $x^x$ & $x^x(\ln x + 1)$ \\
     $\ln x$ & $1/x$ \\
-    $\log_a x \ (a>0,\ a\neq 1)$ & $1/x\ln a$ \\
+    $\log_a x \ (a>0,\ a\neq 1)$ & $1/(x\ln a)$ \\
     $\dfrac{1}{x^n+a}$ & $-\dfrac{nx^{n-1}}{{(x^n+a)}^2}$ \\
     \bottomrule
   \end{tabular}
@@ -798,5 +798,91 @@ the velocity at $t$ (including direction). Acceleration is given by $\mathbf{r}'
 $\mathbf{T}'(t)$.
 
 \section{Multivariable Functions}
+\newthought{For a function} $f: \mathbb{R}^n \to \mathbb{R}$, we cannot meaningfully speak about the derivative of $f$
+before first deciding which variable we are differentiating with respect to. Define the \emph{partial derivative} of
+$f$ w.r.t $x_n$ at $\mathbf{c}$:
+\[f'_{xi}(\mathbf{c})=\dfrac{\partial f(\mathbf{c})}{\partial x_i} = \lim_{h \to
+0}\dfrac{f(c_{x1},\ldots,c_{xi}+h,c_{xn})-f(\mathbf{c})}{h}\]
+This is calculated by treating all other $x_j \in \mathbf{c}$ as constants, and differentiating only w.r.t $x_i$. They
+can then be read from derivative tables or calculated using the methods of single variable functions.
+
+If we imagine a path along some surface in $\mathbb{R}^3$ defined by $S=\{(x,y,f(x,y))\}$, fixing $y=b$ and $x=a$:
+\begin{align*}
+  \mathbf{r}_x(x) &= (x,b,f(x,b)) \\
+  \mathbf{r}_y(y) &= (a,y,f(a,y))
+\end{align*}
+describe curves of constant $y$ and $x$ respecively along $S$. Taking their first partial derivatives w.r.t $x$ and $y$,
+\begin{align*}
+  \mathbf{r}'_x(x) &= (1,0,f'_{x}(a,b)) \\
+  \mathbf{r}'_y(y) &= (0,1,f'_{y}(a,b))
+\end{align*}
+we arrive at two vectors perpendicular to $S$ at $(a,b,f(a,b))$, and thus they form a \emph{tangent plane} $P$ to
+$S$. We can now obtain a normal vector to that plane:
+\[\mathbf{n} = \mathbf{r}'_x(x) \times \mathbf{r}'_y(y) = (-f'_{x}(a,b),-f'_{y}(a,b),1)\]
+Since $\mathbf{n}$ is necessarily perpendicular to $P$, its dot product with any vector in $P$ is 0, and so
+it takes the form:
+\[-f'_{x}(a,b)x-f'_{y}(a,b)y+z=d\]
+For some $d \in \mathbb{R}$, which can be determined by using the fact that $(a,b,f(a,b)) \in P$.
+
+\subsection{Gradient Vector and Direction Derivatives}
+\newthought{Let} $f: \mathbb{R}^n \to \mathbb{R}$. Define the gradient operator:
+\[\Delta = \left( \dfrac{\partial}{\partial x_1},\dfrac{\partial}{\partial
+x_2},\ldots,\dfrac{\partial}{\partial x_n}  \right)\]
+to be the vector operator in $\mathbb{R}^n$ of each partial derivative w.r.t $x_i$. Then $\Delta
+f(\mathbf{c})$, called the gradient vector of $f$ at $\mathbf{c}$ is the $n$-dimensional vector, normal to a
+level curve of $f$ at $\mathbf{c}$ that points in the direction of maximum rate of change of $f$. This
+provides techniques for determining two properties of curves (if we're lucky!).
+
+\newthought{The directional derivative} of $f(\mathbf{c})$ towards $\mathbf{u}$ is the rate of change of
+$f(\mathbf{c})$ in the direction of
+$\mathbf{u}$. It can be calculated by taking the dot product of a unit vector in the direction of
+$\mathbf{u}$ with $\Delta f(\mathbf{c})$:
+\[\text{Directional Derivative} = \Delta f(\mathbf{c}) \cdot \dfrac{\mathbf{u}}{\|\mathbf{u}\|}\]
+
+\newthought{If $S$ is a level surface}, i.e. it is of the form $S = \{f(\mathbf{c}) = k\}$, then $\Delta
+f(\mathbf{c})$ has the same dimension as $\mathbf{c}$, and thus is normal to $S$. A tangent plane can then be
+described via the same technique above.
+
+\subsection{Chain Rule for Multivariable Functions}
+\newthought{If} $f$ is a function of $x_1, x_2, \ldots, x_n$, and $x_i$ is a function of $t$, then:
+\[\dfrac{df}{dt} = \sum_{i=1}^{n}\dfrac{\partial f}{\partial x_i}\dfrac{dx_i}{dt}\]
+Alternatively, if $x_i$ are functions of $s$ and $t$, then:
+\begin{align*}
+  \dfrac{\partial f}{\partial s} &= \sum_{i=1}^{n}\dfrac{\partial f}{\partial x_i}\dfrac{\partial x_i}{\partial s} \\
+  \dfrac{\partial f}{\partial t} &= \sum_{i=1}^{n}\dfrac{\partial f}{\partial x_i}\dfrac{\partial x_i}{\partial t}
+\end{align*}
+
+\subsection{The Jacobian Matrix}
+\newthought{If} $\mathbf{F}: \mathbb{R}^n \to \mathbb{R}^m$, then:
+\[
+  \mathbf{F}(x_1,x_2,\ldots,x_n) =
+  \begin{bmatrix}
+    f_1(x_1,x_2,\ldots,x_m) \\
+    f_2(x_1,x_2,\ldots,x_m) \\
+    \vdots \\
+    f_n(x_1,x_2,\ldots,x_m)
+  \end{bmatrix}
+\]
+The derivative of $\mathbf{F}$ is then an $n \times m$ matrix, called the Jacobian matrix made up of all
+partial derivatives of
+$\mathbf{F}$:
+\[
+  \mathbf{F}' =
+  \begin{bmatrix}
+    \dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} & \cdots & \dfrac{\partial
+    f_1}{\partial x_m} \\
+    \dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} & \cdots & \dfrac{\partial
+    f_2}{\partial x_m} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \dfrac{\partial f_n}{\partial x_1} & \dfrac{\partial f_n}{\partial x_2} & \cdots & \dfrac{\partial
+    f_n}{\partial x_m}
+  \end{bmatrix}
+\]
+
+If $(u,v,w) = \mathbf{F}(x,y,z)$ describes a coordinate transformation from $(x,y,z)$ to $(u,v,w)$, then the
+determinant of the Jacobian matrix, called the Jacobian, is a scaling factor needed when changing coordinate systems
+in integration, described further in Chapter 7.
+
+\chapter{Applications of the Derivative}
 
 \end{document}
