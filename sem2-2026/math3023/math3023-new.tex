@@ -21,6 +21,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{wrapfig}
+\usepackage{multicol}
 
 \geometry{a5paper, top=1.5cm, bottom=2cm, inner=1.8cm, outer=1.2cm}
 \usetikzlibrary{arrows.meta, positioning, pgfplots.fillbetween, external}
@@ -78,6 +79,7 @@ Sturm-Liouville theory.
     \midrule
     $\forall$       & For every \emph{or} for all   \\
     $\exists$       & There exists                  \\
+    $\implies$      & Implies                       \\
     $ \in $         & In \emph{or} is an element of \\
     $ \subset $     & Is a proper subset of         \\
     $ \subseteq $   & Is a subset of                \\
@@ -86,12 +88,14 @@ Sturm-Liouville theory.
     $ \backslash$   & Not \emph{or} without         \\
     $ \varnothing $ & Empty set                     \\
     $ \sim  $       & Relates to                    \\
+    $\mapsto$       & Maps to                       \\
     $ > $           & Greater than                  \\
     $ < $           & Less than                     \\
     $ \ge $         & Greater than or equal to      \\
     $ \le $         & Less than or equal to         \\
     $|n|$           & The absolute value of $n$     \\
     $\qedsymbol $   & It has been proven            \\
+
     \bottomrule
   \end{tabular}
 \end{center}
@@ -100,54 +104,74 @@ Sturm-Liouville theory.
 \part{Essentials of Multivariable Calculus}
 \chapter{Vectors, Vector Valued Functions, and Functions of Several Variables}
 \section{The Vector Space $\mathbb{R}^n$}
-\newthought{A vector space} $V$ on $\mathbb{F}$ is the set $V$ of objects named \emph{vectors} and a field\footnote{\ refer: Algebra}
-$\mathbb{F}$ of objects name \emph{scalars}, with two operations \emph{vector addition} and \emph{scalar multiplication} defined:
+\newthought{A vector space} $V$ on $\mathbb{F}$ is the set $V$ of objects named \emph{vectors} and a
+field\footnote{\ refer: Algebra}
+$\mathbb{F}$ of objects name \emph{scalars}, with two operations \emph{vector addition} and \emph{scalar
+multiplication} defined:
 \begin{enumerate}
   \item Vector Addition: $+$: $V \times V \to V$
   \item Scalar Multiplication: $\cdot$: $\mathbb{F} \times V \to V$
 \end{enumerate}
-That satisfies the axioms of a vector space. Namely that vector addition and scalar multiplication are both commutative, associative,
+That satisfies the axioms of a vector space. Namely that vector addition and scalar multiplication are both
+commutative, associative,
 and distributive, and that there exists additive and multiplicative identities and inverses.
 
-\newthought{The vector space $\mathbb{R}^n$} is the set $V = \{ (x_0, x_1, \ldots, x_n) : x_i \in \mathbb{R}\}$ over the real numbers.
-Elements of $V$ are said to be $n$-tuples of real numbers. Vector addition is defined to be the coordinate-wise addition of elements
+\newthought{The vector space $\mathbb{R}^n$} is the set $V = \{ (x_0, x_1, \ldots, x_n) : x_i \in
+\mathbb{R}\}$ over the real numbers.
+Elements of $V$ are said to be $n$-tuples of real numbers. Vector addition is defined to be the
+coordinate-wise addition of elements
 of $V$:
 \[(x_0, x_1, \ldots, x_n) + (x'_0, x'_1, \ldots, x'_n) = (x_0 + x'_0, x_1 + x'_1, \ldots, x_n + x'_n)\]
-with the usual arithmetic inherited from the real numbers. Scalar multiplication is defined as the distributive multiplication of each
+with the usual arithmetic inherited from the real numbers. Scalar multiplication is defined as the
+distributive multiplication of each
 coordinate by some $\alpha \in \mathbb{R}$:
 \[\alpha \cdot (x_0, x_1, \ldots, x_n) = (\alpha \cdot x_0, \alpha \cdot x_1, \ldots, \alpha \cdot x_n)\]
-In two and three dimensions, $n$-tuples of numbers can be thought of as a quantity with \emph{magnitude and direction}, and arrow
-from the origin to $(x,y,z)$, however to not lose generality in higher dimensions it is best just to think of them as ordered lists of
+In two and three dimensions, $n$-tuples of numbers can be thought of as a quantity with \emph{magnitude and
+direction}, and arrow
+from the origin to $(x,y,z)$, however to not lose generality in higher dimensions it is best just to think of
+them as ordered lists of
 real numbers, with arithmetic defined above.
 
 \newthought{The dot product} of two vectors is defined:
 \[\mathbf{a} \cdot \mathbf{b} = \sum_{n=1}^{n}a_ib_i\]
-for two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$. It is also known as the scalar or inner product. An alternative formulation of the dot product is:
+for two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$. It is also known as the scalar or inner product.
+An alternative
+formulation of the dot product is:
 \[\mathbf{a} \cdot \mathbf{b} = \|\mathbf{a}\|\ \|\mathbf{b}\| \cos\theta\]
-where $\theta$ is the angle between $\mathbf{a}$ and $\mathbf{b}$, and $\|\mathbf{a}\|$ is the magnitude, or length, of $\mathbf{a}$.
-Thus, two orthogonal vectors will have a dot product of 0 (since $\cos(\pi / 2) = 0$) and two parallel vectors will have a dot product
+where $\theta$ is the angle between $\mathbf{a}$ and $\mathbf{b}$, and $\|\mathbf{a}\|$ is the magnitude, or
+length, of $\mathbf{a}$.
+Thus, two orthogonal vectors will have a dot product of 0 (since $\cos(\pi / 2) = 0$) and two parallel
+vectors will have a dot product
 equal to the product of their magnitudes. Notice
 \[\mathbf{a} \cdot \mathbf{a} = \|\mathbf{a}\|^2 \implies \|\mathbf{a}\| = \sqrt{\mathbf{a} \cdot \mathbf{a}}\]
-The dot product can be thought of geometrically as a measure of how much of $\mathbf{a}$ \emph{goes in} the direction of $\mathbf{b}$.
-A handy application of this fact is determining the $x, y$, and $z$ components of a vector $\mathbf{a}$, by taking its dot product with
-the standard basis vectors\footnote{\ $\mathbf{i} = (1,0,0),\ \mathbf{j} = (0,1,0),\ \mathbf{k} = (0,0,1)$} $\mathbf{i}, \mathbf{j}$, and
+The dot product can be thought of geometrically as a measure of how much of $\mathbf{a}$ \emph{goes in} the
+direction of $\mathbf{b}$.
+A handy application of this fact is determining the $x, y$, and $z$ components of a vector $\mathbf{a}$, by
+taking its dot product with
+the standard basis vectors\footnote{\ $\mathbf{i} = (1,0,0),\ \mathbf{j} = (0,1,0),\ \mathbf{k} = (0,0,1)$}
+$\mathbf{i}, \mathbf{j}$, and
 $\mathbf{k}$, respectively.
 
 \begin{wrapfigure}{o}{0.4\textwidth}
   \centering
   \includegraphics[width=0.38\textwidth]{right-hand-rule.png}
-  \caption{The right hand rule is the convention used for the positive direction $\mathbf{n}$ in $\mathbf{a} \times \mathbf{b}$.}
+  \caption{The right hand rule is the convention used for the positive direction $\mathbf{n}$ in $\mathbf{a}
+  \times \mathbf{b}$.}
   \label{fig:right-hand-rule}
 \end{wrapfigure}
 
 \newthought{The cross product} of two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^3$ is defined:
 \[\mathbf{a} \times \mathbf{b} = (\|\mathbf{a}\|\ \|\mathbf{b}\| \sin\theta)\cdot \mathbf{n}\]
-where $\theta$ is the angle between them and $\mathbf{n}$ is a unit vector perpendicular to the plane containing $\mathbf{a}$ and $\mathbf{b}$,
-whose direction is given by the right hand rule (\cref{fig:right-hand-rule}). A vector perpendicular to a plane is said to be \emph{normal}
+where $\theta$ is the angle between them and $\mathbf{n}$ is a unit vector perpendicular to the plane
+containing $\mathbf{a}$ and
+$\mathbf{b}$,
+whose direction is given by the right hand rule (\cref{fig:right-hand-rule}). A vector perpendicular to a
+plane is said to be \emph{normal}
 to that plane.
 
-An easy way to calculate the cross product is to build the $3 \times 3$ matrix with first row $[\mathbf{i}\ \mathbf{j}\ \mathbf{k}]$,
-second row $[\mathbf{a}]$, and third row $[\mathbf{b}]$, and take it's determinant.
+An easy way to calculate the cross product is to build the $3 \times 3$ matrix with first row
+$[\mathbf{i}\ \mathbf{j}\ \mathbf{k}]$,
+second row $[\mathbf{a}]$, and third row $[\mathbf{b}]$, and take its determinant.
 
 \[
   \mathbf{a} \times \mathbf{b} =
@@ -160,47 +184,66 @@ second row $[\mathbf{a}]$, and third row $[\mathbf{b}]$, and take it's determina
 \[
   \mathbf{a} \times \mathbf{b} = (a_2b_3 - a_3b_2)\mathbf{i} + (a_3b_1 - a_1b_3)\mathbf{j} + (a_1b_2 - a_2b_1)\mathbf{k}
 \]
-Once you know a normal vector to a plane (usually by taking the cross product of two vectors in that plane) and one point in the plane,
-it is easy to determine an equation for that plane, since the dot product of \emph{any} vector in the plane with the normal vector will be 0.
+Once you know a normal vector to a plane (usually by taking the cross product of two vectors in that plane)
+and one point in the plane,
+it is easy to determine an equation for that plane, since the dot product of \emph{any} vector in the plane
+with the normal
+vector will be 0.
 \[\mathbf{n} \cdot (x,y,z) = n_xx + n_yy + n_zz + d = 0\]
 Simply plug in the $(x,y,z)$ that you know to determine the correct value of $d$.
 
 \section{Vector Valued Functions}
-\newthought{A function} $f$ is said to \emph{vector valued} if it is a mapping $\mathbb{R} \to \mathbb{R}^n$. In other words, vector valued
+\newthought{A function} $f$ is said to \emph{vector valued} if it is a mapping $\mathbb{R} \to \mathbb{R}^n$.
+In other words, vector valued
 function take a real number and assign a vector.
 \[\mathbf{r}(t) = (x_1(t), x_2(t), \ldots, x_n(t))\]
 The functions $x_1(t), \ldots, x_n(t)$ are called the \emph{coordinate functions} of $\mathbf{r}$.
 
 A common example of a vector valued
-function is $\mathbf{r}(t)=(t,f(t))$ where $f:\mathbb{R} \to \mathbb{R}$ and $t\in[a,b] : a,b\in\mathbb{R}$. This function describes a
-\emph{parametrisation} of $f$ and points from the origin to every point of $f$ as $t$ varies in its domain, as if the tip were moving
+function is $\mathbf{r}(t)=(t,f(t))$ where $f:\mathbb{R} \to \mathbb{R}$ and $t\in[a,b] : a,b\in\mathbb{R}$.
+This function describes a
+\emph{parametrisation} of $f$ and points from the origin to every point of $f$ as $t$ varies in its domain,
+as if the tip were moving
 along $f$. It is helpful to imagine $t$ as representing time. This will be covered in more detail in Chapter 7.
 
 \section{Functions of Several Variables}
-\newthought{A function} $f$ is a \emph{multivariable} function if it is a mapping from $\mathbb{R}^n \to \mathbb{R}$. These functions take a
-vector and assign to it a real number. The coordinates of the input vector can be thought of as several independent variables.
+\newthought{A function} $f$ is a \emph{multivariable} function if it is a mapping from $\mathbb{R}^n \to
+\mathbb{R}$. These functions take a
+vector and assign to it a real number. The coordinates of the input vector can be thought of as several
+independent variables.
 \[f(x_1,x_2,\ldots,x_n) = n\]
-where $n$ is some combination of the variables $x_1, \ldots, x_n$. Just like we can plot a function of one variable $f: D \to R$ by defining
+where $n$ is some combination of the variables $x_1, \ldots, x_n$. Just like we can plot a function of one
+variable $f: D \to R$ by defining
 the line
 $l = \{(x,f(x)) : x \in D\}$
 as the set of all points that satisfy $(x,f(x))$, we can define an $n+1$ dimensional surface of a function
 $f: D \subseteq \mathbb{R}^n \to R \subseteq \mathbb{R}$ of $n$ variables by
 \[S = \{(x_1,x_2,\ldots,x_n,f(x_1,x_2,\ldots,x_n)) : x_1, \ldots, x_n \in D\}\]
-Allowing an $n+1$ dimensional alien to understand its plot. The only applications where this is useful to humans is to plot $z = f(x,y)$
+Allowing an $n+1$ dimensional alien to understand its plot. The only applications where this is useful to
+humans is to plot $z = f(x,y)$
 or every point $(x,y,z)$ that satisfies $f(x,y,z) = k$ for some $k \in \mathbb{R}$ in three dimensions.
 
-\newthought{Fields} are mappings $\mathbb{R}^n \to \mathbb{R}^m$, usually $\mathbb{R}^3 \to \mathbb{R}^m$. They can be thought of as
-assigning to every point in space a vector in $\mathbb{R}^m$. A common example is a force or electromagnetic field. A scalar field is a
-special multivariable function of three variables that assigns to every point in space a number, like temperature or pressure. These are
+\newthought{Fields} are mappings $\mathbb{R}^n \to \mathbb{R}^m$, usually $\mathbb{R}^3 \to \mathbb{R}^m$.
+They can be thought of as
+assigning to every point in space a vector in $\mathbb{R}^m$. A common example is a force or electromagnetic
+field. A scalar field is a
+special multivariable function of three variables that assigns to every point in space a number, like
+temperature or pressure. These are
 covered in Chapter 8.
 
 \chapter{Limits and Continuity}
 \section{Functions of One Variable}
-\newthought{A function} $f$ approaches a limit $l$ near $a$ if for every $\epsilon > 0$, there exists some $\delta > 0$, such that if $ 0 < |x-a| < \delta$,
+\newthought{A function} $f$ approaches a limit $l$ near $a$ if for every $\epsilon > 0$, there exists some
+$\delta > 0$, such
+that if $ 0 < |x-a| < \delta$,
 then $|f(x)-l|<\epsilon$.
 
-This is a precise way of writing that if a function approaches a value $l$ near $a$, then no matter how small of an interval we draw around $l$, we will always
-be able to draw an interval around $a$, where $f(x)$ is within that interval of $l$. It will become clear in the examples why this definition matches the intuitive
+This is a precise way of writing that if a function approaches a value $l$ near $a$, then no matter how small
+of an interval we
+draw around $l$, we will always
+be able to draw an interval around $a$, where $f(x)$ is within that interval of $l$. It will become clear in
+the examples why
+this definition matches the intuitive
 understanding of what a limit should be.
 
 \begin{wrapfigure}{o}{0.4\textwidth}
@@ -222,19 +265,24 @@ understanding of what a limit should be.
   \caption{$f(x)=x^2$.}
   \label{fig:x2}
 \end{wrapfigure}
-\newthought{Consider} $f(x)=x^2$ (\cref{fig:x2}). Obviously it approaches 0 near 0 (and $a^2$ near $a$), but how would we show that?
+\newthought{Consider} $f(x)=x^2$ (\cref{fig:x2}). Obviously it approaches 0 near 0 (and $a^2$ near $a$), but
+how would we show that?
 We have to decide how to ensure that $|x^2-a^2| < \epsilon$ whenever $|x-a| < \delta$. We want
 \[|x^2-a^2| = |x-a| \cdot |x+a| < \epsilon\]
-The factor $|x+a|$ is obviously the problem, but as long as we know \emph{an} upper bound $M$ for it, we can just ensure that $|x-a|<1/M$.
+The factor $|x+a|$ is obviously the problem, but as long as we know \emph{an} upper bound $M$ for it, we can
+just ensure that $|x-a|<1/M$.
 If we take $|x+a|<1$, then
 \[|x+a| = |(x-a)+2a| \le |x-a| + |2a| < 1 + 2|a|\]
 Now, we just need
 \[|x-a| < \dfrac{\epsilon}{1+2|a|}\]
-for $|x^2-a^2| < \epsilon$. So, let $\epsilon > 0$, choose $\delta = \min\left(1,\dfrac{\epsilon}{1+2|a|}\right)$. Then $\delta \le 1$,
+for $|x^2-a^2| < \epsilon$. So, let $\epsilon > 0$, choose $\delta =
+\min\left(1,\dfrac{\epsilon}{1+2|a|}\right)$. Then $\delta \le 1$,
 so $|x-a|<1$ and $|x+a|<1+2|a|$. Consider $|x^2-a^2| = |x-a| \cdot |x+a|$. Substituting our bounds,
 $|x^2-a^2| = \delta \cdot (1+2|a|) \le \dfrac{\epsilon}{1+2|a|} \cdot (1+2|a|) = \epsilon$.
 
-So for every $\epsilon$, there is an interval around $a$, equal to $a \pm \min\left(1,\dfrac{\epsilon}{1+2|a|}\right)$ that will ensure $|f(x)-l| < \epsilon$.
+So for every $\epsilon$, there is an interval around $a$, equal to $a \pm
+\min\left(1,\dfrac{\epsilon}{1+2|a|}\right)$ that will
+ensure $|f(x)-l| < \epsilon$.
 
 \newthought{Consider} $f(x)=\sin(1/x)$. (\cref{fig:sin1x})
 \begin{figure}[H]
@@ -260,11 +308,16 @@ So for every $\epsilon$, there is an interval around $a$, equal to $a \pm \min\l
   \caption{$f(x)=\sin(1/x)$.}
   \label{fig:sin1x}
 \end{figure}
-This function oscillates wildly as $x \to 0$ and so does not approach any value at $x=0$. The intuition for this fact is that no matter how small we make an
-interval containing $0$, we will always be able to choose a large enough natural number $n$, such that there is a point $a=\dfrac{2}{\pi(1+4n)}$ where $\sin{a}=1$, and
+This function oscillates wildly as $x \to 0$ and so does not approach any value at $x=0$. The intuition for
+this fact is that no
+matter how small we make an
+interval containing $0$, we will always be able to choose a large enough natural number $n$, such that there is a point
+$a=\dfrac{2}{\pi(1+4n)}$ where $\sin{a}=1$, and
 a point $b=\dfrac{2}{\pi(3+4n)}$ where $\sin{b}=-1$.
 
-Assume for contradiction that $\lim_{x \to 0}\sin{1/x}=l$. Let $\epsilon=1/2$ and $\delta > 0$. Now choose a sufficiently large natural number $n$, such that
+Assume for contradiction that $\lim_{x \to 0}\sin{1/x}=l$. Let $\epsilon=1/2$ and $\delta > 0$. Now choose a
+sufficiently large
+natural number $n$, such that
 $a=\dfrac{2}{\pi(1+4n)}< \delta$. Then, there will also be the point $b=\dfrac{2}{\pi(3+4n)} < a < \delta$. Then,
 \begin{alignat*}{2}
   |f(a)-l| & = |1-l|   &  & < \epsilon = \dfrac{1}{2} \\
@@ -277,7 +330,7 @@ By the triangle inequality
 \]
 Which is a contradiction. So our original assumption that the limit exists and equals $l$ must be wrong. \qed
 
-\newthought{A slightly more complicated example.}
+\newthought{A slightly more complicated example.} \cref{fig:complicatedlimexample}
 \[
   f(x) =
   \begin{cases}
@@ -423,15 +476,19 @@ the set of which we can call $S$.
 
 However many of these numbers there are, there are only finitely many, and so one of them is closest to $a$. That is,
 $|p/q-a|$ is smallest for one specific $p/q \in S$. If $a$ is in $S$, then just consider all the elements of $S \ne a$.
-If we chose $\delta$ to be this smallest distance then for all $x$ satisfying $0 < |x-a| < \delta$, $x$ is guaranteed not
+If we chose $\delta$ to be this smallest distance then for all $x$ satisfying $0 < |x-a| < \delta$, $x$ is
+guaranteed not
 to be in $S$, and therefore $|f(x)-0|<\epsilon$, which completes our proof. \qed
 
 There is no need to give $\delta$ in terms of $\epsilon$, since there is nowhere in the definition
-$\mathellipsis \forall \epsilon, \ \exists \delta \mathellipsis$ that says each $\epsilon$ needs a \emph{unique} $\delta$.
+$\mathellipsis \forall \epsilon, \ \exists \delta \mathellipsis$ that says each $\epsilon$ needs a
+\emph{unique} $\delta$.
 
 \subsection{Divergence to, and Limits at, Infinity}
-\newthought{The definition of a limit} can be modified to handle divergence to infinity. A function $l$ approaches $\infty$ near $a$
-if for every $M > 0$, there exists a $\delta$ such that, whenever $|x-a| < \delta$, $f(x) > M$. No matter how large $M$ is, there will
+\newthought{The definition of a limit} can be modified to handle divergence to infinity. A function $l$
+approaches $\infty$ near $a$
+if for every $M > 0$, there exists a $\delta$ such that, whenever $|x-a| < \delta$, $f(x) > M$. No matter how
+large $M$ is, there will
 always be an interval we can draw around $a$, such that $f(x) > M$.
 
 \begin{wrapfigure}[8]{o}{0.4\textwidth}
@@ -456,14 +513,18 @@ always be an interval we can draw around $a$, such that $f(x) > M$.
   \caption{The derivative of the absolute value function.}
   \label{fig:one-sided-limit}
 \end{wrapfigure}
-\newthought{Limits at infinity} have a similar modified definition. A function $f$ approaches a limit $l$ near $\infty$ if for every
-$\epsilon > 0$, there exists an $M > 0$ such that if $x > M$, $|f(x)-l| < \epsilon$. For every interval around the limit we draw, there is
+\newthought{Limits at infinity} have a similar modified definition. A function $f$ approaches a limit $l$
+near $\infty$ if for every
+$\epsilon > 0$, there exists an $M > 0$ such that if $x > M$, $|f(x)-l| < \epsilon$. For every interval
+around the limit we draw, there is
 always a point on the number line that ensures we are within that interval.
 
 \subsection{One Sided Limits}
 
-\newthought{One sided limits} are exactly the same as the full limit, except that $x$ is only considered to be approaching $a$ from
-the left or the right. The full limit only exists if both one sided limits equal, but it is possible for either one sided limit to exist
+\newthought{One-sided limits} are exactly the same as the full limit, except that $x$ is only considered to
+be approaching $a$ from
+the left or the right. The full limit only exists if both one-sided limits equal, but it is possible for
+either one-sided limit to exist
 independently.
 
 For example, define (\cref{fig:one-sided-limit}) \[f(x) \coloneqq \dfrac{d|x|}{dx} =
@@ -471,7 +532,8 @@ For example, define (\cref{fig:one-sided-limit}) \[f(x) \coloneqq \dfrac{d|x|}{d
     -1 & x<0 \\
     1 & x>0
 \end{cases}\]
-If we examine what $f$ does as $x \to 0$ from the left, its quite obvious that it approaches -1, and 1 from the right. We say that
+If we examine what $f$ does as $x \to 0$ from the left, its quite obvious that it approaches -1, and 1 from
+the right. We say that
 \begin{align*}
   \lim_{x \to 0^-}f(x) &= -1 \\
   \lim_{x \to 0^+}f(x) &= 1
@@ -479,8 +541,10 @@ If we examine what $f$ does as $x \to 0$ from the left, its quite obvious that i
 but the full limit:\[\lim_{x \to 0}f(x)\]is not defined.
 \section{Vector Valued Functions}
 \newthought{We get these for free.} Just define
-\[\lim_{t \to a}\mathbf{r}(t) \coloneqq \left( \lim_{t \to a}x_1(t), \lim_{t \to a}x_2(t), \ldots, \lim_{t \to a}x_n(t)\right) \]
-If the limits of the coordinate functions exist, then they can be evaluated using the same techniques as single variable functions
+\[\lim_{t \to a}\mathbf{r}(t) \coloneqq \left( \lim_{t \to a}x_1(t), \lim_{t \to a}x_2(t), \ldots, \lim_{t
+\to a}x_n(t)\right) \]
+If the limits of the coordinate functions exist, then they can be evaluated using the same techniques as
+single variable functions
 
 \section{Techniques for Evaluating Limits}
 \newthought{The limit laws} allow for breaking up complicated limits in several trivial to solve limits.
@@ -492,17 +556,22 @@ If the limits of the coordinate functions exist, then they can be evaluated usin
   \item If $\lim_{x \to a}g(x) = l$ and $f$ is continuous at $l$, then $\lim_{x \to a}f(g(x)) = f(l)$
 \end{enumerate}
 
-\newthought{The squeeze theorem} states that if $g(x) \le f(x) \le h(x)$ and $\lim_{x \to a}g(x) = l = \lim_{x \to a}h(x)$, then
+\newthought{The squeeze theorem} states that if $g(x) \le f(x) \le h(x)$ and $\lim_{x \to a}g(x) = l =
+\lim_{x \to a}h(x)$, then
 $\lim_{x \to a}f(x) = l$.
 
-\newthought{L'H$\hat{\text{o}}$pital's Rule} states that if $f$ and $g$ are differentiable, and $\lim_{x \to a}f(x) = \lim_{x \to a}g(x) = 0$ or $\pm \infty$,
+\newthought{L'H$\hat{\text{o}}$pital's Rule} states that if $f$ and $g$ are differentiable, and $\lim_{x \to
+a}f(x) = \lim_{x \to
+a}g(x) = 0$ or $\pm \infty$,
 then $\lim_{x \to a}\dfrac{f(x)}{g(x)} = \lim_{x \to a}\dfrac{f'(x)}{g'(x)}$.
 
 Proofs of these assertions are a bit beyond the scope of these notes.
 
 \section{Limits of Multivariable Functions}
-\newthought{For limits} of multivariable functions, one must consider every possible path to $a$. Just like with functions of one variable,
-where we require the left and right sided limits to equal, for multivariable functions, we require all paths to be equal. For example:
+\newthought{For limits} of multivariable functions, one must consider every possible path to $a$. Just like
+with functions of one variable,
+where we require the left and right sided limits to equal, for multivariable functions, we require all paths
+to be equal. For example:
 \[\lim_{(x,y) \to (0,0)}f(x,y) = \dfrac{xy}{x^2+y^2}\]
 Consider the path $x=y$:
 \[\lim_{(x,y) \to (x,x)}f(x,y) = \lim_{(x,y) \to (x,x)}\dfrac{x^2}{x^2+x^2} = \dfrac{1}{2}\]
@@ -510,14 +579,19 @@ Now, consider the path $x=0$:
 \[\lim_{(x,y) \to (0,y)}f(x,y) = \lim_{(x,y) \to (0,y)}\dfrac{0}{y^2} = 0 \ne \dfrac{1}{2}\]
 Thus, the limit does not exist.
 
-The technique for solving limits of multivariable functions is to investigate a few paths to observe their behaviour. If the limit exists
-then a symbolic proof must be given to cover all possible paths. Otherwise, one example will suffice. Evaluating the limit uses similar
+The technique for solving limits of multivariable functions is to investigate a few paths to observe their
+behaviour. If the limit exists
+then a symbolic proof must be given to cover all possible paths. Otherwise, one example will suffice.
+Evaluating the limit uses similar
 techniques to single variable limits.
 
-Consider\[\lim_{(x,y) \to (0,0)}\dfrac{x^2+x+xy+y}{x+y}\]Naively evaluating $(0,0)$ produces an indeterminate $\dfrac{0}{0}$, but
+Consider\[\lim_{(x,y) \to (0,0)}\dfrac{x^2+x+xy+y}{x+y}\]Naively evaluating $(0,0)$ produces an indeterminate
+$\dfrac{0}{0}$, but
 L'H$\hat{\text{o}}$pital's rule is not defined for multivariable functions. However if we factorise the numerator:
-\[\lim_{(x,y) \to (0,0)}\dfrac{x^2+x+xy+y}{x+y} = \lim_{(x,y) \to (0,0)}\dfrac{(x+y)(x+1)}{x+y} = \lim_{(x,y) \to (0,0)}x+1 = 1\]
-We did not make any assumptions about the path taken by $x$ and $y$ to $(0,0)$, and so this symbolic proof remains true for every
+\[\lim_{(x,y) \to (0,0)}\dfrac{x^2+x+xy+y}{x+y} = \lim_{(x,y) \to (0,0)}\dfrac{(x+y)(x+1)}{x+y} = \lim_{(x,y)
+\to (0,0)}x+1 = 1\]
+We did not make any assumptions about the path taken by $x$ and $y$ to $(0,0)$, and so this symbolic proof
+remains true for every
 possible path.
 
 \section{Continuity}
@@ -534,13 +608,195 @@ possible path.
 \end{enumerate}
 
 \chapter{Derivatives}
+\section{Single Variable Functions}
 \newthought{For a function} $f$, define its \emph{derivative} at $a$:
-\[f'(a) = \lim_{h \to 0}\dfrac{f(a+h)-f(a)}{h}\]
+\[f'(a) \coloneqq \lim_{h \to 0}\dfrac{f(a+h)-f(a)}{h}\]
 
-\chapter{Applications of the Derivative}
-\chapter{The Riemann Integral}
-\chapter{Double and Triple Integrals}
-\chapter{Path and Surface Integrals}
-\chapter{Vector Fields}
+If this limit exists, the function is called \emph{differentiable}. Define
+\[f'(x) \coloneqq \{(a,f'(a)): f'(a) \text{ exists.}\}\]
+to be all the points $(a,f'(a))$ where $f'(a)$ exists, called the derivative function.
+
+This number, $f'(a)$ measures the slope of a tangent line to $f$ at $a$, sometimes called the instantaneous
+rate of change or, when $f(x)$ represents motion, \emph{velocity}. The equation for a tangent line $T$ to $f$
+at $a$ (\cref{fig:derivative1}):
+\[T(x)=f'(a)(x-a)+f(a)\]
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=6cm,
+        axis lines=center,
+        xlabel={$x$},
+        ylabel={$f(x)$},
+        xtick={4},
+        ytick={5.643},
+        xmin=-1, xmax=11,
+        ymin=-5, ymax=10,
+      ]
+      \addplot[black, thick, samples=200, domain=0:11] {((x-8.3358)/2)^3+((x-8.3358)/1)^2+((x-8.3358)/2)-0.8};
+      \addplot[black, thick, samples=200, domain=0:11] {(-1.121915*(x))+10.130246};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{The derivative measures the slope of a tangent line.}
+  \label{fig:derivative1}
+\end{figure}
+
+\newthought{If a function is differentiable at $a$, then it is continuous at $a$.} \emph{Proof:}
+\begin{align*}
+  \lim_{h \to 0}f(a+h)-f(a) &= \lim_{h \to 0}\dfrac{f(a+h)-f(a)}{h} \cdot h \\
+  &= \lim_{h \to 0}\dfrac{f(a+h)-f(a)}{h} \cdot \lim_{h \to 0}h \\
+  &= f'(a) \cdot 0 \\
+  &= 0  \\
+  \implies \lim_{h \to 0}f(a+h)-f(a) &= 0 \\
+  \implies \lim_{x \to a}f(x) &= f(a)
+\end{align*} \qed
+
+Note the inverse is certainly not true. The absolute value function is continuous everywhere, but not
+differentiable at 0 (\cref{fig:one-sided-limit}).
+In fact, we can conceive of a function that is continuous everywhere but differentiable nowhere. Consider a
+function like \cref{fig:con-everywhere-diff-nowhere}
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=6cm,
+        axis lines=center,
+        xlabel={},
+        ylabel={},
+        xtick=none,
+        ytick=none,
+        xmin=-0.5, xmax=10,
+        ymin=-0.5, ymax=2,
+      ]
+      \addplot[black, thick, samples=200, domain=0:1] {x};
+      \addplot[black, thick, samples=200, domain=1:2] {(-1)*x+2};
+      \addplot[black, thick, samples=200, domain=2:3] {x-2};
+      \addplot[black, thick, samples=200, domain=3:4] {(-1)*x+4};
+      \addplot[black, thick, samples=200, domain=4:5] {x-4};
+      \addplot[black, thick, samples=200, domain=5:6] {(-1)*x+6};
+      \addplot[black, thick, samples=200, domain=6:7] {x-6};
+      \addplot[black, thick, samples=200, domain=7:8] {(-1)*x+8};
+      \addplot[black, thick, samples=200, domain=8:9] {x-8};
+      \addplot[black, thick, samples=200, domain=9:10] {(-1)*x+10};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{A "sawtooth" like function is not differentiable at its points. In the limit as the number of
+    points goes to $\infty$,
+  differentiability goes to 0.}
+  \label{fig:con-everywhere-diff-nowhere}
+\end{figure}
+
+\newthought{One may wish} to know more about a function and its derivatives. For example, if $d(t)$ represents
+distance from an origin w.r.t time, then $d'(t)$ represents the velocity of the object w.r.t time. If
+$v(t)=d'(t)$, then $v'(t)$ represents the acceleration w.r.t time. We say that acceleration is the
+\emph{second derivative} of $d(t)$, written $d''(t)$. Define
+\[f^{(n)} \coloneqq (((f')')')^{\cdots}\]
+To be the $n^{th}$ derivative of $f$. This collection of derivatives are known as higher-order derivatives.
+
+\subsection{Notation}
+\newthought{For single variable functions} Newton's $f'$, $f''$, $f'''$, etc. is unambiguous. However, when partial
+derivatives of functions of several variables are introduced, it will become necessary to specify which variable
+the function is being differentiated with respect to. For this reason, Leibniz's operator notation is commonly used.
+\begin{align*}
+  \dfrac{df}{dx} &= f'(x) \\
+  \dfrac{d^2f}{dx^2} &= f''(x) \\
+  \dfrac{d^nf}{dx^n} &= f^{(n)}(x)
+\end{align*}
+
+\section{Differentiating}
+\newthought{Once the derivatives} of the elementary functions have been obtained, there are some crucial rules for
+finding the derivatives of their products, sums, quotients and compositions. See the table for derivatives of
+elementary functions.
+
+Assuming $f$ and $g$ are differentiable, and defined on the prerequisite domains:
+\begin{enumerate}
+  \item $[f \pm g]' = f' \pm g'$
+  \item $\forall c \in \mathbb{R}, [c \cdot f]' = c \cdot f'$
+  \item $[fg]' = fg' + gf'$
+  \item $\left[\dfrac{f}{g}\right]' = \dfrac{1}{g^2}(gf' - fg')$
+  \item $[f \circ g]' = (f' \circ g) \cdot g' $
+\end{enumerate}
+
+\subsection{Inverse Functions}
+\newthought{Let} $f$ be a bijective function on its domain. Then there exists a function $g$ called the \emph{inverse}
+of $f$, such that $(g \circ f)(x) = x$. The inverse function of $f$ is commonly notated $f^{-1}$. This is not to be
+confused with $f$'s multiplicative inverse $1/f(x)$, which will be denoted like that.
+
+Assuming $f$ is differentiable and invertible,
+\[(f^{-1})' = \dfrac{1}{f' \circ f^{-1}}\]
+For example:
+\[(\ln x)' = \dfrac{1}{e^{\ln x}} = \dfrac{1}{x}\]
+
+\subsection{Table of Derivatives}
+
+\setlength{\columnsep}{1pt}
+\begin{multicols}{2}
+
+  \begin{tabular}{cc}
+    \toprule
+    Function & Derivative \\
+    \midrule
+    $c$ & $0$ \\
+    $x^n$ & $nx^{n-1}$ \\
+    $\sin x$ & $\cos x$ \\
+    $\cos x$ & $-\sin x$ \\
+    $\tan x$ & $\sec^2 x$ \\
+    $\csc x$ & $-\csc x \cot x$ \\
+    $\sec x$ & $\sec x \tan x$ \\
+    $\cot x$ & $-\csc^2 x$ \\
+    $\sin^{-1} x$ & $\dfrac{1}{\sqrt{1-x^2}}$ \\
+    $\cos^{-1} x$ & $-\dfrac{1}{\sqrt{1-x^2}}$ \\
+    $\tan^{-1} x$ & $\dfrac{1}{1+x^2}$ \\
+    $\csc^{-1} x$ & $-\dfrac{1}{|x|\sqrt{x^2-1}}$ \\
+    $\sec^{-1} x$ & $\dfrac{1}{|x|\sqrt{x^2-1}}$ \\
+    \bottomrule
+  \end{tabular}
+
+  \columnbreak
+
+  \begin{tabular}{cc}
+    \toprule
+    Function & Derivative \\
+    \midrule
+    $\cot^{-1} x$ & $-\dfrac{1}{1+x^2}$ \\
+    $\sinh x$ & $\cosh x$ \\
+    $\cosh x$ & $\sinh x$ \\
+    $\tanh x$ & $\operatorname{sech}^2 x$ \\
+    $\operatorname{csch} x$ & $-\operatorname{csch} x \coth x$ \\
+    $\operatorname{sech} x$ & $-\operatorname{sech} x \tanh x$ \\
+    $\coth x$ & $-\operatorname{csch}^2 x$ \\
+    $e^x$ & $e^x$ \\
+    $a^x \quad (a>0)$ & $a^x \ln a$ \\
+    $x^x$ & $x^x(\ln x + 1)$ \\
+    $\ln x$ & $1/x$ \\
+    $\log_a x \ (a>0,\ a\neq 1)$ & $1/x\ln a$ \\
+    $\dfrac{1}{x^n+a}$ & $-\dfrac{nx^{n-1}}{{(x^n+a)}^2}$ \\
+    \bottomrule
+  \end{tabular}
+
+\end{multicols}
+
+\section{Vector Valued Functions}
+\newthought{The derivative} of a vector valued function $\mathbf{r}(t)$ is
+\[\mathbf{r}'(t)=(x'_1(t),x'_2(t), \ldots, x'_n(t))\]
+where $x_1(t), \ldots, x_n(t)$ are the coordinate functions of $\mathbf{r}(t)$.
+
+The same rules apply to differentiating vector valued functions as above, except
+\begin{enumerate}
+  \item $[\mathbf{u} \cdot \mathbf{v}]' = \mathbf{u}' \cdot \mathbf{v} + \mathbf{u} \cdot \mathbf{v}'$
+  \item $[\mathbf{u} \times \mathbf{v}]' = \mathbf{u}' \times \mathbf{v} + \mathbf{u} \times \mathbf{v}'$
+\end{enumerate}
+
+\newthought{Recall} that if $\mathbf{r}(t)$ traces a curve $C$ in space, then $\mathbf{r}'(t)$ will be tangent to
+$C$ at $t$. Define
+\[\mathbf{T}(t) \coloneqq \dfrac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}\]
+to be the unit tangent vector to $C$ at $t$. Since $\mathbf{r}(t)$ encodes position along a curve $C$,
+$\mathbf{r}'(t)$ encodes
+the velocity at $t$ (including direction). Acceleration is given by $\mathbf{r}''(t)$, with unit acceleration given by
+$\mathbf{T}'(t)$.
+
+\section{Multivariable Functions}
 
 \end{document}
