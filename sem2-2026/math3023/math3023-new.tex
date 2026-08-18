@@ -839,7 +839,7 @@ $\mathbf{u}$. It can be calculated by taking the dot product of a unit vector in
 $\mathbf{u}$ with $\Delta f(\mathbf{c})$:
 \[\text{Directional Derivative} = \Delta f(\mathbf{c}) \cdot \dfrac{\mathbf{u}}{\|\mathbf{u}\|}\]
 
-\newthought{If $S$ is a level surface}, i.e. it is of the form $S = \{f(\mathbf{c}) = k\}$, then $\Delta
+\newthought{If $S$ is a level surface}, i.e.\ it is of the form $S = \{f(\mathbf{c}) = k\}$, then $\Delta
 f(\mathbf{c})$ has the same dimension as $\mathbf{c}$, and thus is normal to $S$. A tangent plane can then be
 described via the same technique above.
 
@@ -879,10 +879,123 @@ $\mathbf{F}$:
   \end{bmatrix}
 \]
 
-If $(u,v,w) = \mathbf{F}(x,y,z)$ describes a coordinate transformation from $(x,y,z)$ to $(u,v,w)$, then the
+If $(x,y,z) = \mathbf{F}(u,v,w)$ describes a coordinate transformation from $(x,y,z)$ to $(u,v,w)$, then the
 determinant of the Jacobian matrix, called the Jacobian, is a scaling factor needed when changing coordinate systems
-in integration, described further in Chapter 7.
+in integration, described further in Chapter 7. For example:
+\begin{align*}
+  (x,y) = \mathbf{F}(r,\theta) &= (r\cos\theta,r\sin\theta) \\
+  \implies \mathbf{F}'(r,\theta) &=
+  \begin{bmatrix}
+    \cos\theta & -r\sin\theta \\
+    \sin\theta & r\cos\theta
+  \end{bmatrix}\\
+  |\mathbf{F}'| &= r
+\end{align*}
+So,
+\[\int_{-r}^{r} \int_{-\sqrt{r-x^2}}^{\sqrt{r-x^2}}1 dy dx = \int_{0}^{r} \int_{0}^{2\pi}rd\theta dr = \pi r^2\]
+\section{Maxima and Minima}
+\newthought{Maxima and minima} are, as the name suggests, points of maximum and minimum. A point $a$ is
+a maximum of $f$ if for every $c$, $f(c) \le f(a)$, and vice versa for minima.
 
-\chapter{Applications of the Derivative}
+A point $c$ is a \emph{critical point} of $f$ if $f'(c) = 0$. A critical point is a maximum if
+$f''(c) < 0$ and a minimum if $f''(c) > 0$.
 
+\newthought{For multivariable functions} we must instead look at the gradient vector. A point $\mathbf{c}$ is a critical
+point of a function $f: \mathbb{R}^n \to \mathbb{R}$ if $\Delta f(\mathbf{c})$ doesn't exist, or $\Delta
+f(\mathbf{c}) = 0$. Define the Hessian matrix to be the square matrix of $n$ $2nd$ order partial derivatives of $f$:
+\[
+  D^2 f(\mathbf{c}) =
+  \begin{bmatrix}
+    f_{xx} & f_{xy} & \cdots & f_{xn} \\
+    f_{yx} & f_{yy} & \cdots & f_{yn} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    f_{nx} & f_{ny} & \cdots & f_{nn}
+  \end{bmatrix}
+\]
+Then if this matrix exists and $\Delta f(\mathbf{c}) = 0$ (or dne), the determinant $|D^2 f(\mathbf{c})|$,
+denoted $D_f(\mathbf{c})$ provides the information for the multivariable equivalent of the second derivative
+test.
+\begin{enumerate}
+  \item If $D_f(\mathbf{c}) > 0$ and $f_{xx} > 0$ then $f$ has a local minimum at \textbf{c}
+  \item If $D_f(\mathbf{c}) > 0$ and $f_{xx} < 0$ then $f$ has a local maximum at \textbf{c}
+  \item If $D_f(\mathbf{c}) < 0$ then $f$ has a saddle point at \textbf{c}
+\end{enumerate}
+\subsection{Lagrange Multipliers}
+\newthought{Let $f(\mathbf{x})$ and $g(\mathbf{x})$ be continuously differentiable scalar functions on
+  $\mathbb{R}^n$. If $f$ has a local extremum at \textbf{c}, subject to a constraint $g(\mathbf{x})=k$, for $k
+  \in \mathbb{R}$, and $\Delta g(\mathbf{c}) \ne 0$, then $\exists \lambda$ such that $\Delta f(\mathbf{c}) =
+\lambda\Delta g(\mathbf{c})$.} This $\lambda$ is known as the Lagrange multiplier.
+
+\begin{wrapfigure}{o}{0.4\textwidth}
+  \centering
+  \resizebox{0.95\linewidth}{!}{%
+    \begin{tikzpicture}[line width=1pt]
+      \fill[pattern=north east lines] (-2.5,-0.1) rectangle (2.5,0);
+      \draw (-2.5,0) -- (2.5,0);
+      \draw (-1.5,0) rectangle (1.5,2.2);
+      \node at (0,2.6) {\small $y$};
+      \node at (-1.9,1.1) {\small $x$};
+      \node at (1.9,1.1) {\small $x$};
+      \node at (0,1.1) {\small $\text{Area} = A = xy$};
+    \end{tikzpicture}%
+  }
+  \caption{The farmer's pen}
+  \label{fig:pen}
+\end{wrapfigure}
+A farmer has 200 metres of fencing with which to construct three sides of a rectangular pen, with an existing
+fence acting as the fourth side (\cref{fig:pen}) What dimensions will maximise the area of the pen?
+
+This obviously leads to the system of linear equations:
+\begin{align*}
+  A(x,y) &= xy \\
+  P(x,y) &= 2x+y
+\end{align*}
+However, $P(x,y)$ is subject to the constraint that $P(x,y)=200$. So, we have $\Delta A(x,y) = (y,x)$ and
+$\Delta P(x,y)=(2,1)$. We arrive at a system of three equations in three unknowns
+\begin{align*}
+  2x+y &= 200 \\
+  y-2\lambda &= 0\\
+  x-\lambda &= 0
+\end{align*}
+which corresponds to the augmented matrix
+\[
+  \left[
+    \begin{array}{ccc|c}
+      2 & 1 & 0 & 200 \\
+      0 & 1 & -2 & 0 \\
+      1 & 0 & -1 & 0
+    \end{array}
+  \right]
+\]
+which reduces to\footnote{\ refer: MATH1012 Mathematical Theory and Methods}
+\[
+  \left[
+    \begin{array}{ccc|c}
+      1 & 0 & 0 & 50 \\
+      0 & 1 & 0 & 100 \\
+      0 & 0 & 1 & 50
+    \end{array}
+  \right]
+\]
+Thus, $x=50$ and $y=100$. This obviously was a trivial problem that could have been solved by a simple
+substitution, however the method of Lagrange multipliers proves useful in more complicated optimisation problems.
+
+\section{Taylor Series}
+\newthought{It is often convenient} to approximate a function by a polynomial; if it is too complicated to integrate,
+for example. Define
+\[T_{n,a}(x) = f(a) + \dfrac{f'(a)}{1!}(x-a) + \dfrac{f''(a)}{2!}{(x-a)}^2 + \cdots + \dfrac{f^{(n)}(a)}{n!}{(x-a)}^n\]
+To be the \emph{Taylor Polynomial} of $n'th$ degree of $f$ around $a$. Then $f(x) = T_{n,a}(x)+R_{n,a}(x)$,
+where $R_{n,a}(x)$ is an \emph{error term} or \emph{remainder}. For example, the Taylor polynomial of $\sin x$
+around 0:
+\[T_{6,0}(x) = x - \dfrac{x^3}{6} + \dfrac{x^5}{120} + R_{6,0}(x)\]
+The formular for $R_{n,a}(x)$ is given by
+\[R_{n,a}(x) = \dfrac{f^{(n+1)}(z)}{(n+1)!}{(x-a)}^{n+1}\]
+for some $z \in [a,x]$. We do not know $z$, however it is possible to bound the error and thus know how
+accurate our polynomial expansions are\footnote{\ refer: MATH1012 Mathematical Theory and Methods.}. For the
+expansion of $\sin x$ around 0,
+\[R_{6,0} = \dfrac{f^{(7)}(z)}{7!}x^7\quad z \in [0,x]\]
+Lets say that we want to estimate $\sin(\pi/4)$:
+\[|R_{6,0}(x)| = \dfrac{|\cos z|}{5040} |x|^7 \le \dfrac{1}{5040}\left|\dfrac{\pi}{4}\right|^7 = 3.66\times 10^{-5}\]
+so we can be quite comfortable using our Taylor expansion up to 4 decimal places of $\sin (\pi/4)$. In fact
+\[\sin(\pi/4) = \dfrac{\sqrt{2}}{2} \approx 0.707107 \quad \text{and} \quad R_{6,0}(\pi/4) = 0.707143\]
 \end{document}
