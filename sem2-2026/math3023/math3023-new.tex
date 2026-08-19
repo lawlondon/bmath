@@ -826,9 +826,9 @@ For some $d \in \mathbb{R}$, which can be determined by using the fact that $(a,
 
 \subsection{Gradient Vector and Direction Derivatives}
 \newthought{Let} $f: \mathbb{R}^n \to \mathbb{R}$. Define the gradient operator:
-\[\Delta = \left( \dfrac{\partial}{\partial x_1},\dfrac{\partial}{\partial
+\[\nabla = \left( \dfrac{\partial}{\partial x_1},\dfrac{\partial}{\partial
 x_2},\ldots,\dfrac{\partial}{\partial x_n}  \right)\]
-to be the vector operator in $\mathbb{R}^n$ of each partial derivative w.r.t $x_i$. Then $\Delta
+to be the vector operator in $\mathbb{R}^n$ of each partial derivative w.r.t $x_i$. Then $\nabla
 f(\mathbf{c})$, called the gradient vector of $f$ at $\mathbf{c}$ is the $n$-dimensional vector, normal to a
 level curve of $f$ at $\mathbf{c}$ that points in the direction of maximum rate of change of $f$. This
 provides techniques for determining two properties of curves (if we're lucky!).
@@ -836,10 +836,10 @@ provides techniques for determining two properties of curves (if we're lucky!).
 \newthought{The directional derivative} of $f(\mathbf{c})$ towards $\mathbf{u}$ is the rate of change of
 $f(\mathbf{c})$ in the direction of
 $\mathbf{u}$. It can be calculated by taking the dot product of a unit vector in the direction of
-$\mathbf{u}$ with $\Delta f(\mathbf{c})$:
-\[\text{Directional Derivative} = \Delta f(\mathbf{c}) \cdot \dfrac{\mathbf{u}}{\|\mathbf{u}\|}\]
+$\mathbf{u}$ with $\nabla f(\mathbf{c})$:
+\[\text{Directional Derivative} = \nabla f(\mathbf{c}) \cdot \dfrac{\mathbf{u}}{\|\mathbf{u}\|}\]
 
-\newthought{If $S$ is a level surface}, i.e.\ it is of the form $S = \{f(\mathbf{c}) = k\}$, then $\Delta
+\newthought{If $S$ is a level surface}, i.e.\ it is of the form $S = \{f(\mathbf{c}) = k\}$, then $\nabla
 f(\mathbf{c})$ has the same dimension as $\mathbf{c}$, and thus is normal to $S$. A tangent plane can then be
 described via the same technique above.
 
@@ -857,10 +857,10 @@ Alternatively, if $x_i$ are functions of $s$ and $t$, then:
 \[
   \mathbf{F}(x_1,x_2,\ldots,x_n) =
   \begin{bmatrix}
-    f_1(x_1,x_2,\ldots,x_m) \\
-    f_2(x_1,x_2,\ldots,x_m) \\
+    f_1(x_1,x_2,\ldots,x_n) \\
+    f_2(x_1,x_2,\ldots,x_n) \\
     \vdots \\
-    f_n(x_1,x_2,\ldots,x_m)
+    f_m(x_1,x_2,\ldots,x_n)
   \end{bmatrix}
 \]
 The derivative of $\mathbf{F}$ is then an $n \times m$ matrix, called the Jacobian matrix made up of all
@@ -870,12 +870,12 @@ $\mathbf{F}$:
   \mathbf{F}' =
   \begin{bmatrix}
     \dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} & \cdots & \dfrac{\partial
-    f_1}{\partial x_m} \\
+    f_1}{\partial x_n} \\
     \dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} & \cdots & \dfrac{\partial
-    f_2}{\partial x_m} \\
+    f_2}{\partial x_n} \\
     \vdots & \vdots & \ddots & \vdots \\
-    \dfrac{\partial f_n}{\partial x_1} & \dfrac{\partial f_n}{\partial x_2} & \cdots & \dfrac{\partial
-    f_n}{\partial x_m}
+    \dfrac{\partial f_m}{\partial x_1} & \dfrac{\partial f_m}{\partial x_2} & \cdots & \dfrac{\partial
+    f_m}{\partial x_n}
   \end{bmatrix}
 \]
 
@@ -901,7 +901,7 @@ A point $c$ is a \emph{critical point} of $f$ if $f'(c) = 0$. A critical point i
 $f''(c) < 0$ and a minimum if $f''(c) > 0$.
 
 \newthought{For multivariable functions} we must instead look at the gradient vector. A point $\mathbf{c}$ is a critical
-point of a function $f: \mathbb{R}^n \to \mathbb{R}$ if $\Delta f(\mathbf{c})$ doesn't exist, or $\Delta
+point of a function $f: \mathbb{R}^n \to \mathbb{R}$ if $\nabla f(\mathbf{c})$ doesn't exist, or $\nabla
 f(\mathbf{c}) = 0$. Define the Hessian matrix to be the square matrix of $n$ $2nd$ order partial derivatives of $f$:
 \[
   D^2 f(\mathbf{c}) =
@@ -912,7 +912,7 @@ f(\mathbf{c}) = 0$. Define the Hessian matrix to be the square matrix of $n$ $2n
     f_{nx} & f_{ny} & \cdots & f_{nn}
   \end{bmatrix}
 \]
-Then if this matrix exists and $\Delta f(\mathbf{c}) = 0$ (or dne), the determinant $|D^2 f(\mathbf{c})|$,
+Then if this matrix exists and $\nabla f(\mathbf{c}) = 0$ (or dne), the determinant $|D^2 f(\mathbf{c})|$,
 denoted $D_f(\mathbf{c})$ provides the information for the multivariable equivalent of the second derivative
 test.
 \begin{enumerate}
@@ -923,8 +923,8 @@ test.
 \subsection{Lagrange Multipliers}
 \newthought{Let $f(\mathbf{x})$ and $g(\mathbf{x})$ be continuously differentiable scalar functions on
   $\mathbb{R}^n$. If $f$ has a local extremum at \textbf{c}, subject to a constraint $g(\mathbf{x})=k$, for $k
-  \in \mathbb{R}$, and $\Delta g(\mathbf{c}) \ne 0$, then $\exists \lambda$ such that $\Delta f(\mathbf{c}) =
-\lambda\Delta g(\mathbf{c})$.} This $\lambda$ is known as the Lagrange multiplier.
+  \in \mathbb{R}$, and $\nabla g(\mathbf{c}) \ne 0$, then $\exists \lambda$ such that $\nabla f(\mathbf{c}) =
+\lambda\nabla g(\mathbf{c})$.} This $\lambda$ is known as the Lagrange multiplier.
 
 \begin{wrapfigure}{o}{0.4\textwidth}
   \centering
@@ -950,8 +950,8 @@ This obviously leads to the system of linear equations:
   A(x,y) &= xy \\
   P(x,y) &= 2x+y
 \end{align*}
-However, $P(x,y)$ is subject to the constraint that $P(x,y)=200$. So, we have $\Delta A(x,y) = (y,x)$ and
-$\Delta P(x,y)=(2,1)$. We arrive at a system of three equations in three unknowns
+However, $P(x,y)$ is subject to the constraint that $P(x,y)=200$. So, we have $\nabla A(x,y) = (y,x)$ and
+$\nabla P(x,y)=(2,1)$. We arrive at a system of three equations in three unknowns
 \begin{align*}
   2x+y &= 200 \\
   y-2\lambda &= 0\\

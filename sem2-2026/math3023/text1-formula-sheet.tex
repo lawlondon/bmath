@@ -1,0 +1,235 @@
+
+\documentclass[10pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{kpfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{pgfplots}
+\usepackage{cleveref}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{tikz}
+
+\geometry{a5paper, top=1cm, bottom=1cm, inner=1cm, outer=1cm}
+\usetikzlibrary{arrows.meta, positioning}
+
+\titleformat{\chapter}[display]{\normalfont\large\bfseries}{\chaptertitlename\ \thechapter}{10pt}{\large}
+\titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\small\bfseries}{\thesubsection}{1em}{}
+
+\pgfplotsset{compat=1.18}
+
+\title{Test 1 Formula Sheet}
+\author{London Wallace}
+\date{Semester 2, 2026}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\pagestyle{fancy}
+\fancyhf{}
+%\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+\fancypagestyle{plain}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}}
+
+\setstretch{1.15}
+
+\titlespacing{\chapter}{0pt}{-10pt}{10pt}
+
+\newcommand{\newthought}[1]{\vspace{0.5\baselineskip}\noindent{\scshape #1}}
+
+\renewcommand{\bibname}{Bibliography and Suggested Reading}
+
+\begin{document}
+\section*{Derivative and Integral Table}
+\begin{center}
+  \begin{tabular}{ccc}
+    \toprule
+    $f'(x)$ & $f(x)$ & $\int f(x)\, dx$ \\
+    \midrule
+    0 & $a$ & $ax+C$ \\[0.5em]
+    $nx^{n-1}$ & $x^n \ (n \ne -1)$ & $\dfrac{x^{n+1}}{n+1} +C$ \\[0.5em]
+    $-x^{-2}$ & $x^{-1}$ & $\ln |x| + C$ \\[0.5em]
+    $e^x$ & $e^x$ & $e^x + C$ \\[0.5em]
+    $\dfrac{1}{x}$ & $\ln x$ & $x\ln x - x + C$ \\[0.5em]
+    $\cos x$ & $\sin x$ & $-\cos x + C$ \\[0.5em]
+    $-\sin x$ & $\cos x$ & $\sin x + C$ \\[0.5em]
+    $\sec^2 x$ & $\tan x$ & $\ln|\sec x| + C$ \\[0.5em]
+    $-\csc x \cot x$ & $\csc x$ & $-\ln|\csc x + \cot x| + C$ \\[0.5em]
+    $\sec x \tan x$ & $\sec x$ & $\ln|\sec x + \tan x| + C$ \\[0.5em]
+    $-\csc^2 x$ & $\cot x$ & $\ln|\sin x| + C$ \\[0.5em]
+    $2\sin x\cos x$ & $\sin^2 x$ & $\dfrac{x}{2} - \dfrac{\sin 2x}{4} + C$ \\[0.5em]
+    $-2\sin x\cos x$ & $\cos^2 x$ & $\dfrac{x}{2} + \dfrac{\sin 2x}{4} + C$ \\[0.5em]
+    $2\tan x\sec^2 x$ & $\tan^2 x$ & $\tan x - x + C$ \\[0.5em]
+    $\dfrac{1}{\sqrt{1-x^2}}$ & $\sin^{-1} x$ & $x\sin^{-1} x + \sqrt{1-x^2} + C$ \\[0.5em]
+    $-\dfrac{1}{\sqrt{1-x^2}}$ & $\cos^{-1} x$ & $x\cos^{-1} x - \sqrt{1-x^2} + C$ \\[0.5em]
+    $\dfrac{1}{1+x^2}$ & $\tan^{-1} x$ & $x\tan^{-1} x - \dfrac{1}{2}\ln(1+x^2) + C$ \\[0.5em]
+    $a^x \ln a$ & $a^x$ & $\dfrac{a^x}{\ln a} + C$ \\[0.5em]
+    $x^x(\ln x + 1)$ & $x^x$ & \text{no elementary form} \\[0.5em]
+    $\dfrac{1}{x\ln a}$ & $\log_a x$ & $x\log_a x - \dfrac{x}{\ln a} + C$ \\[0.5em]
+    $-\dfrac{1}{(x+a)^2}$ & $\dfrac{1}{x+a}$ & $\ln|x+a| + C$ \\[0.5em]
+    $-\dfrac{2x}{(x^2+a)^2}$ & $\dfrac{1}{x^2+a}$ &
+    $\dfrac{1}{\sqrt{a}}\tan^{-1}\!\left(\dfrac{x}{\sqrt{a}}\right) + C$ \\[0.5em]
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\section*{Derivative Rules}
+\begin{enumerate}
+  \item Sum Rule: $[f(x) + g(x)]' = f'(x) + g'(x)$
+  \item Product Rule: $[f(x)g(x)]' = f'(x)g(x) + g'(x)f(x)$
+  \item Quotient Rule: $\left[\dfrac{f(x)}{g(x)}\right]' = \dfrac{g(x)f'(x)-f(x)g'(x)}{(g(x))^2}$
+  \item Chain Rule: $[f(g(x))]'=f'(g(x))\cdot g'(x)$
+  \item Vector Valued Function: $\mathbf{u}'(t) = (x'(t),y'(t),z'(t))$
+  \item Dot Product: $[\mathbf{u} \cdot \mathbf{v}]' = \mathbf{u}' \cdot \mathbf{v} + \mathbf{u} \cdot \mathbf{v}'$
+  \item Cross Product: $[\mathbf{u} \times \mathbf{v}]' = \mathbf{u}' \times \mathbf{v} + \mathbf{u} \times \mathbf{v}'$
+  \item Chain Rule for Partials: $\dfrac{df(x,y)}{dt} = \dfrac{\partial f(x,y)}{\partial x}\dfrac{dx}{dt} +
+    \dfrac{\partial f(x,y)}{\partial y}\dfrac{dy}{dt}$
+\end{enumerate}
+\section*{Jacobian Matrix}
+$\mathbf{F}: \mathbb{R}^n \to \mathbb{R}^m$, then:
+
+\noindent
+\begin{minipage}[t]{0.38\linewidth}
+  \[
+    \mathbf{F}(x_1,x_2,\ldots,x_n) =
+    \begin{bmatrix}
+      f_1(x_1,x_2,\ldots,x_n) \\
+      f_2(x_1,x_2,\ldots,x_n) \\
+      \vdots \\
+      f_m(x_1,x_2,\ldots,x_n)
+    \end{bmatrix}
+  \]
+\end{minipage}%
+\begin{minipage}[t]{0.62\linewidth}
+  \[
+    \text{Jacobian} = \mathbf{F}' =
+    \begin{bmatrix}
+      \dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} & \cdots & \dfrac{\partial
+      f_1}{\partial x_n} \\
+      \dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} & \cdots & \dfrac{\partial
+      f_2}{\partial x_n} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      \dfrac{\partial f_m}{\partial x_1} & \dfrac{\partial f_m}{\partial x_2} & \cdots & \dfrac{\partial
+      f_m}{\partial x_n}
+    \end{bmatrix}
+  \]
+\end{minipage}
+\begin{enumerate}
+  \item Polar Coordinates: $(x,y) = (r\cos\theta,r\sin\theta) \quad |J| = r$
+  \item Cylindrical Polars: $(x,y,z)=(r\cos\theta,r\sin\theta,z)\quad |J| = r$
+  \item Spherical Polars: $(x,y,z)=(r\cos\theta\sin\phi,r\sin\theta\sin\phi,r\cos\phi)\quad |J| = r^2
+    \sin\phi \\
+    \theta \in [0,2\pi), \phi \in [0,\pi)$
+\end{enumerate}
+\section*{Paramterisations}
+\begin{enumerate}
+  \item $y=f(x) \to \mathbf{r}(t)=(t,f(t))$
+  \item $z=f(x,y) \to \mathbf{r}(u,v)=(u,v,f(u,v))$
+  \item Line by two points $\mathbf{a}$ and $\mathbf{b}$:
+    $\mathbf{r}(t)=\mathbf{a}+t(\mathbf{b}-\mathbf{a}):0\le t \le 1$
+  \item Ellipse: $(x/a)^2 + (y/b)^2 = r^2 \to \mathbf{r}(t)=(ar\cos\theta,br\sin\theta)$
+  \item Ellipsoid: $(x/a)^2 + (y/b)^2 + (z/c)^2 = r^2$ \\
+    $\to \mathbf{r}(\theta,\phi)=(ar\cos\theta\sin\phi,br\sin\theta\sin\phi,cr\cos\phi)$
+  \item Triangle by 3 points: $\mathbf{r}(u,v)=P_0+u(P_1-P_0)+v(P_2-P_0)$ \quad $0 \le v \le 1 \text{ and } 0
+    \le u \le 1-v$.
+\end{enumerate}
+\section*{Integration by Parts and Trig Sub}
+\[
+  \int uv' = uv - \int vu' dx
+\]
+\begin{center}
+  \begin{tabular}{cc}
+    \toprule
+    $u$ & $v$ \\
+    \midrule
+    Polynomial & Exponential or Trig \\
+    Log or Inverse Trig & Polynomial\\
+    \bottomrule
+  \end{tabular}
+
+  \begin{tabular}{cccc}
+    \toprule
+    Integral Involves & Substitute & Domain & Identity \\
+    \midrule
+    $\sqrt{a^2-x^2}$ & $x=a\sin u$ & $\dfrac{-\pi}{2} \le u \le \dfrac{pi}{2} & $1-\sin^2 u = \cos^2 u$ \\
+    $\sqrt{a^2+x^2}$ & $x=a\tan u$ & $\dfrac{-\pi}{2} \le u \le \dfrac{pi}{2} & $1+\tan^2 u = \sec^2 u$ \\
+    $\sqrt{x^2-a^2}$ & $x=a\sec u$ & $0 \le u \le \dfrac{pi}{2} & $\sec^2 u - 1 = \tan^2 u$ \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+$\sec x = 1/ \cos x$ and $\csc x = 1/ \sin x$ and $\cot x = 1/ \tan x$
+
+\section*{Path Integrals}
+\[
+  \int_C f ds = \int_C f(\mathbf{r}(t))\ |\mathbf{r}'(t)|\ dt
+\]
+\begin{enumerate}
+  \item Find parameterisation of $C$.
+  \item Compute $f(x,y,z)$ with $x(t), y(t), z(t)$.
+  \item Find length of $\mathbf{r}'(t)$.
+  \item Integrate w.r.t $t$ with the bounds from the parameterisation.
+\end{enumerate}
+\section*{Surface Integrals}
+\[
+  \int_S f dS = \iint_S f(\mathbf{R}(u,v))\ |\mathbf{N}(u,v)|\ \,du \,dv
+\]
+\begin{enumerate}
+  \item Find parameterisation of the surface $S \to \mathbf{R}(u,v)$
+  \item Plug the parametrisation into $f$.
+  \item Find normal vector $\mathbf{N}(u,v) = \dfrac{\partial \mathbf{R}}{\partial u} \times \dfrac{\partial
+    \mathbf{R}}{\partial v}$ and length of normal vector.
+  \item Integrate w.r.t $u,v$ with bounds from the parameterisation.
+
+\end{enumerate}
+\section*{Path Integrals of Vector Fields}
+If $\mathbf{r}'(t) = (a,b)$, then $\mathbf{N}(t)=(-b,a)$.
+
+Circulation: $\int_C \mathbf{F}\cdot \mathbf{dr} = \int_a^b\mathbf{F}(\mathbf{r}(t))\cdot\mathbf{r}'(t)dt$.
+Amount of a vector field along a curve.
+
+Flux ($\mathbb{R}^2$): $\int_C \mathbf{F}\cdot \mathbf{dn} =
+\int_a^b\mathbf{F}(\mathbf{r}(t))\cdot\mathbf{N}(t)dt$. Amount of a vector field that crosses a curve.
+
+Flux ($\mathbb{R}^3$): $\iint_S\mathbf{F}\cdot\mathbf{n}dS = $\iint_S\mathbf{F}\cdot\mathbf{dS} =
+\iint_D\mathbf{F}\cdot\mathbf{N}dudv$ (see above)
+
+\section*{Circulation, Divergence, Curl, Gradient}
+Circulation is a line integral in a vector field $\int_C \mathbf{F}\cdot\mathbf{dr}$. Divergence is $\nabla
+\cdot \mathbf{F}$. Curl is $\nabla \times \mathbf{F}$. Gradient is a vector field from a scalar field
+$\nabla\mathbf{F}$. Flux is the amount of a field that passes through a curve or region.
+
+$\nabla = \left(\dfrac{\partial}{\partial x}, \dfrac{\partial}{\partial y}, \dfrac{\partial}{\partial z}\right)$
+
+\section*{Green's Theorem}
+
+Relates the circulation around a curve to the double integral of the area inside.
+\[\mathbf{F}=(M,N) \quad \oint_c \mathbf{F}\cdot\mathbf{dr} = \iint_D \dfrac{\partial N}{\partial x} -
+\dfrac{\partial M}{\partial y} dA \quad (dA=dxdy)\]
+
+\section*{Stoke's Theorem}
+
+(3d version of Green's) Relates the circulation around a path in 3d to the flux through the enclosed area.
+
+\[\oint_C \mathbf{F}\cdot\mathbf{dr} = \iint_S (\nabla \times \mathbf{F}) \cdot \mathbf{dS}\] which is a
+surface integral (see above)
+
+\section*{Divergence (Gauss) Theorem}
+
+Gauss' theorem relates the outward flux through a surface to a triple integral.
+\[\iint_S \mathbf{F} \cdot \mathbf{dS} = \iiint_E \nabla \cdot \mathbf{F} dV \quad (dV=dxdydz)\]
+\end{document}
