@@ -1,0 +1,192 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "language_models": {
+    "lmstudio": {
+      "api_url": "http://127.0.0.1:8888/api/v1",
+    },
+  },
+  "disable_ai": true,
+  "document_folding_ranges": "on",
+  "remove_trailing_whitespace_on_save": true,
+  "colorize_brackets": true,
+  "use_smartcase_search": true,
+  "soft_wrap": "bounded",
+  "show_wrap_guides": true,
+  "wrap_guides": [120],
+  "scroll_beyond_last_line": "off",
+  "bottom_dock_layout": "full",
+  "scrollbar": {
+    "show": "always",
+    "cursors": false,
+    "git_diff": false,
+    "search_results": true,
+    "selected_symbol": true,
+    "selected_text": true,
+    "diagnostics": "error",
+    "axes": {
+      "horizontal": true,
+      "vertical": true,
+    },
+  },
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true,
+      "location": "status_bar",
+    },
+  },
+  "indent_guides": {
+    "coloring": "indent_aware",
+    "background_coloring": "disabled",
+    "enabled": true,
+  },
+  "auto_indent": "syntax_aware",
+  "inlay_hints": {
+    "enabled": true,
+  },
+  "preferred_line_length": 120,
+  "auto_indent_on_paste": true,
+  "autosave": "off",
+  "auto_signature_help": true,
+  "current_line_highlight": "gutter",
+  "proxy": "",
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "max_severity": "error",
+    },
+  },
+  "title_bar": {
+    "show_sign_in": false,
+    "show_onboarding_banner": false,
+    "show_user_menu": false,
+    "show_user_picture": false,
+    "show_branch_name": true,
+    "show_branch_status_icon": false,
+    "show_menus": false,
+    "show_project_items": true,
+    "show_worktree_name": true,
+  },
+  "project_panel": {
+    "dock": "left",
+    "starts_open": false,
+  },
+  "collaboration_panel": {
+    "button": false,
+  },
+  "debugger": {
+    "dock": "right",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "format_on_save": "on",
+  "vim": {
+    "use_smartcase_find": true,
+  },
+  "minimap": {
+    "show": "never",
+    "thumb": "hover",
+    "current_line_highlight": "all",
+  },
+  "tab_bar": {
+    "show": true,
+    "show_nav_history_buttons": false,
+    "show_pinned_tabs_in_separate_row": false,
+    "show_tab_bar_buttons": true,
+  },
+  "tabs": {
+    "close_position": "right",
+    "file_icons": false,
+    "git_status": false,
+    "show_close_button": "hover",
+    "show_diagnostics": "off",
+    "activate_on_close": "history",
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": true,
+    "selections_menu": true,
+    "agent_review": false,
+    "code_actions": true,
+  },
+  "status_bar": {
+    "show_active_file": true,
+    "line_endings_button": true,
+    "cursor_position_button": true,
+    "active_language_button": true,
+  },
+  "gutter": {
+    "line_numbers": true,
+    "runnables": true,
+    "breakpoints": false,
+    "folds": true,
+    "min_line_number_digits": 4,
+    "git_gutter_width": null,
+  },
+  "relative_line_numbers": "enabled",
+  "mouse_wheel_zoom": true,
+  "which_key": {
+    "enabled": true,
+  },
+  "buffer_line_height": "comfortable",
+  "buffer_font_weight": 400.0,
+  "buffer_font_family": "JetBrains Mono",
+  "auto_update": false,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+    "anthropic_retention": false,
+  },
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 16.0,
+  "theme": {
+    "mode": "system",
+    "light": "Gruvbox Light",
+    "dark": "Gruvbox Dark",
+  },
+  "lsp": {
+    "texlab": {
+      "settings": {
+        "texlab": {
+          "build": {
+            "executable": "latexmk",
+            "args": ["-interaction=nonstopmode", "-synctex=1", "%f"],
+            "onSave": true,
+            "forwardSearchAfter": true,
+          },
+          "forwardSearch": {
+            "executable": "okular",
+            "args": ["--unique", "%p#src:%l%f"],
+          },
+          "chktex": {
+            "onOpenAndSave": true,
+            "onEdit": false,
+          },
+        },
+      },
+    },
+  },
+  "languages": {
+    "LaTeX": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "tex-fmt",
+          "arguments": ["--stdin", "--wraplen", "120"],
+        },
+      },
+    },
+  },
+}
